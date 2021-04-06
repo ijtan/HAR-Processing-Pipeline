@@ -24,10 +24,20 @@ def read_all(path, entries):
 
 
 def sync2(logs):
-    last5 = logs[:5]
-    print(last5)
-    for entry in logs[5:]:
-        if sum(last5
+    # last5 = [a['time']-g['time'] for a,g in zip(logs['acc'][5:], logs['gyr'][5:])]
+    # ac = 0
+    # gc = 5
+    # print(last5)
+
+    for ac in range(0,len(logs['acc'])):
+        last5 = [a['time']-g['time'] for a,g in zip(logs['acc'][ac:ac+5], logs['gyr'][ac:ac+5])]
+        avg = sum(last5)/5
+        if avg >= 15:
+            raw_entries['gyr'] = raw_entries['gyr'][1:]
+        elif avg <= -15:
+            raw_entries['acc'] = raw_entries['acc'][1:]
+        # print(last5)
+        print(avg,end = ' ')
 
 if __name__ == '__main__':
     raw_entries = {'acc': [], 'gyr': []}
