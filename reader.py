@@ -25,13 +25,16 @@ def read_all(path, entries):
 
 def sync2(logs,x=5,avg_diff = 17):
 
-    for ac in range(0,len(logs['acc'])):
-        lastx = [a['time']-g['time'] for a,g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
-        avg = sum(lastx)/x
-        if avg >= avg_diff:
-            del logs['gyr'][ac]
-        elif avg <= -avg_diff:
-            del logs['acc'][ac]
+    for ac in range(0,len(logs['acc'])):       
+        
+        while abs(sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x)>=avg_diff:
+            lastx = [a['time']-g['time']
+                     for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
+            avg = sum(lastx)/x
+            if avg >= avg_diff:
+                del logs['gyr'][ac]
+            elif avg <= -avg_diff:
+                del logs['acc'][ac]
 
 
 if __name__ == '__main__':
@@ -62,11 +65,11 @@ if __name__ == '__main__':
     print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
-        if abs(acc['time']-gyr['time'])>=4:
+        if abs(acc['time']-gyr['time'])>4:
             count+=1
-            print(acc['time']-gyr['time'],end=' ')
+            print(str(acc['time']-gyr['time'])+'\t\t'+str(raw_entries['acc'].index(acc)))
             # pass
-    print(f'\n{count} items out of sync by more than 3')
+    print(f'\n{count} items out of sync by more than 4')
     # print(raw_entries)
 
 
