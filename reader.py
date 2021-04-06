@@ -23,21 +23,26 @@ def read_all(path, entries):
             # print(file[0])
 
 
-def sync2(logs):
-    # last5 = [a['time']-g['time'] for a,g in zip(logs['acc'][5:], logs['gyr'][5:])]
-    # ac = 0
-    # gc = 5
-    # print(last5)
+def sync2(logs,x=5,avg_diff = 17):
+    # if len(logs['acc']) != len(logs['gyr']):
+    #     print('Length difference detected!')
+    #     print(f"{len(logs['acc'])}!={len(logs['gyr'])}")
+    #     if len(logs['acc']) > len(logs['gyr']):
+    #         diff = len(logs['acc']) - len(logs['gyr'])
+    #         logs['acc'] = logs['acc'][diff:]
+    #     elif len(logs['acc']) < len(logs['gyr']):
+    #         diff = len(logs['gyr']) - len(logs['acc'])
+    #         logs['gyr'] = logs['gyr'][diff:]
 
     for ac in range(0,len(logs['acc'])):
-        last5 = [a['time']-g['time'] for a,g in zip(logs['acc'][ac:ac+5], logs['gyr'][ac:ac+5])]
-        avg = sum(last5)/5
-        if avg >= 15:
-            raw_entries['gyr'] = raw_entries['gyr'][1:]
-        elif avg <= -15:
-            raw_entries['acc'] = raw_entries['acc'][1:]
+        lastx = [a['time']-g['time'] for a,g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
+        avg = sum(lastx)/x
+        if avg >= avg_diff:
+            del logs['gyr'][ac]
+        elif avg <= -avg_diff:
+            del logs['acc'][ac]
         # print(last5)
-        print(avg,end = ' ')
+        # print(logs['acc'][ac]['time']-logs['gyr'][ac]['time'])
 
 if __name__ == '__main__':
     raw_entries = {'acc': [], 'gyr': []}
@@ -48,48 +53,26 @@ if __name__ == '__main__':
 
     sync2(raw_entries)
 
-    # print(raw_entries['acc'][0]['time'])
-    
-
-        # raw_entries['acc'] = raw_entries['acc'][1:]
-        # raw_entries['gyr'] = raw_entries['gyr'][1:]
-
-        # print(raw_entries['acc'][0]['time']-raw_entries['acc'][0]['time'])
-        # # print(raw_entries['acc'][0]['time']-raw_entries['acc'][0]['time'])
-
-        # if raw_entries['acc'][0]['time']-raw_entries['gyr'][0]['time']<=-20:
-        #     raw_entries['acc'] = raw_entries['acc'][1:]
-        # elif raw_entries['acc'][0]['time']-raw_entries['gyr'][0]['time'] >= 20:
-        #     raw_entries['gyr'] = raw_entries['gyr'][1:]
 
 
-    if len(raw_entries['acc']) != len(raw_entries['gyr']):
-        print('Length difference detected!')
-        print(f"{len(raw_entries['acc'])}!={len(raw_entries['gyr'])}")
-        if len(raw_entries['acc']) > len(raw_entries['gyr']):
-            diff = len(raw_entries['acc']) - len(raw_entries['gyr'])
-            raw_entries['acc'] = raw_entries['acc'][diff:]
-        elif len(raw_entries['acc']) < len(raw_entries['gyr']):
-            diff = len(raw_entries['gyr']) - len(raw_entries['acc'])
-            raw_entries['gyr'] = raw_entries['gyr'][diff:]
 
-    sum = 0
-    total = 0
-    for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
-        sum += acc['time']-gyr['time']
-        total+=1
-    avg = sum/total
-    print(f'AVG: {avg}')
-    if avg >=15:
-        raw_entries['gyr'] = raw_entries['gyr'][1:]
-    elif avg <= -15:
-        raw_entries['acc'] = raw_entries['acc'][1:]
+    # sum = 0
+    # total = 0
+    # for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
+    #     sum += acc['time']-gyr['time']
+    #     total+=1
+    # avg = sum/total
+    # print(f'AVG: {avg}')
+    # if avg >=15:
+    #     raw_entries['gyr'] = raw_entries['gyr'][1:]
+    # elif avg <= -15:
+    #     raw_entries['acc'] = raw_entries['acc'][1:]
 
     print('len match!')
     print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
-        if abs(acc['time']-gyr['time'])>2:
+        if abs(acc['time']-gyr['time'])>=4:
             print(acc['time']-gyr['time'],end=' ')
             # pass
     # print(raw_entries)
