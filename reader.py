@@ -31,7 +31,21 @@ def sync2(logs,x=5,avg_diff = 17):
             lastx = [a['time']-g['time']
                      for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
             avg = sum(lastx)/x
-            if avg >= avg_diff:
+
+            maxdex = ac+[abs(x) for x in lastx].index(max([abs(x) for x in lastx]))
+            # maxdex = ac+lastx.index(max(lastx))
+            # if avg >= avg_diff:
+            #     if abs(mindex) > abs(maxdex):
+            #         del logs['gyr'][maxdex]
+            #     else:
+            #         del logs['gyr'][mindex]
+                
+            # elif avg <= -avg_diff:
+            #     if abs(mindex) > abs(maxdex):
+            #         del logs['acc'][maxdex]
+            #     else:
+            #         del logs['acc'][mindex]
+            if avg>=avg_diff:
                 del logs['gyr'][ac]
             elif avg <= -avg_diff:
                 del logs['acc'][ac]
