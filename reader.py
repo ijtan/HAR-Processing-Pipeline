@@ -24,15 +24,6 @@ def read_all(path, entries):
 
 
 def sync2(logs,x=5,avg_diff = 17):
-    # if len(logs['acc']) != len(logs['gyr']):
-    #     print('Length difference detected!')
-    #     print(f"{len(logs['acc'])}!={len(logs['gyr'])}")
-    #     if len(logs['acc']) > len(logs['gyr']):
-    #         diff = len(logs['acc']) - len(logs['gyr'])
-    #         logs['acc'] = logs['acc'][diff:]
-    #     elif len(logs['acc']) < len(logs['gyr']):
-    #         diff = len(logs['gyr']) - len(logs['acc'])
-    #         logs['gyr'] = logs['gyr'][diff:]
 
     for ac in range(0,len(logs['acc'])):
         lastx = [a['time']-g['time'] for a,g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
@@ -41,8 +32,7 @@ def sync2(logs,x=5,avg_diff = 17):
             del logs['gyr'][ac]
         elif avg <= -avg_diff:
             del logs['acc'][ac]
-        # print(last5)
-        # print(logs['acc'][ac]['time']-logs['gyr'][ac]['time'])
+
 
 if __name__ == '__main__':
     raw_entries = {'acc': [], 'gyr': []}
@@ -67,14 +57,16 @@ if __name__ == '__main__':
     #     raw_entries['gyr'] = raw_entries['gyr'][1:]
     # elif avg <= -15:
     #     raw_entries['acc'] = raw_entries['acc'][1:]
-
+    count = 0
     print('len match!')
     print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
         if abs(acc['time']-gyr['time'])>=4:
+            count+=1
             print(acc['time']-gyr['time'],end=' ')
             # pass
+    print(f'\n{count} items out of sync by more than 3')
     # print(raw_entries)
 
 
