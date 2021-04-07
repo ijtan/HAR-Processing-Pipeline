@@ -1,6 +1,7 @@
 import os
 import json
 import pathlib
+from tqdm import tqdm
 
 
 def read_all(path, entries):
@@ -15,7 +16,7 @@ def read_all(path, entries):
             print('not a json; skipping...')
 
             continue
-        print(f'opening file: {str(log)}')
+        # print(f'opening file: {str(log)}')
         with open(log, 'r', encoding="utf8") as f:
             file = json.load(f)
             if 'ACC' in str(log) or '_a' in str(log):
@@ -27,33 +28,31 @@ def read_all(path, entries):
             # print(file[0])
 
 
-def sync2(logs,x=5,avg_diff = 17):
+def sync2(logs, x=4, avg_diff=17):
 
-    for ac in range(0,len(logs['acc'])):       
-        
-        while abs(sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x)>=avg_diff:
+    for ac in range(0, len(logs['acc'])):
+
+        while abs(sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x) >= avg_diff:
             lastx = [a['time']-g['time']
                      for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
             avg = sum(lastx)/x
 
-
-            if avg>=avg_diff:
+            if avg >= avg_diff:
                 del logs['gyr'][ac]
             elif avg <= -avg_diff:
-                del logs['acc'][ac] 
+                del logs['acc'][ac]
 
 
 if __name__ == '__main__':
     raw_entries = {'acc': [], 'gyr': []}
     read_all('INPUT', raw_entries)
 
-    raw_entries['acc'] = sorted(raw_entries['acc'], key=lambda item: item['time'])
-    raw_entries['gyr'] = sorted(raw_entries['gyr'], key=lambda item: item['time'])
+    raw_entries['acc'] = sorted(
+        raw_entries['acc'], key=lambda item: item['time'])
+    raw_entries['gyr'] = sorted(
+        raw_entries['gyr'], key=lambda item: item['time'])
 
     sync2(raw_entries)
-
-
-
 
     # sum = 0
     # total = 0
@@ -71,12 +70,10 @@ if __name__ == '__main__':
     print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
-        if abs(acc['time']-gyr['time'])>4:
-            count+=1
-            print(str(acc['time']-gyr['time'])+'\t\t'+str(raw_entries['acc'].index(acc)))
+        if abs(acc['time']-gyr['time']) > 4:
+            count += 1
+            print(str(acc['time']-gyr['time'])+'\t\t' +
+                  str(raw_entries['acc'].index(acc)))
             # pass
     print(f'\n{count} items out of sync by more than 4')
     # print(raw_entries)
-
-
-
