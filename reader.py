@@ -7,12 +7,16 @@ def read_all(path, entries):
     for log in pathlib.Path(path).iterdir():
 
         if not log.is_file():
-            print('PATH IS NOT FILE!!')
+            # print('PATH IS NOT FILE!!')
             read_all(log, entries)
-
             continue
 
-        with open(log, 'r') as f:
+        if '.json' not in str(log):
+            print('not a json; skipping...')
+
+            continue
+        print(f'opening file: {str(log)}')
+        with open(log, 'r', encoding="utf8") as f:
             file = json.load(f)
             if 'ACC' in str(log) or '_a' in str(log):
                 entries['acc'].extend(file)
