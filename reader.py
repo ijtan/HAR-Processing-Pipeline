@@ -28,6 +28,21 @@ def read_all(path, entries):
             # print(file[0])
 
 
+def lenDiff():
+    count = 0
+    # print('len match!')
+    # print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
+    for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
+        # print('iter')
+        if abs(acc['time']-gyr['time']) > 0:
+            count += 1
+            # print(str(acc['time']-gyr['time'])+'\t\t' +
+            #       str(raw_entries['acc'].index(acc)))
+            # pass
+    print(f'\n{count} items out of sync')
+    return count
+
+
 def sync2(logs, x=4, avg_diff=17):
 
     for ac in range(0, len(logs['acc'])):
@@ -66,14 +81,29 @@ if __name__ == '__main__':
     # elif avg <= -15:
     #     raw_entries['acc'] = raw_entries['acc'][1:]
     count = 0
-    print('len match!')
-    print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
+    # print('len match!')
+    # print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
         if abs(acc['time']-gyr['time']) > 4:
             count += 1
-            print(str(acc['time']-gyr['time'])+'\t\t' +
-                  str(raw_entries['acc'].index(acc)))
-            # pass
+            # print(str(acc['time']-gyr['time'])+'\t\t' +
+            #       str(raw_entries['acc'].index(acc)))
     print(f'\n{count} items out of sync by more than 4')
+
+    while lenDiff()>0:
+        print('removing mismatches!')
+        for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
+            if abs(acc['time']-gyr['time']) <= 10:
+                acc['time'] = gyr['time']
+            else:
+                # print('removing', raw_entries['acc'].index(acc))
+                raw_entries['acc'].remove(acc)
+                raw_entries['gyr'].remove(gyr)
+
+
+
     # print(raw_entries)
+
+
+
