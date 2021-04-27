@@ -1,6 +1,7 @@
 import os
 import json
 import pathlib
+import numpy as np
 from tqdm import tqdm
 
 
@@ -28,7 +29,7 @@ def read_all(path, entries):
             # print(file[0])
 
 
-def lenDiff():
+def lenDiff(raw_entries):
     count = 0
     # print('len match!')
     # print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
@@ -58,7 +59,13 @@ def sync2(logs, x=4, avg_diff=17):
                 del logs['acc'][ac]
 
 
-if __name__ == '__main__':
+
+
+
+# print(raw_entries['acc'][0])
+# print(raw_entries['gyr'][0])
+
+def getRaw():
     raw_entries = {'acc': [], 'gyr': []}
     read_all('INPUT', raw_entries)
 
@@ -69,29 +76,15 @@ if __name__ == '__main__':
 
     sync2(raw_entries)
 
-    # sum = 0
-    # total = 0
-    # for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
-    #     sum += acc['time']-gyr['time']
-    #     total+=1
-    # avg = sum/total
-    # print(f'AVG: {avg}')
-    # if avg >=15:
-    #     raw_entries['gyr'] = raw_entries['gyr'][1:]
-    # elif avg <= -15:
-    #     raw_entries['acc'] = raw_entries['acc'][1:]
     count = 0
-    # print('len match!')
-    # print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
+
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
         if abs(acc['time']-gyr['time']) > 4:
             count += 1
-            # print(str(acc['time']-gyr['time'])+'\t\t' +
-            #       str(raw_entries['acc'].index(acc)))
     print(f'\n{count} items out of sync by more than 4')
 
-    while lenDiff()>0:
+    while lenDiff(raw_entries) > 0:
         print('removing mismatches!')
         for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
             if abs(acc['time']-gyr['time']) <= 10:
@@ -100,17 +93,44 @@ if __name__ == '__main__':
                 # print('removing', raw_entries['acc'].index(acc))
                 raw_entries['acc'].remove(acc)
                 raw_entries['gyr'].remove(gyr)
+    return raw_entries
 
-print(raw_entries['acc'][0])
-print(raw_entries['gyr'][0])
+def getData():
+    
+
+    raw_entries = getRaw()
+
+    # print(raw_entries['acc'][0])
 
 
-def getFinal():
-    finalLog = {}
+    # finalLog = {'XA':[],'YA':[],'ZA':[],'XR':[],'YR':[],'ZR':[],'time':[]}
+    finalLog = []
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
-        finalLog.append((raw_entries['acc']['XA'], raw_entries['acc']['YA'], raw_entries['acc']
-                        ['ZA'], raw_entries['gyr']['XR'], raw_entries['gyr']['YR'], raw_entries['gyr']['ZR']))
+
+        # print(acc)
+        entry = {}
+        entry['time'] = acc['time']
+
+
+        entry['XA'] = acc['XA']
+        entry['YA'] = acc['YA']
+        entry['ZA'] = acc['ZA']
+
+        entry['XR'] = gyr['XR']
+        entry['YR'] = gyr['YR']
+        entry['ZR'] = gyr['ZR']
+
+        finalLog.append(entry)
+        
+        
+        
+        # , raw_entries['acc']['YA'], raw_entries['acc']
+        #                 ['ZA'], raw_entries['gyr']['XR'], raw_entries['gyr']['YR'], raw_entries['gyr']['ZR']))
+    finalLog = np.asarray(finalLog)
+    print(finalLog[0])
+    return finalLog
     # print(raw_entries)
 
 
-
+if __name__ == '__main__':
+    getData()

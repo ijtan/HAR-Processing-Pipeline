@@ -3,21 +3,40 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import signal
+from tqdm import tqdm
 
-from reader import finalLog
+from reader import getData
 
 
-def slidingWindow(data, s=2.56, overlap=0):
+def slidingWindow(data, s=2.56,hz=50, overlap=0):
     ms = s*1000
+    width=s*hz #FREQUENCY
     
     items = []
     currtime = data[0]['time']
     starttime = data[0]['time']
-    while currtime-starttime<ms:
-        nextItem = data.pop(0)
-        currtime = nextItem['time']
-        items.append(nextItem)
-    print(len(items))
+    finaltime = data[-1]['time']
+    while currtime+ms<=finaltime:
+        for startindex in range(len(data)):
+            if data[startindex]['time'] >= currtime:
+                break
+
+        # for endindex in range(startindex,len(data)):
+        #     if data[endindex]['time'] >= currtime+ms:
+        #         break
+        endindex = startindex+width
+        
+        items.append(data[startindex:endindex])
+        currtime = currtime+ms
+        print(f'{currtime-finaltime} remains\t\t\t',end='\r')
+
+    print()    
+    for item in items:
+        print(len(item),end = ', ')
+    return items
+        
+    
+
 
 
 
@@ -35,7 +54,7 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
     return y
 
 
-slidingWindow(finalLog)
+slidingWindow(getData())
 
 x = np.array([1.0, 2.0, 1.0, -1.0, 1.5])
 
