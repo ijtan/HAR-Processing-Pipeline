@@ -101,8 +101,15 @@ if __name__ == '__main__':
                 raw_entries['acc'].remove(acc)
                 raw_entries['gyr'].remove(gyr)
 
+print(raw_entries['acc'][0])
+print(raw_entries['gyr'][0])
 
 
+def getFinal():
+    finalLog = {}
+    for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
+        finalLog.append((raw_entries['acc']['XA'], raw_entries['acc']['YA'], raw_entries['acc']
+                        ['ZA'], raw_entries['gyr']['XR'], raw_entries['gyr']['YR'], raw_entries['gyr']['ZR']))
     # print(raw_entries)
 
 
