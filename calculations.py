@@ -8,31 +8,65 @@ from tqdm import tqdm
 from reader import getData
 
 
-def slidingWindow(data, s=2.56,hz=50, overlap=0):
-    ms = s*1000
+def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
+    ms = s*1000 
+    mso = overlap*1000
     width=s*hz #FREQUENCY
     
     items = []
-    currtime = data[0]['time']
+    newdata = {}
+    # currtime = data[0]['time']
+
     starttime = data[0]['time']
-    finaltime = data[-1]['time']
-    while currtime+ms<=finaltime:
-        for startindex in range(len(data)):
-            if data[startindex]['time'] >= currtime:
+    finaltime = max([x['time'] for x in data])
+    while starttime+ms<finaltime:
+        for item in data:
+            # if item['time'] < starttime:
+
+            if item['time']<starttime:
+                continue
+            if item['time'] > starttime+ms:
+                newstarttime = item['time']
+                # print(f'break st{starttime} lni{len(items)}')
                 break
 
-        # for endindex in range(startindex,len(data)):
-        #     if data[endindex]['time'] >= currtime+ms:
-        #         break
-        endindex = startindex+width
-        
-        items.append(data[startindex:endindex])
-        currtime = currtime+ms
-        print(f'{currtime-finaltime} remains\t\t\t',end='\r')
+            items.append(item)
 
-    print()    
-    for item in items:
+
+        if starttime in newdata:
+            print('overwriting')
+        newdata[starttime] = items
+        starttime = newstarttime-mso
+        items = []
+        # starttime=starttime+ms
+        print(f'{starttime-finaltime} remains    \t\t\t', end='\r')
+    # while currtime+ms<=finaltime:
+    #     for startindex in range(len(data)):
+    #         if data[startindex]['time'] >= currtime:
+    #             break
+
+    #     # for endindex in range(startindex,len(data)):
+    #     #     if data[endindex]['time'] >= currtime+ms:
+    #     #         break
+    #     endindex = startindex+width
+        
+    #     items.append(data[startindex:endindex])
+    #     currtime = currtime+ms
+    #     print(f'{currtime-finaltime} remains\t\t\t',end='\r')
+
+    print()
+    sum = 0 
+    count=0   
+    for start,item in newdata.copy().items():
+        if len(item) not in range(120,140):
+            del newdata[start]
+            continue
+        sum += len(item)
+        count+=1
         print(len(item),end = ', ')
+    print('\n\nsum is',sum)
+    print('count is',count)
+    print('data is',len(data))
     return items
         
     

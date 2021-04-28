@@ -15,12 +15,18 @@ def read_all(path, entries):
 
         if '.json' not in str(log):
             print('not a json; skipping...')
-
             continue
+
+        if 'closing' in str(log):
+            continue
+
         # print(f'opening file: {str(log)}')
+        first =""
         with open(log, 'r', encoding="utf8") as f:
             file = json.load(f)
             if 'ACC' in str(log) or '_a' in str(log):
+                # if first == "":
+                #     first =
                 entries['acc'].extend(file)
             elif 'GYR' in str(log) or '_g' in str(log):
                 entries['gyr'].extend(file)
@@ -78,21 +84,33 @@ def getRaw():
 
     count = 0
 
-    for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
-        # print('iter')
-        if abs(acc['time']-gyr['time']) > 4:
-            count += 1
-    print(f'\n{count} items out of sync by more than 4')
-
-    while lenDiff(raw_entries) > 0:
+    # for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
+    #     # print('iter')
+    #     if abs(acc['time']-gyr['time']) > 4:
+    #         count += 1
+    # print(f'\n{count} items out of sync by more than 4')
+    last = -1;
+    new  = 1;
+    while new > 0 and new!=last:
         print('removing mismatches!')
         for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
             if abs(acc['time']-gyr['time']) <= 10:
                 acc['time'] = gyr['time']
-            else:
-                # print('removing', raw_entries['acc'].index(acc))
-                raw_entries['acc'].remove(acc)
-                raw_entries['gyr'].remove(gyr)
+            # else:
+            #     # print('removing', raw_entries['acc'].index(acc))
+            #     raw_entries['acc'].remove(acc)
+            #     raw_entries['gyr'].remove(gyr)
+        last = new
+        new =  lenDiff(raw_entries)
+    count=0
+    for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
+        # print('removing', raw_entries['acc'].index(acc))
+        if abs(acc['time']-gyr['time']) > 0:
+            count+=1
+            raw_entries['acc'].remove(acc)
+            raw_entries['gyr'].remove(gyr)
+    print(f'removed {count} entries')
+        
     return raw_entries
 
 def getData():
