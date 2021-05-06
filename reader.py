@@ -53,12 +53,11 @@ def lenDiff(raw_entries):
 def sync2(logs, x=4, avg_diff=17):
 
     for ac in range(0, len(logs['acc'])):
-
+        print('avg_diff:', {sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x})
         while abs(sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x) >= avg_diff:
-            lastx = [a['time']-g['time']
-                     for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
+            lastx = [a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
             avg = sum(lastx)/x
-
+            
             if avg >= avg_diff:
                 del logs['gyr'][ac]
             elif avg <= -avg_diff:
@@ -75,10 +74,8 @@ def getRaw():
     raw_entries = {'acc': [], 'gyr': []}
     read_all('INPUT', raw_entries)
 
-    raw_entries['acc'] = sorted(
-        raw_entries['acc'], key=lambda item: item['time'])
-    raw_entries['gyr'] = sorted(
-        raw_entries['gyr'], key=lambda item: item['time'])
+    raw_entries['acc'] = sorted(        raw_entries['acc'], key=lambda item: item['time'])
+    raw_entries['gyr'] = sorted(        raw_entries['gyr'], key=lambda item: item['time'])
 
     sync2(raw_entries)
 
