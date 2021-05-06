@@ -95,8 +95,10 @@ x = np.array([1.0, 2.0, 1.0, -1.0, 1.5])
 print(y)
 
 x = signal.medfilt(x)#median filter
+
+
 noised, denoised = butter_lowpass_filter(x, 20,25, order=3) #3rd order low pass butterworth (check nyq)
-lin_acc,grav = butter_lowpass_filter(x, 0.3,25, order=3)#3rd order low pass butterworth (check nyq)
+lin_acc,grav = butter_lowpass_filter(x, 0.3,25, order=4)#3rd order low pass butterworth (check nyq)
 
 
 # time_seconds = times.astype('datetime64[s]').astype('int64')
