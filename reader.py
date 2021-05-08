@@ -108,7 +108,27 @@ def getData():
         # print(acc)
         entry = {}
         entry['time'] = acc['time']
-        entry['label'] = acc['lbl']
+
+        oldlabel = acc['lbl'].lower()
+        newlabel =''
+
+        if 'up' in oldlabel:
+            newlabel = 'STAIRS UP'
+        elif 'down' in oldlabel:
+            newlabel = 'STAIRS down'
+        elif 'walk' in oldlabel:
+            newlabel = 'WALKING'
+        elif 'stand' in oldlabel:
+            newlabel = 'STANDING'
+        elif 'driv' in oldlabel:
+            newlabel = 'DRIVING'
+        # elif 'down' in oldlabel:
+        #     newlabel = 'STAIRS down'
+        
+
+        entry['label'] = 
+
+        if()
 
         # if 'DRIVING' in entry['lbl']:
         #     continue
