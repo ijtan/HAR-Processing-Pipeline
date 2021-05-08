@@ -1,4 +1,4 @@
-from scipy.fft import fft, ifft
+from scipy.fftpack import fft
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,38 +10,37 @@ import os
 from reader import getData
 
 
-def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
-    ms = s*1000 
-    mso = overlap*1000
-    width=s*hz #FREQUENCY
-    
+def slidingWindow(data, s=2.56, hz=50, overlap=1.28):
+    ms = s * 1000
+    mso = overlap * 1000
+    width = s * hz  # FREQUENCY
+
     items = []
     newdata = {}
     # currtime = data[0]['time']
 
     starttime = data[0]['time']
     finaltime = max([x['time'] for x in data])
-    while starttime+ms<finaltime:
+    while starttime + ms < finaltime:
         for item in data:
             # if item['time'] < starttime:
 
-            if item['time']<starttime:
+            if item['time'] < starttime:
                 continue
-            if item['time'] > starttime+ms:
+            if item['time'] > starttime + ms:
                 newstarttime = item['time']
                 # print(f'break st{starttime} lni{len(items)}')
                 break
 
             items.append(item)
 
-
         if starttime in newdata:
             print('overwriting')
         newdata[starttime] = items
-        starttime = newstarttime-mso
+        starttime = newstarttime - mso
         items = []
         # starttime=starttime+ms
-        print(f'{starttime-finaltime} remains    \t\t\t', end='\r')
+        print(f'{starttime - finaltime} remains    \t\t\t', end='\r')
     return newdata
     # while currtime+ms<=finaltime:
     #     for startindex in range(len(data)):
@@ -52,49 +51,46 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
     #     #     if data[endindex]['time'] >= currtime+ms:
     #     #         break
     #     endindex = startindex+width
-        
+
     #     items.append(data[startindex:endindex])
     #     currtime = currtime+ms
     #     print(f'{currtime-finaltime} remains\t\t\t',end='\r')
 
     print()
-    sum = 0 
-    count=0   
-    for start,item in newdata.copy().items():
-        if len(item) not in range(120,140):
+    sum = 0
+    count = 0
+    for start, item in newdata.copy().items():
+        if len(item) not in range(120, 140):
             del newdata[start]
             continue
         sum += len(item)
-        count+=1
-        print(len(item),end = ', ')
-    print('\n\nsum is',sum)
-    print('count is',count)
-    print('data is',len(data))
+        count += 1
+        print(len(item), end=', ')
+    print('\n\nsum is', sum)
+    print('count is', count)
+    print('data is', len(data))
     return items
-        
-    
 
-def showGraph(oneWindow,plot=False):
+
+def showGraph(oneWindow, plot=False):
     # for entry in oneWindow.items():
-    XA = oneWindow.XA#[w['XA'] for w in oneWindow]
-    YA = oneWindow.YA#[w['YA'] for w in oneWindow]
+    XA = oneWindow.XA  # [w['XA'] for w in oneWindow]
+    YA = oneWindow.YA  # [w['YA'] for w in oneWindow]
     ZA = oneWindow.ZA  # [w['ZA'] for w in oneWindow]
-
 
     # XR = oneWindow['XR']
     # YR = oneWindow['YR']
     # ZR = oneWindow['ZR']
 
-    time = [1/float(50) * i for i in range(len(oneWindow))]
-    plt.plot(time, XA, label='XA',color='red')
-    plt.plot(time, YA, label='YA',color='green')
+    time = [1 / float(50) * i for i in range(len(oneWindow))]
+    plt.plot(time, XA, label='XA', color='red')
+    plt.plot(time, YA, label='YA', color='green')
     plt.plot(time, ZA, label='ZA', color='blue')
-    
+
     if plot:
         plt.show()
 
     # visualize_signal()
-        
 
 
 def visualize_signal(signal, x_labels, y_labels, title, legend):
@@ -108,7 +104,7 @@ def visualize_signal(signal, x_labels, y_labels, title, legend):
     plt.figure(figsize=(20, 4))
 
     # convert row numbers in time durations
-    time = [1/float(50) * i for i in range(len(signal))]
+    time = [1 / float(50) * i for i in range(len(signal))]
 
     # plotting the signal
     plt.plot(time, signal, label=legend)  # plot the signal and add the legend
@@ -119,10 +115,12 @@ def visualize_signal(signal, x_labels, y_labels, title, legend):
     plt.legend(loc="upper left")  # set the legend in the upper left corner
     plt.show()  # show the figure
 
+
 def butter_lowpass(cutoff, nyq_freq, order=4):
     normal_cutoff = float(cutoff) / nyq_freq
     b, a = signal.butter(order, normal_cutoff, btype='lowpass')
     return b, a
+
 
 def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
     # Source: https://github.com/guillaume-chevalier/filtering-stft-and-laplace-transform
@@ -134,21 +132,19 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
 
 # def getKOLIMZ(windowed):
 #     for window in windowed:
-        # for col in window:
-            # yield col
+# for col in window:
+# yield col
 
 
 def applyPreFilters(windowed):
     # windowed = [{'A':list(data.values())[600]}]
-    
-
 
     for window in windowed:
-        time = [1/float(50) * i for i in range(len(window))]
+        time = [1 / float(50) * i for i in range(len(window))]
 
         # newcols = []
 
-        for colKey,col in window.items():
+        for colKey, col in window.items():
             # colnew = {}
 
             if 'A' not in colKey and 'R' not in colKey:
@@ -161,10 +157,10 @@ def applyPreFilters(windowed):
                 # lin = {}
                 # gr = {}
 
-                gcol = colKey+'G'
-                lcol = colKey+'L'
+                gcol = colKey + 'G'
+                lcol = colKey + 'L'
                 window[lcol] = butter_lowpass_filter(window[colKey], 0.3, 25, order=4)
-                window[gcol] = [c-l for c, l in zip(window[colKey], window[lcol])]
+                window[gcol] = [c - l for c, l in zip(window[colKey], window[lcol])]
 
         # newcols.append(colnew)
 
@@ -177,48 +173,35 @@ def applyPreFilters(windowed):
         # window['ZAG'] = [a['ZAG'] for a in newcols]
 
         print(window.head())
-        
 
         # showGraph(window)
-        # plt.show()
-        plt.plot(time, window['XAG'], label='xgravity',color='red')
+        plt.plot(time, window['XAG'], label='xgravity', color='red')
         plt.plot(time, window['YAG'], label='ygravity', color='green')
         plt.plot(time, window['ZAG'], label='zgravity', color='blue')
-        
-        plt.plot(time, window['XAL'], label='xlin',color='yellow')
+
+        plt.plot(time, window['XAL'], label='xlin', color='yellow')
         plt.plot(time, window['YAL'], label='ylin', color='brown')
         plt.plot(time, window['ZAL'], label='zlin', color='pink')
 
         plt.show()
         continue
         # return
-          # median filter
+        # median filter
 
         # 3rd order low pass butterworth (check nyq)
         # totalAccel = [window[col] for key, col in windowed.items() if 'A' in key]
-        
-
-        
-
-        
 
         # return
 
         lin_jerk = np.gradient(lin_acc, 0.02)
 
-        
-
-        
         # time_seconds = times.astype('datetime64[s]').astype('int64')
-         # time is assumed to be the index
+        # time is assumed to be the index
 
         mag = np.linalg.norm(x)
         fastfouriered = fft(x)
 
-
     # x = np.array([1.0, 2.0, 1.0, -1.0, 1.5])
-
-    
 
 
 def get_data():
@@ -232,17 +215,14 @@ def get_data():
         json.dump(data, output_file, indent=4)
 
     pandasedData = []
-    for key,window in tqdm(data.items()):
+    for key, window in tqdm(data.items()):
         pandasedData.append(pd.DataFrame(window))
-    
+
     return pandasedData
 
 
 if __name__ == '__main__':
-
     data = get_data()
     print('x')
-    showGraph(data[600],plot=True)
+    # showGraph(data[5], plot=True)
     data = applyPreFilters(data)
-
-    
