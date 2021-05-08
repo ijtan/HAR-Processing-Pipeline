@@ -97,28 +97,6 @@ def showGraph(oneWindow,plot=False):
         
 
 
-def visualize_signal(signal, x_labels, y_labels, title, legend):
-    # Inputs: signal: 1D column
-    #         x_labels: the X axis info (figure)
-    #         y_labels: the Y axis info (figure)
-    #         title: figure's title
-    #         legend : figure's legend
-
-    # Define the figure's dimensions
-    plt.figure(figsize=(20, 4))
-
-    # convert row numbers in time durations
-    time = [1/float(50) * i for i in range(len(signal))]
-
-    # plotting the signal
-    plt.plot(time, signal, label=legend)  # plot the signal and add the legend
-
-    plt.xlabel(x_labels)  # set the label of x axis in the figure
-    plt.ylabel(y_labels)  # set the label of y axis in the figure
-    plt.title(title)  # set the title of the figure
-    plt.legend(loc="upper left")  # set the legend in the upper left corner
-    plt.show()  # show the figure
-
 def butter_lowpass(cutoff, nyq_freq, order=4):
     normal_cutoff = float(cutoff) / nyq_freq
     b, a = signal.butter(order, normal_cutoff, btype='lowpass')
@@ -188,6 +166,8 @@ def applyPreFilters(windowed):
         plt.plot(time, window['XAL'], label='xlin',color='yellow')
         plt.plot(time, window['YAL'], label='ylin', color='brown')
         plt.plot(time, window['ZAL'], label='zlin', color='pink')
+
+        plt.title(window['lbl'][0a])
 
         plt.show()
         continue
