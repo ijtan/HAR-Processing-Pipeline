@@ -97,7 +97,7 @@ def applyPreFilters(windowed,plot=False):
     # windowed = [{'A':list(data.values())[600]}]
     
     random.shuffle(windowed)
-    for window in (windowed):
+    for window in tqdm(windowed):
         time = [1/float(50) * i for i in range(len(window))]
 
         # newcols = []
