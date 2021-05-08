@@ -131,13 +131,6 @@ def applyPreFilters(windowed,plot=False):
             plt.title(window['label'][0])
 
             plt.show()
-        continue
-
-        # lin_jerk = np.gradient(lin_acc, 0.02)
-
-
-        # mag = np.linalg.norm(x)
-        # fastfouriered = fft(x)
 
     
 
