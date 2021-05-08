@@ -163,8 +163,8 @@ def applyPreFilters(windowed):
 
                 gcol = colKey+'G'
                 lcol = colKey+'L'
-                window[lcol] = butter_lowpass_filter(window[colKey], 0.3, 25, order=4)
-                window[gcol] = [c-l for c, l in zip(window[colKey], window[lcol])]
+                window[gcol] = butter_lowpass_filter(window[colKey], 0.3, 25, order=4)
+                window[lcol] = [c-l for c, l in zip(window[colKey], window[gcol])]
 
         # newcols.append(colnew)
 
