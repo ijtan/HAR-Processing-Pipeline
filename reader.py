@@ -7,6 +7,7 @@ from tqdm import tqdm
 
 def read_all(path, entries):
     for log in pathlib.Path(path).iterdir():
+        
 
         if not log.is_file():
             # print('PATH IS NOT FILE!!')
@@ -21,9 +22,13 @@ def read_all(path, entries):
             continue
 
         # print(f'opening file: {str(log)}')
-        first = ""
+        label = str(path).split('DATA_')[-1].split('_SESSION')[0]
+        
+        first =""
         with open(log, 'r', encoding="utf8") as f:
             file = json.load(f)
+            for f in file:
+                f.update({'lbl': label})
             if 'ACC' in str(log) or '_a' in str(log):
                 # if first == "":
                 #     first =
@@ -41,7 +46,7 @@ def lenDiff(raw_entries):
     # print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
-        if abs(acc['time'] - gyr['time']) > 0:
+        if abs(acc['time']-gyr['time']) > 0:
             count += 1
             # print(str(acc['time']-gyr['time'])+'\t\t' +
             #       str(raw_entries['acc'].index(acc)))
@@ -51,17 +56,20 @@ def lenDiff(raw_entries):
 
 
 def sync2(logs, x=4, avg_diff=17):
+
     for ac in range(0, len(logs['acc'])):
         # print('avg_diff:', {sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x})
-        while abs(sum([a['time'] - g['time'] for a, g in
-                       zip(logs['acc'][ac:ac + x], logs['gyr'][ac:ac + x])]) / x) >= avg_diff:
-            lastx = [a['time'] - g['time'] for a, g in zip(logs['acc'][ac:ac + x], logs['gyr'][ac:ac + x])]
-            avg = sum(lastx) / x
-
+        while abs(sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x) >= avg_diff:
+            lastx = [a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
+            avg = sum(lastx)/x
+            
             if avg >= avg_diff:
                 del logs['gyr'][ac]
             elif avg <= -avg_diff:
                 del logs['acc'][ac]
+
+
+
 
 
 # print(raw_entries['acc'][0])
@@ -71,8 +79,8 @@ def getRaw():
     raw_entries = {'acc': [], 'gyr': []}
     read_all('INPUT', raw_entries)
 
-    raw_entries['acc'] = sorted(raw_entries['acc'], key=lambda item: item['time'])
-    raw_entries['gyr'] = sorted(raw_entries['gyr'], key=lambda item: item['time'])
+    raw_entries['acc'] = sorted(        raw_entries['acc'], key=lambda item: item['time'])
+    raw_entries['gyr'] = sorted(        raw_entries['gyr'], key=lambda item: item['time'])
 
     sync2(raw_entries)
 
@@ -84,41 +92,46 @@ def getRaw():
     #         count += 1
     # print(f'\n{count} items out of sync by more than 4')
     last = -1;
-    new = 1;
-    while new > 0 and new != last:
+    new  = 1;
+    while new > 0 and new!=last:
         print('removing mismatches!')
         for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
-            if abs(acc['time'] - gyr['time']) <= 10:
+            if abs(acc['time']-gyr['time']) <= 10:
                 acc['time'] = gyr['time']
             # else:
             #     # print('removing', raw_entries['acc'].index(acc))
             #     raw_entries['acc'].remove(acc)
             #     raw_entries['gyr'].remove(gyr)
         last = new
-        new = lenDiff(raw_entries)
-    count = 0
+        new =  lenDiff(raw_entries)
+    count=0
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('removing', raw_entries['acc'].index(acc))
-        if abs(acc['time'] - gyr['time']) > 0:
-            count += 1
+        if abs(acc['time']-gyr['time']) > 0:
+            count+=1
             raw_entries['acc'].remove(acc)
             raw_entries['gyr'].remove(gyr)
     print(f'removed {count} entries')
-
+        
     return raw_entries
 
-
 def getData():
+    
+
     raw_entries = getRaw()
 
     # print(raw_entries['acc'][0])
 
+
     # finalLog = {'XA':[],'YA':[],'ZA':[],'XR':[],'YR':[],'ZR':[],'time':[]}
     finalLog = []
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
+
         # print(acc)
         entry = {}
         entry['time'] = acc['time']
+        entry['lbl'] = acc['lbl']
+
 
         entry['XA'] = acc['XA']
         entry['YA'] = acc['YA']
@@ -129,7 +142,9 @@ def getData():
         entry['ZR'] = gyr['ZR']
 
         finalLog.append(entry)
-
+        
+        
+        
         # , raw_entries['acc']['YA'], raw_entries['acc']
         #                 ['ZA'], raw_entries['gyr']['XR'], raw_entries['gyr']['YR'], raw_entries['gyr']['ZR']))
     finalLog = np.asarray(finalLog)
