@@ -104,8 +104,7 @@ def applyFFT(signal):
 
 def applyPreFilters(data,plot=False):
     # windowed = [{'A':list(data.values())[600]}]
-    for activity, windowed in data.items():
-        random.shuffle(windowed)
+    for activity, windowed in data.items():        
         for window in tqdm(windowed, desc=f'Pre Filtering {activity}'):
             time = [1/float(50) * i for i in range(len(window))]
 
