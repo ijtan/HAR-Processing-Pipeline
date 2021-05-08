@@ -100,7 +100,7 @@ def mag_3_signals(x, y, z):  # magnitude function redefintion
 
 def applyFFT(signal):
     signal = np.asarray(signal)
-    return fft(signal)
+    return np.abs(fft(signal))
 
 def applyPreFilters(windowed,plot=False):
     # windowed = [{'A':list(data.values())[600]}]
