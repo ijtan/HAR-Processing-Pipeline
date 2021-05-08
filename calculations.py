@@ -74,11 +74,11 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
         
     
 
-def showGraph(oneWindow):
+def showGraph(oneWindow,plot=False):
     # for entry in oneWindow.items():
-    XA = [w['XA'] for w in oneWindow]
-    YA = [w['YA'] for w in oneWindow]
-    ZA = [w['ZA'] for w in oneWindow]
+    XA = oneWindow.XA#[w['XA'] for w in oneWindow]
+    YA = oneWindow.YA#[w['YA'] for w in oneWindow]
+    ZA = oneWindow.ZA  # [w['ZA'] for w in oneWindow]
 
 
     # XR = oneWindow['XR']
@@ -89,8 +89,9 @@ def showGraph(oneWindow):
     plt.plot(time, XA, label='XA',color='red')
     plt.plot(time, YA, label='YA',color='green')
     plt.plot(time, ZA, label='ZA', color='blue')
-    plt.show()
-
+    
+    if plot:
+        plt.show()
 
     # visualize_signal()
         
@@ -138,21 +139,49 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
 
 
 def applyPreFilters(windowed):
-    windowed = list(data.values())[600]
+    # windowed = [{'A':list(data.values())[600]}]
+    
 
 
     for window in windowed:
+        time = [1/float(50) * i for i in range(len(window))]
+        lin_acc = []
+        grav = []
+
+
         for colKey,col in window.items():
-            col = signal.medfilt(col, kernel_size=3)
-            col = butter_lowpass_filter(col, 20, 25, order=3)
+            if 'A' not in colKey and 'R' not in colKey:
+                continue
+
+            window[col] = signal.medfilt(window[col], kernel_size=3)
+            window[col] = butter_lowpass_filter(window[col], 20, 25, order=3)
+
+            if 'A' in colKey:
+                lin_acc =  butter_lowpass(window[col], 0.3, 25, order=4)
+                grav = window[col]-lin_acc
+
+            showGraph(window)
+            plt.show()
+            plt.plot(time, gravity[0], label='gravity', color='purple')
+            plt.plot(time, gravity, label='gravity', color='purple')
+            plt.plot(time, gravity, label='gravity', color='purple')
+            plt.plot(time, lin_acc, label='linear_sep', color='pink')
+            plt.show()
           # median filter
 
         # 3rd order low pass butterworth (check nyq)
-        totalAccel = [col for key, col in windowed.items() if 'A' in key]
-        lin_acc = butter_lowpass(totalAccel, 0.3, 25, order=4)
-        gravity = totalAccel-lin_acc
+        # totalAccel = [window[col] for key, col in windowed.items() if 'A' in key]
+        
+
+        
+
+        
+
+        return
 
         lin_jerk = np.gradient(lin_acc, 0.02)
+
+        
 
         
         # time_seconds = times.astype('datetime64[s]').astype('int64')
@@ -171,20 +200,24 @@ def get_data():
     if os.path.isfile('interm.json'):
         infile = open('interm.json', 'r', encoding='utf-8')
         data = json.load(infile)
-        return data
+        # return data
+    else:
+        data = slidingWindow(getData())
+        output_file = open('interm.json', 'w', encoding='utf-8')
+        json.dump(data, output_file, indent=4)
 
-    data = slidingWindow(getData())
-    output_file = open('interm.json', 'w', encoding='utf-8')
-    json.dump(data, output_file, indent=4)
-
-    return data
+    pandasedData = []
+    for key,window in tqdm(data.items()):
+        pandasedData.append(pd.DataFrame(window))
+    
+    return pandasedData
 
 
 if __name__ == '__main__':
 
     data = get_data()
     print('x')
-    showGraph(list(data.values())[600])
+    showGraph(data[600],plot=True)
     data = applyPreFilters(data)
 
     
