@@ -128,8 +128,8 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
     # Source: https://github.com/guillaume-chevalier/filtering-stft-and-laplace-transform
     b, a = butter_lowpass(cutoff_freq, nyq_freq, order=order)
     y = signal.filtfilt(b, a, data)
-    z = signal.filtfilt(a,b, data)
-    return y,z
+    # z = signal.filtfilt(a,b, data)
+    return y
 
 
 # def getKOLIMZ(windowed):
@@ -145,28 +145,53 @@ def applyPreFilters(windowed):
 
     for window in windowed:
         time = [1/float(50) * i for i in range(len(window))]
-        lin_acc = []
-        grav = []
 
+        # newcols = []
 
         for colKey,col in window.items():
+            # colnew = {}
+
             if 'A' not in colKey and 'R' not in colKey:
                 continue
 
-            window[col] = signal.medfilt(window[col], kernel_size=3)
-            window[col] = butter_lowpass_filter(window[col], 20, 25, order=3)
+            window[colKey] = signal.medfilt(window[colKey], kernel_size=3)
+            window[colKey] = butter_lowpass_filter(window[colKey], 20, 25, order=3)
 
             if 'A' in colKey:
-                lin_acc =  butter_lowpass(window[col], 0.3, 25, order=4)
-                grav = window[col]-lin_acc
+                # lin = {}
+                # gr = {}
 
-            showGraph(window)
-            plt.show()
-            plt.plot(time, gravity[0], label='gravity', color='purple')
-            plt.plot(time, gravity, label='gravity', color='purple')
-            plt.plot(time, gravity, label='gravity', color='purple')
-            plt.plot(time, lin_acc, label='linear_sep', color='pink')
-            plt.show()
+                gcol = colKey+'G'
+                lcol = colKey+'L'
+                window[lcol] = butter_lowpass_filter(window[colKey], 0.3, 25, order=4)
+                window[gcol] = [c-l for c, l in zip(window[colKey], window[lcol])]
+
+        # newcols.append(colnew)
+
+        # window['XAL'] = [a['XAL'] for a in newcols]
+        # window['YAL'] = [a['YAL'] for a in newcols]
+        # window['ZAL'] = [a['ZAL'] for a in newcols]
+
+        # window['XAG'] = [a['XAG'] for a in newcols]
+        # window['YAG'] = [a['YAG'] for a in newcols]
+        # window['ZAG'] = [a['ZAG'] for a in newcols]
+
+        print(window.head())
+        
+
+        # showGraph(window)
+        # plt.show()
+        plt.plot(time, window['XAG'], label='xgravity',color='red')
+        plt.plot(time, window['YAG'], label='ygravity', color='green')
+        plt.plot(time, window['ZAG'], label='zgravity', color='blue')
+        
+        plt.plot(time, window['XAL'], label='xlin',color='yellow')
+        plt.plot(time, window['YAL'], label='ylin', color='brown')
+        plt.plot(time, window['ZAL'], label='zlin', color='pink')
+
+        plt.show()
+        continue
+        # return
           # median filter
 
         # 3rd order low pass butterworth (check nyq)
@@ -177,7 +202,7 @@ def applyPreFilters(windowed):
 
         
 
-        return
+        # return
 
         lin_jerk = np.gradient(lin_acc, 0.02)
 
