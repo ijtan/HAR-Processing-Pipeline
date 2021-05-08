@@ -47,20 +47,6 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
         items = []
         # starttime=starttime+ms
         print(f'{starttime-finaltime} remains    \t\t\t', end='\r')
-    # return newdata
-    # while currtime+ms<=finaltime:
-    #     for startindex in range(len(data)):
-    #         if data[startindex]['time'] >= currtime:
-    #             break
-
-    #     # for endindex in range(startindex,len(data)):
-    #     #     if data[endindex]['time'] >= currtime+ms:
-    #     #         break
-    #     endindex = startindex+width
-        
-    #     items.append(data[startindex:endindex])
-    #     currtime = currtime+ms
-    #     print(f'{currtime-finaltime} remains\t\t\t',end='\r')
 
     print()
     sum = 0 
@@ -80,15 +66,9 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
     
 
 def showGraph(oneWindow,plot=False):
-    # for entry in oneWindow.items():
-    XA = oneWindow.XA#[w['XA'] for w in oneWindow]
-    YA = oneWindow.YA#[w['YA'] for w in oneWindow]
-    ZA = oneWindow.ZA  # [w['ZA'] for w in oneWindow]
-
-
-    # XR = oneWindow['XR']
-    # YR = oneWindow['YR']
-    # ZR = oneWindow['ZR']
+    XA = oneWindow.XA
+    YA = oneWindow.YA
+    ZA = oneWindow.ZA 
 
     time = [1/float(50) * i for i in range(len(oneWindow))]
     plt.plot(time, XA, label='XA',color='red')
@@ -97,8 +77,6 @@ def showGraph(oneWindow,plot=False):
     
     if plot:
         plt.show()
-
-    # visualize_signal()
         
 
 
@@ -113,12 +91,6 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
     y = signal.filtfilt(b, a, data)
     # z = signal.filtfilt(a,b, data)
     return y
-
-
-# def getKOLIMZ(windowed):
-#     for window in windowed:
-        # for col in window:
-            # yield col
 
 
 def applyPreFilters(windowed):
@@ -140,29 +112,14 @@ def applyPreFilters(windowed):
             window[colKey] = butter_lowpass_filter(window[colKey], 20, 25, order=3)
 
             if 'A' in colKey:
-                # lin = {}
-                # gr = {}
-
                 gcol = colKey+'G'
                 lcol = colKey+'L'
                 window[gcol] = butter_lowpass_filter(window[colKey], 0.3, 25, order=4)
                 window[lcol] = [c-l for c, l in zip(window[colKey], window[gcol])]
 
-        # newcols.append(colnew)
-
-        # window['XAL'] = [a['XAL'] for a in newcols]
-        # window['YAL'] = [a['YAL'] for a in newcols]
-        # window['ZAL'] = [a['ZAL'] for a in newcols]
-
-        # window['XAG'] = [a['XAG'] for a in newcols]
-        # window['YAG'] = [a['YAG'] for a in newcols]
-        # window['ZAG'] = [a['ZAG'] for a in newcols]
 
         print(window.head())
-        
 
-        # showGraph(window)
-        # plt.show()
         plt.plot(time, window['XAG'], label='xgravity',color='red')
         plt.plot(time, window['YAG'], label='ygravity', color='green')
         plt.plot(time, window['ZAG'], label='zgravity', color='blue')
@@ -175,35 +132,14 @@ def applyPreFilters(windowed):
 
         plt.show()
         continue
-        # return
-          # median filter
-
-        # 3rd order low pass butterworth (check nyq)
-        # totalAccel = [window[col] for key, col in windowed.items() if 'A' in key]
-        
-
-        
-
-        
-
-        # return
 
         lin_jerk = np.gradient(lin_acc, 0.02)
 
-        
-
-        
-        # time_seconds = times.astype('datetime64[s]').astype('int64')
-         # time is assumed to be the index
 
         mag = np.linalg.norm(x)
         fastfouriered = fft(x)
 
-
-    # x = np.array([1.0, 2.0, 1.0, -1.0, 1.5])
-
     
-
 
 def get_data():
     if os.path.isfile('interm.json'):
@@ -229,4 +165,3 @@ if __name__ == '__main__':
     showGraph(data[600],plot=True)
     data = applyPreFilters(data)
 
-    
