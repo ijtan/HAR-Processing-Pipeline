@@ -125,13 +125,8 @@ def getData():
         # elif 'down' in oldlabel:
         #     newlabel = 'STAIRS down'
         
+        entry['label'] = newlabel
 
-        entry['label'] = 
-
-        if()
-
-        # if 'DRIVING' in entry['lbl']:
-        #     continue
 
         entry['tAcc-X'] = acc['XA']
         entry['tAcc-Y'] = acc['YA']
