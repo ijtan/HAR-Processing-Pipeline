@@ -4,6 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import signal
 from tqdm import tqdm
+import json
+import os
 
 from reader import getData
 
@@ -74,18 +76,19 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
 
 def showGraph(oneWindow):
     # for entry in oneWindow.items():
-    XA = oneWindow['XA']
-    YA = oneWindow['YA']
-    ZA = oneWindow['ZA']
+    XA = [w['XA'] for w in oneWindow]
+    YA = [w['YA'] for w in oneWindow]
+    ZA = [w['ZA'] for w in oneWindow]
 
 
-    XR = oneWindow['XR']
-    YR = oneWindow['YR']
-    ZR = oneWindow['ZR']
-    time = [1/float(50) * i for i in range(len(signal))]
-    plt.plot(time, XA, label='XA')
-    plt.plot(time, YA, label='YA')
-    plt.plot(time, ZA, label='ZA')
+    # XR = oneWindow['XR']
+    # YR = oneWindow['YR']
+    # ZR = oneWindow['ZR']
+
+    time = [1/float(50) * i for i in range(len(oneWindow))]
+    plt.plot(time, XA, label='XA',color='red')
+    plt.plot(time, YA, label='YA',color='green')
+    plt.plot(time, ZA, label='ZA', color='blue')
     plt.show()
 
 
@@ -135,6 +138,9 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
 
 
 def applyPreFilters(windowed):
+    windowed = list(data.values())[600]
+
+
     for window in windowed:
         for colKey,col in window.items():
             col = signal.medfilt(col, kernel_size=3)
@@ -161,12 +167,24 @@ def applyPreFilters(windowed):
     
 
 
+def get_data():
+    if os.path.isfile('interm.json'):
+        infile = open('interm.json', 'r', encoding='utf-8')
+        data = json.load(infile)
+        return data
 
+    data = slidingWindow(getData())
+    output_file = open('interm.json', 'w', encoding='utf-8')
+    json.dump(data, output_file, indent=4)
+
+    return data
 
 
 if __name__ == '__main__':
 
-    slid = slidingWindow(getData())
-    showGraph(slid[slid[0]])
+    data = get_data()
+    print('x')
+    showGraph(list(data.values())[600])
+    data = applyPreFilters(data)
 
     
