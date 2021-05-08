@@ -108,6 +108,7 @@ def getData():
         # print(acc)
         entry = {}
         entry['time'] = acc['time']
+        entry['label'] = acc['lbl']
 
         oldlabel = acc['lbl'].lower()
         newlabel =''

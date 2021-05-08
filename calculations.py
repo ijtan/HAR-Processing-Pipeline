@@ -91,10 +91,24 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
     # z = signal.filtfilt(a,b, data)
     return y
 
+def mag_3_signals(x, y, z):  # magnitude function redefintion
+    return np.array([math.sqrt((x[i]**2+y[i]**2+z[i]**2)) for i in range(len(x))])
 
 def mag_3_signals(x, y, z):  # magnitude function redefintion
     return np.array([math.sqrt((x[i]**2+y[i]**2+z[i]**2)) for i in range(len(x))])
 
+def applyFFT(signal):
+    signal = np.asarray(signal)
+    return np.abs(fft(signal))
+
+def applyPreFilters(windowed,plot=False):
+    # windowed = [{'A':list(data.values())[600]}]
+    
+    random.shuffle(windowed)
+    for window in tqdm(windowed, desc='Pre Filtering'):
+        time = [1/float(50) * i for i in range(len(window))]
+
+        # newcols = []
 
 def applyFFT(signal):
     signal = np.asarray(signal)
