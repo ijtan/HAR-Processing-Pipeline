@@ -10,6 +10,7 @@ from scipy import signal
 from tqdm import tqdm
 import json
 import os
+import random
 
 from reader import getData
 
@@ -123,9 +124,8 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
 def applyPreFilters(windowed):
     # windowed = [{'A':list(data.values())[600]}]
     
-
-
-    for window in windowed:
+    random.shuffle(windowed)
+    for window in (windowed):
         time = [1/float(50) * i for i in range(len(window))]
 
         # newcols = []
