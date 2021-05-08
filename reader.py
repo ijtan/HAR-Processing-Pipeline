@@ -112,14 +112,13 @@ def getData():
         # if 'DRIVING' in entry['lbl']:
         #     continue
 
+        entry['tAcc-X'] = acc['XA']
+        entry['tAcc-Y'] = acc['YA']
+        entry['tAcc-Z'] = acc['ZA']
 
-        entry['XA'] = acc['XA']
-        entry['YA'] = acc['YA']
-        entry['ZA'] = acc['ZA']
-
-        entry['XR'] = gyr['XR']
-        entry['YR'] = gyr['YR']
-        entry['ZR'] = gyr['ZR']
+        entry['tBodyGyro-X'] = gyr['XR']
+        entry['tBodyGyro-Y'] = gyr['YR']
+        entry['tBodyGyro-Z'] = gyr['ZR']
 
         finalLog.append(entry)
         

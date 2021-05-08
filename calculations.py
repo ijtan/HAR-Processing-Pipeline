@@ -66,9 +66,9 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
     
 
 def showGraph(oneWindow,plot=False):
-    XA = oneWindow.XA
-    YA = oneWindow.YA
-    ZA = oneWindow.ZA 
+    XA = oneWindow.tAcc-X
+    YA = oneWindow.tAcc-Y
+    ZA = oneWindow.tAcc-Z
 
     time = [1/float(50) * i for i in range(len(oneWindow))]
     plt.plot(time, XA, label='XA',color='red')
@@ -93,7 +93,7 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
     return y
 
 
-def applyPreFilters(windowed):
+def applyPreFilters(windowed,plot=False):
     # windowed = [{'A':list(data.values())[600]}]
     
     random.shuffle(windowed)
@@ -105,39 +105,39 @@ def applyPreFilters(windowed):
         for colKey,col in window.items():
             # colnew = {}
 
-            if 'A' not in colKey and 'R' not in colKey:
+            if 'tAcc' not in colKey and 'tBodyGyro' not in colKey:
                 continue
 
             window[colKey] = signal.medfilt(window[colKey], kernel_size=3)
             window[colKey] = butter_lowpass_filter(window[colKey], 20, 25, order=3)
 
-            if 'A' in colKey:
-                gcol = colKey+'G'
-                lcol = colKey+'L'
+            if 'tAcc-' in colKey:
+                gcol = 'tGravityAcc-'+colKey[-1]
+                lcol = 'tBodyAcc-'+colKey[-1]
                 window[gcol] = butter_lowpass_filter(window[colKey], 0.3, 25, order=4)
                 window[lcol] = [c-l for c, l in zip(window[colKey], window[gcol])]
 
+        if plot:
+            print(window.head())
 
-        print(window.head())
+            plt.plot(time, window['tGravityAcc-X'],label='xgravity', color='red')
+            plt.plot(time, window['tGravityAcc-Y'], label='ygravity', color='green')
+            plt.plot(time, window['tGravityAcc-Z'], label='zgravity', color='blue')
+            
+            plt.plot(time, window['tBodyAcc-X'], label='xlin', color='yellow')
+            plt.plot(time, window['tBodyAcc-Y'], label='ylin', color='brown')
+            plt.plot(time, window['tBodyAcc-Z'], label='zlin', color='pink')
 
-        plt.plot(time, window['XAG'], label='xgravity',color='red')
-        plt.plot(time, window['YAG'], label='ygravity', color='green')
-        plt.plot(time, window['ZAG'], label='zgravity', color='blue')
-        
-        plt.plot(time, window['XAL'], label='xlin',color='yellow')
-        plt.plot(time, window['YAL'], label='ylin', color='brown')
-        plt.plot(time, window['ZAL'], label='zlin', color='pink')
+            plt.title(window['lbl'][0])
 
-        plt.title(window['lbl'][0])
-
-        plt.show()
+            plt.show()
         continue
 
-        lin_jerk = np.gradient(lin_acc, 0.02)
+        # lin_jerk = np.gradient(lin_acc, 0.02)
 
 
-        mag = np.linalg.norm(x)
-        fastfouriered = fft(x)
+        # mag = np.linalg.norm(x)
+        # fastfouriered = fft(x)
 
     
 
@@ -158,10 +158,12 @@ def get_data():
     return pandasedData
 
 
+def getPreFilteredData(plot=False):
+    data = get_data()
+    data = applyPreFilters(data,plot=plot)
+    return data
+
 if __name__ == '__main__':
 
-    data = get_data()
-    print('x')
-    showGraph(data[600],plot=True)
-    data = applyPreFilters(data)
+    getPreFilteredData(plot=True)
 
