@@ -115,13 +115,18 @@ def getData():
         if 'up' in oldlabel:
             newlabel = 'STAIRS UP'
         elif 'down' in oldlabel:
-            newlabel = 'STAIRS down'
+            newlabel = 'STAIRS DN'
         elif 'walk' in oldlabel:
             newlabel = 'WALKING'
         elif 'stand' in oldlabel:
             newlabel = 'STANDING'
         elif 'driv' in oldlabel:
             newlabel = 'DRIVING'
+        elif 'sitt' in oldlabel:
+            newlabel = 'SITTING'
+        else:
+            continue
+
         # elif 'down' in oldlabel:
         #     newlabel = 'STAIRS down'
         
