@@ -8,10 +8,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import signal
 from tqdm import tqdm
-import json
-import os
-import random
-import math
+import pickle,os,random,math
+
 
 from reader import getData
 
@@ -177,9 +175,9 @@ def applyPreFilters(data,plot=False):
     
 
 def get_data():
-    if os.path.isfile('interm.json'):
-        infile = open('interm.json', 'r', encoding='utf-8')
-        data = json.load(infile)
+    if os.path.isfile('interm.pkl'):
+        with open('interm.pkl', 'rb') as f:
+            data = pickle.load(f)
         # return data
     else:
         data = {}
@@ -188,8 +186,8 @@ def get_data():
             print('Sliding over:',key)
             for stime, window in slidingWindow(val).items():
                 data[key].append(window)
-        output_file = open('interm.json', 'w', encoding='utf-8')
-        json.dump(data, output_file, indent=4)
+        with open('interm.pkl', 'wb') as f:
+            pickle.dump(data, f,  protocol=pickle.HIGHEST_PROTOCOL)
 
     pandasedData = {}
     # pandasedData = pd.DataFrame(data)
