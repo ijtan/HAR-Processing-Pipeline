@@ -11,6 +11,7 @@ from tqdm import tqdm
 import json
 import os
 import random
+import math
 
 from reader import getData
 
@@ -93,11 +94,19 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
     return y
 
 
+def mag_3_signals(x, y, z):  # magnitude function redefintion
+    return np.array([math.sqrt((x[i]**2+y[i]**2+z[i]**2)) for i in range(len(x))])
+
+
+def applyFFT(signal):
+    signal = np.asarray(signal)
+    return fft(signal)
+
 def applyPreFilters(windowed,plot=False):
     # windowed = [{'A':list(data.values())[600]}]
     
     random.shuffle(windowed)
-    for window in tqdm(windowed):
+    for window in tqdm(windowed, desc='Pre Filtering'):
         time = [1/float(50) * i for i in range(len(window))]
 
         # newcols = []
@@ -116,6 +125,40 @@ def applyPreFilters(windowed,plot=False):
                 lcol = 'tBodyAcc-'+colKey[-1]
                 window[gcol] = butter_lowpass_filter(window[colKey], 0.3, 25, order=4)
                 window[lcol] = [c-l for c, l in zip(window[colKey], window[gcol])]
+        
+        window['tBodyAccJerk-X'] = np.gradient(window['tBodyAcc-X'], 0.02)
+        window['tBodyAccJerk-Y'] = np.gradient(window['tBodyAcc-Y'], 0.02)
+        window['tBodyAccJerk-Z'] = np.gradient(window['tBodyAcc-Z'], 0.02)
+        window['tBodyGyroJerk-X'] = np.gradient(window['tBodyGyro-X'], 0.02)
+        window['tBodyGyroJerk-Y'] = np.gradient(window['tBodyGyro-Y'], 0.02)
+        window['tBodyGyroJerk-Z'] = np.gradient(window['tBodyGyro-Z'], 0.02)
+
+
+        window['tBodyAccMag']       = mag_3_signals(window['tBodyAcc-X'],       window['tBodyAcc-Y'],        window['tBodyAcc-Z'])
+        window['tGravityAccMag']    = mag_3_signals(window['tGravityAcc-X'],    window['tGravityAcc-Y'],     window['tGravityAcc-Z'])
+        window['tBodyAccJerkMag']   = mag_3_signals(window['tBodyAccJerk-X'],   window['tBodyAccJerk-Y'],    window['tBodyAccJerk-Z'])
+        window['tBodyGyroMag']      = mag_3_signals(window['tBodyGyro-X'],      window['tBodyGyro-Y'],       window['tBodyGyro-Z'])
+        window['tBodyGyroJerkMag']  = mag_3_signals(window['tBodyGyroJerk-X'],  window['tBodyGyroJerk-Y'],   window['tBodyGyroJerk-Z'])
+
+        window['fBodyAccMag']       =   applyFFT(window['tBodyAccMag']      )
+        window['fBodyGyroMag']      =   applyFFT(window['tBodyGyroMag']     )
+        window['fBodyAccJerkMag']   =   applyFFT(window['tBodyAccJerkMag']  )
+        window['fBodyGyroJerkMag']  =   applyFFT(window['tBodyGyroJerkMag'] )
+
+        window['fBodyAcc-X']        =   applyFFT(window['tBodyAcc-X']       )
+        window['fBodyAcc-Y']        =   applyFFT(window['tBodyAcc-Y']       )
+        window['fBodyAcc-Z']        =   applyFFT(window['tBodyAcc-Z']       )
+
+        window['fBodyAccJerk-X']    =   applyFFT(window['tBodyAccJerk-X']   )
+        window['fBodyAccJerk-Y']    =   applyFFT(window['tBodyAccJerk-Y']   )
+        window['fBodyAccJerk-Z']    =   applyFFT(window['tBodyAccJerk-Z']   )
+        
+        window['fBodyGyro-X']       =   applyFFT(window['tBodyGyro-X']      )
+        window['fBodyGyro-Y']       =   applyFFT(window['tBodyGyro-Y']      )
+        window['fBodyGyro-Z']       =   applyFFT(window['tBodyGyro-Z']      )
+
+
+        
 
         if plot:
             print(window.head())
@@ -145,7 +188,7 @@ def get_data():
         json.dump(data, output_file, indent=4)
 
     pandasedData = []
-    for key,window in tqdm(data.items()):
+    for key, window in tqdm(data.items(), desc='Pandafying'):
         pandasedData.append(pd.DataFrame(window))
     
     return pandasedData
@@ -158,6 +201,12 @@ def getPreFilteredData(plot=False):
 
 if __name__ == '__main__':
 
+    data = getPreFilteredData()
+    print(data[0].head())
+    print(list(data[0].columns))
+    # print(len(list(data[0].columns)))
+
     getPreFilteredData(plot=True)
+
     # print(getPreFilteredData()[0])
 
