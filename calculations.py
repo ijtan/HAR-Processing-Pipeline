@@ -183,13 +183,18 @@ def get_data():
         data = json.load(infile)
         # return data
     else:
-        data = slidingWindow(getData())
+        data = []
+        for key, val in getData().items():
+            print('Sliding over:',key)
+            for stime, entry in slidingWindow(val).items():
+                data.extend(entry)
         output_file = open('interm.json', 'w', encoding='utf-8')
         json.dump(data, output_file, indent=4)
 
-    pandasedData = []
-    for key, window in tqdm(data.items(), desc='Pandafying'):
-        pandasedData.append(pd.DataFrame(window))
+    # pandasedData = []
+    pandasedData = pd.DataFrame(data)
+    # for key, window in tqdm(data.items(), desc='Pandafying'):
+    #     pandasedData.append(pd.DataFrame(window))
     
     return pandasedData
 

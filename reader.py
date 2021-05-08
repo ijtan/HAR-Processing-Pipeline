@@ -70,8 +70,8 @@ def getRaw():
     raw_entries = {'acc': [], 'gyr': []}
     read_all('INPUT', raw_entries)
 
-    raw_entries['acc'] = sorted(        raw_entries['acc'], key=lambda item: item['time'])
-    raw_entries['gyr'] = sorted(        raw_entries['gyr'], key=lambda item: item['time'])
+    raw_entries['acc'] = sorted(raw_entries['acc'], key=lambda item: item['time'])
+    raw_entries['gyr'] = sorted(raw_entries['gyr'], key=lambda item: item['time'])
 
     sync2(raw_entries)
 
@@ -94,6 +94,7 @@ def getRaw():
             raw_entries['acc'].remove(acc)
             raw_entries['gyr'].remove(gyr)
     print(f'removed {count} entries')
+
         
     return raw_entries
 
@@ -101,7 +102,7 @@ def getData():
     
 
     raw_entries = getRaw()
-    finalLog = []
+    semiFinalLog = []
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
 
         # print(acc)
@@ -120,11 +121,17 @@ def getData():
         entry['tBodyGyro-Y'] = gyr['YR']
         entry['tBodyGyro-Z'] = gyr['ZR']
 
-        finalLog.append(entry)
-        
-    finalLog = np.asarray(finalLog)
-    print(finalLog[0])
+        semiFinalLog.append(entry)
+    
+    finalLog = {}
+    for entry in semiFinalLog:
+        if entry['label'] not in finalLog:
+            finalLog[entry['label']] = []
+        finalLog[entry['label']].append(entry)
     return finalLog
+    # finalLog = np.asarray(semiFinalLog)
+    # print(semiFinalLog[0])
+    # return semiFinalLog
 
 
 if __name__ == '__main__':
