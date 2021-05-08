@@ -132,6 +132,9 @@ def getData():
         entry['time'] = acc['time']
         entry['lbl'] = acc['lbl']
 
+        # if 'DRIVING' in entry['lbl']:
+        #     continue
+
 
         entry['XA'] = acc['XA']
         entry['YA'] = acc['YA']
