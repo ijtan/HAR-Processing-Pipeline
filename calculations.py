@@ -128,7 +128,7 @@ def applyPreFilters(windowed,plot=False):
             plt.plot(time, window['tBodyAcc-Y'], label='ylin', color='brown')
             plt.plot(time, window['tBodyAcc-Z'], label='zlin', color='pink')
 
-            plt.title(window['lbl'][0])
+            plt.title(window['label'][0])
 
             plt.show()
         continue
