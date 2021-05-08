@@ -167,7 +167,7 @@ def applyPreFilters(windowed):
         plt.plot(time, window['YAL'], label='ylin', color='brown')
         plt.plot(time, window['ZAL'], label='zlin', color='pink')
 
-        plt.title(window['lbl'][0a])
+        plt.title(window['lbl'][0])
 
         plt.show()
         continue
