@@ -124,6 +124,10 @@ def getData():
             newlabel = 'DRIVING'
         elif 'sitt' in oldlabel:
             newlabel = 'SITTING'
+        elif 'lay' in oldlabel:
+            newlabel = 'LAYING'
+        elif 'drop' in oldlabel:
+            newlabel = 'DROPPING'
         else:
             continue
 
