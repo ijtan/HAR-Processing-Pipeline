@@ -40,6 +40,7 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
         items = []
         # starttime=starttime+ms
         print(f'{starttime-finaltime} remains    \t\t\t', end='\r')
+    return newdata
     # while currtime+ms<=finaltime:
     #     for startindex in range(len(data)):
     #         if data[startindex]['time'] >= currtime:
@@ -85,10 +86,12 @@ def showGraph(oneWindow):
     plt.plot(time, XA, label='XA')
     plt.plot(time, YA, label='YA')
     plt.plot(time, ZA, label='ZA')
+    plt.show()
 
 
     # visualize_signal()
         
+
 
 def visualize_signal(signal, x_labels, y_labels, title, legend):
     # Inputs: signal: 1D column
@@ -164,5 +167,6 @@ def applyPreFilters(windowed):
 if __name__ == '__main__':
 
     slid = slidingWindow(getData())
+    showGraph(slid[slid[0]])
 
     

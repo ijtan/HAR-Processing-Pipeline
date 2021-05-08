@@ -53,7 +53,7 @@ def lenDiff(raw_entries):
 def sync2(logs, x=4, avg_diff=17):
 
     for ac in range(0, len(logs['acc'])):
-        print('avg_diff:', {sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x})
+        # print('avg_diff:', {sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x})
         while abs(sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x) >= avg_diff:
             lastx = [a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
             avg = sum(lastx)/x
