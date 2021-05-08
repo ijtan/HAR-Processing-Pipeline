@@ -1,4 +1,8 @@
-from scipy.fft import fft, ifft
+import scipy
+if scipy.__version__ == '1.1.0':
+    from scipy.fftpack import fft, ifft
+else:
+    from scipy.fft import fft, ifft
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
