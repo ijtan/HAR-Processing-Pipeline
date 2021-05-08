@@ -7,6 +7,7 @@ from tqdm import tqdm
 
 def read_all(path, entries):
     for log in pathlib.Path(path).iterdir():
+        
 
         if not log.is_file():
             # print('PATH IS NOT FILE!!')
@@ -21,9 +22,13 @@ def read_all(path, entries):
             continue
 
         # print(f'opening file: {str(log)}')
+        label = str(path).split('DATA_')[-1].split('_SESSION')[0]
+        
         first =""
         with open(log, 'r', encoding="utf8") as f:
             file = json.load(f)
+            for f in file:
+                f.update({'lbl': label})
             if 'ACC' in str(log) or '_a' in str(log):
                 # if first == "":
                 #     first =
@@ -125,6 +130,7 @@ def getData():
         # print(acc)
         entry = {}
         entry['time'] = acc['time']
+        entry['lbl'] = acc['lbl']
 
 
         entry['XA'] = acc['XA']
