@@ -1,3 +1,8 @@
-a = [1,2,3,4,5,6]
-for x in range(2,len(a)):
-    print(a[x:x+2])
+from scipy.fft import fft, ifft
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import signal
+from tqdm import tqdm
+
+# from reader import getData
