@@ -107,7 +107,7 @@ def getData():
         # print(acc)
         entry = {}
         entry['time'] = acc['time']
-        entry['lbl'] = acc['lbl']
+        entry['label'] = acc['lbl']
 
         # if 'DRIVING' in entry['lbl']:
         #     continue
