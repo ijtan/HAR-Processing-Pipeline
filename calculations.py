@@ -42,7 +42,7 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
         items = []
         # starttime=starttime+ms
         print(f'{starttime-finaltime} remains    \t\t\t', end='\r')
-    return newdata
+    # return newdata
     # while currtime+ms<=finaltime:
     #     for startindex in range(len(data)):
     #         if data[startindex]['time'] >= currtime:
@@ -70,7 +70,7 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
     print('\n\nsum is',sum)
     print('count is',count)
     print('data is',len(data))
-    return items
+    return newdata
         
     
 
