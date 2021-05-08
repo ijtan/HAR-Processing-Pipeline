@@ -21,7 +21,7 @@ def read_all(path, entries):
         if 'closing' in str(log):
             continue
 
-        # print(f'opening file: {str(log)}')
+
         label = str(path).split('DATA_')[-1].split('_SESSION')[0]
         
         first =""
@@ -30,8 +30,7 @@ def read_all(path, entries):
             for f in file:
                 f.update({'lbl': label})
             if 'ACC' in str(log) or '_a' in str(log):
-                # if first == "":
-                #     first =
+
                 entries['acc'].extend(file)
             elif 'GYR' in str(log) or '_g' in str(log):
                 entries['gyr'].extend(file)
@@ -42,15 +41,12 @@ def read_all(path, entries):
 
 def lenDiff(raw_entries):
     count = 0
-    # print('len match!')
-    # print(f"{len(raw_entries['acc'])}={len(raw_entries['gyr'])}")
+
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
         if abs(acc['time']-gyr['time']) > 0:
             count += 1
-            # print(str(acc['time']-gyr['time'])+'\t\t' +
-            #       str(raw_entries['acc'].index(acc)))
-            # pass
+
     print(f'\n{count} items out of sync')
     return count
 
@@ -70,11 +66,6 @@ def sync2(logs, x=4, avg_diff=17):
 
 
 
-
-
-# print(raw_entries['acc'][0])
-# print(raw_entries['gyr'][0])
-
 def getRaw():
     raw_entries = {'acc': [], 'gyr': []}
     read_all('INPUT', raw_entries)
@@ -85,12 +76,6 @@ def getRaw():
     sync2(raw_entries)
 
     count = 0
-
-    # for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
-    #     # print('iter')
-    #     if abs(acc['time']-gyr['time']) > 4:
-    #         count += 1
-    # print(f'\n{count} items out of sync by more than 4')
     last = -1;
     new  = 1;
     while new > 0 and new!=last:
@@ -98,10 +83,7 @@ def getRaw():
         for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
             if abs(acc['time']-gyr['time']) <= 10:
                 acc['time'] = gyr['time']
-            # else:
-            #     # print('removing', raw_entries['acc'].index(acc))
-            #     raw_entries['acc'].remove(acc)
-            #     raw_entries['gyr'].remove(gyr)
+
         last = new
         new =  lenDiff(raw_entries)
     count=0
@@ -119,11 +101,6 @@ def getData():
     
 
     raw_entries = getRaw()
-
-    # print(raw_entries['acc'][0])
-
-
-    # finalLog = {'XA':[],'YA':[],'ZA':[],'XR':[],'YR':[],'ZR':[],'time':[]}
     finalLog = []
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
 
@@ -131,6 +108,9 @@ def getData():
         entry = {}
         entry['time'] = acc['time']
         entry['lbl'] = acc['lbl']
+
+        # if 'DRIVING' in entry['lbl']:
+        #     continue
 
 
         entry['XA'] = acc['XA']
@@ -143,14 +123,9 @@ def getData():
 
         finalLog.append(entry)
         
-        
-        
-        # , raw_entries['acc']['YA'], raw_entries['acc']
-        #                 ['ZA'], raw_entries['gyr']['XR'], raw_entries['gyr']['YR'], raw_entries['gyr']['ZR']))
     finalLog = np.asarray(finalLog)
     print(finalLog[0])
     return finalLog
-    # print(raw_entries)
 
 
 if __name__ == '__main__':
