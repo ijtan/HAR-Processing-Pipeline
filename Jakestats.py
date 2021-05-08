@@ -2,9 +2,29 @@ import statistics
 
 from collections import defaultdict
 
-import pandas as pd
+import pandas as pd, numpy as np
+
+import scipy.stats
 
 import calculations
+
+def sma(mag_column):
+    array=np.array(mag_column)
+    return float(abs(array).sum()) #signal magnitude area of one mag column
+
+# energy
+def energy(mag_column):
+    array=np.array(mag_column)
+    return float((array**2).sum()) # energy of the mag signal
+
+# arburg: auto regression coefficients using the burg method
+def arCoeff(mag_column):
+    
+    array = np.array(mag_column)
+    
+    AR_vector= list(_arburg2(array,4)[0][1:].real) # AR1, AR2, AR3, AR4 of the mag column
+    #print(AR_vector)
+    return AR_vector
 
 data = calculations.getPreFilteredData()
 
@@ -24,7 +44,18 @@ for window in data:
         maxcol = column + "-max()"
         feature_dict[maxcol].append(max(signalvals))
         stdcol = column + "-std()"
-        feature_dict[stdcol] = statistics.stdev(signalvals)
+        feature_dict[stdcol].append(statistics.stdev(signalvals))
+        entcol = column + "-entropy()"
+        feature_dict[entcol].append(scipy.stats.entropy(signalvals))
+        madcol = column + "-mad()"
+        feature_dict[madcol].append(scipy.stats.median_abs_deviation(signalvals))
+        iqrcol = column + "-iqr()"
+        feature_dict[iqrcol].append(scipy.stats.iqr(signalvals))
+        smacol = column + "-sma()"
+        feature_dict[iqrcol].append(sma(signalvals))
+        enercol = column + "-energy()"
+        feature_dict[iqrcol].append(energy(signalvals))
+        
     feature_vector = feature_vector.append(feature_dict, ignore_index = True)
 
 
