@@ -66,9 +66,9 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
     
 
 def showGraph(oneWindow,plot=False):
-    XA = oneWindow.tAcc-X
-    YA = oneWindow.tAcc-Y
-    ZA = oneWindow.tAcc-Z
+    XA = oneWindow['tAcc-X']
+    YA = oneWindow['tAcc-Y']
+    ZA = oneWindow['tAcc-Z']
 
     time = [1/float(50) * i for i in range(len(oneWindow))]
     plt.plot(time, XA, label='XA',color='red')
@@ -160,10 +160,11 @@ def get_data():
 
 def getPreFilteredData(plot=False):
     data = get_data()
-    data = applyPreFilters(data,plot=plot)
+    applyPreFilters(data,plot=plot)
     return data
 
 if __name__ == '__main__':
 
     getPreFilteredData(plot=True)
+    # print(getPreFilteredData()[0])
 
