@@ -172,7 +172,7 @@ def applyPreFilters(data,plot=False):
             
 
             if plot:
-                print(window.head())
+                # print(window.head())
 
                 plt.plot(time, window['tGravityAcc-X'],label='xgravity', color='red')
                 plt.plot(time, window['tGravityAcc-Y'], label='ygravity', color='green')
