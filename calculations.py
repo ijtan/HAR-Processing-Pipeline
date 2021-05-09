@@ -64,18 +64,31 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
         
     
 
-def showGraph(oneWindow,plot=False):
-    XA = oneWindow['tAcc-X']
-    YA = oneWindow['tAcc-Y']
-    ZA = oneWindow['tAcc-Z']
+def showGraph(window):
+    # XA = oneWindow['tAcc-X']
+    # YA = oneWindow['tAcc-Y']
+    # ZA = oneWindow['tAcc-Z']
 
-    time = [1/float(50) * i for i in range(len(oneWindow))]
-    plt.plot(time, XA, label='XA',color='red')
-    plt.plot(time, YA, label='YA',color='green')
-    plt.plot(time, ZA, label='ZA', color='blue')
+    # time = [1/float(50) * i for i in range(len(oneWindow))]
+    # plt.plot(time, XA, label='XA',color='red')
+    # plt.plot(time, YA, label='YA',color='green')
+    # plt.plot(time, ZA, label='ZA', color='blue')
+    time = [1/float(50) * i for i in range(len(window))]
+    # if plot and 'driv' not in window['label'][0].lower():
+                # print(window.head())
+    # showGraph(window)
+
+    plt.plot(time, window['tGravityAcc-X'],label='xgravity', color='red')
+    plt.plot(time, window['tGravityAcc-Y'], label='ygravity', color='green')
+    plt.plot(time, window['tGravityAcc-Z'], label='zgravity', color='blue')
     
-    if plot:
-        plt.show()
+    plt.plot(time, window['tBodyAcc-X'], label='xlin', color='yellow')
+    plt.plot(time, window['tBodyAcc-Y'], label='ylin', color='brown')
+    plt.plot(time, window['tBodyAcc-Z'], label='zlin', color='pink')
+
+    plt.title(window['label'][0])
+
+    plt.show()
         
 
 
@@ -114,11 +127,11 @@ def applyFFT(signal):
     signal = np.asarray(signal)
     return np.abs(fft(signal))
 
-def applyPreFilters(data,plot=False):
+def applyPreFilters(data):
     # windowed = [{'A':list(data.values())[600]}]
     for activity, windowed in data.items():        
         for window in tqdm(windowed, desc=f'Pre Filtering {activity}'):
-            time = [1/float(50) * i for i in range(len(window))]
+            
 
             # newcols = []
 
@@ -166,31 +179,15 @@ def applyPreFilters(data,plot=False):
             
             window['fBodyGyro-X']       =   applyFFT(window['tBodyGyro-X']      )
             window['fBodyGyro-Y']       =   applyFFT(window['tBodyGyro-Y']      )
-            window['fBodyGyro-Z']       =   applyFFT(window['tBodyGyro-Z']      )
-
 
             
-
-            if plot:
-                # print(window.head())
-
-                plt.plot(time, window['tGravityAcc-X'],label='xgravity', color='red')
-                plt.plot(time, window['tGravityAcc-Y'], label='ygravity', color='green')
-                plt.plot(time, window['tGravityAcc-Z'], label='zgravity', color='blue')
-                
-                plt.plot(time, window['tBodyAcc-X'], label='xlin', color='yellow')
-                plt.plot(time, window['tBodyAcc-Y'], label='ylin', color='brown')
-                plt.plot(time, window['tBodyAcc-Z'], label='zlin', color='pink')
-
-                plt.title(window['label'][0])
-
-                plt.show()
 
     
 
 def get_data():
-    if os.path.isfile('interm.pkl'):
-        with open('interm.pkl', 'rb') as f:
+    path = os.path.join('intermediaries','interm.pkl')
+    if os.path.isfile(path):
+        with open(path, 'rb') as f:
             data = pickle.load(f)
         # return data
     else:
@@ -200,7 +197,7 @@ def get_data():
             print('Sliding over:',key)
             for stime, window in slidingWindow(val).items():
                 data[key].append(window)
-        with open('interm.pkl', 'wb') as f:
+        with open(path, 'wb') as f:
             pickle.dump(data, f,  protocol=pickle.HIGHEST_PROTOCOL)
 
     pandasedData = {}
@@ -214,9 +211,17 @@ def get_data():
     return pandasedData
 
 
-def getPreFilteredData(plot=False):
+def getPreFilteredData():
+    path = os.path.join('intermediaries','filt_interm.pkl')
+    if os.path.isfile(path):
+        with open(path, 'rb') as f:
+            return pickle.load(f)
+
+
     data = get_data()
-    applyPreFilters(data,plot=plot)
+    applyPreFilters(data)
+    with open(path, 'wb') as f:
+            pickle.dump(data,f,  protocol=pickle.HIGHEST_PROTOCOL)
     return data
 
 if __name__ == '__main__':
@@ -224,9 +229,9 @@ if __name__ == '__main__':
     data = getPreFilteredData()
     print(data[list(data.keys())[0]][0].head())
     print(list(data[list(data.keys())[0]][0].columns))
-    # print(len(list(data[0].columns)))
 
-    getPreFilteredData(plot=True)
-
-    # print(getPreFilteredData()[0])
-
+    for activity, windows in data.items():
+        # if 'driv' in activity.lower():
+        #     continue
+        for window in windows:
+            showGraph(window)
