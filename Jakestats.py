@@ -12,7 +12,6 @@ def sma(mag_column):
     array=np.array(mag_column)
     return float(abs(array).sum()) #signal magnitude area of one mag column
 
-# energy
 def energy(mag_column):
     array=np.array(mag_column)
     return float((array**2).sum()) # energy of the mag signal
@@ -21,10 +20,7 @@ def energy(mag_column):
 def arCoeff(mag_column):
     
     array = np.array(mag_column)
-    
-    AR_vector= list(_arburg2(array,4)[0][1:].real) # AR1, AR2, AR3, AR4 of the mag column
-    #print(AR_vector)
-    return AR_vector
+    return list(_arburg2(array,4)[0][1:].real) # AR1, AR2, AR3, AR4 of the mag column
 
 data = calculations.getPreFilteredData()
 
@@ -55,6 +51,8 @@ for window in data:
         feature_dict[iqrcol].append(sma(signalvals))
         enercol = column + "-energy()"
         feature_dict[iqrcol].append(energy(signalvals))
+        #arcocol = column + "-arCoeff()"
+        #feature_dict[arcocol].append(arCoeff(signalvals))
         
     feature_vector = feature_vector.append(feature_dict, ignore_index = True)
 
