@@ -231,7 +231,7 @@ if __name__ == '__main__':
     print(list(data[list(data.keys())[0]][0].columns))
 
     for activity, windows in data.items():
-        if 'driv' in activity.lower():
-            continue
+        # if 'driv' in activity.lower():
+        #     continue
         for window in windows:
             showGraph(window)
