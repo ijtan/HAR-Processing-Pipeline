@@ -22,7 +22,11 @@ def arCoeff(mag_column):
     array = np.array(mag_column)
     return list(_arburg2(array,4)[0][1:].real) # AR1, AR2, AR3, AR4 of the mag column
 
-data = calculations.getPreFilteredData()
+filtered = calculations.getPreFilteredData()
+data = []
+for activity,windows in filtered:
+    data.extend(windows)
+
 
 print(data[0])
 
