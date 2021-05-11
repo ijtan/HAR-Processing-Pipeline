@@ -34,9 +34,8 @@ feature_vector = pd.DataFrame()
 
 for window in data:
     feature_dict = defaultdict(list)
-    collist = list(window.keys())[2:]
+    collist = list(window.keys())[2:] #Ignores the time and label columns
     for column in collist:
-    #for column, signalvals in window.items():
         signalvals = window[column]
         meancol = column + "-mean()"
         feature_dict[meancol].append(statistics.mean(signalvals))
@@ -47,7 +46,7 @@ for window in data:
         stdcol = column + "-std()"
         feature_dict[stdcol].append(statistics.stdev(signalvals))
         entcol = column + "-entropy()"
-        feature_dict[entcol].append(scipy.stats.entropy(signalvals))
+        feature_dict[entcol].append(scipy.stats.entropy(abs(signalvals)))
         madcol = column + "-mad()"
         feature_dict[madcol].append(scipy.stats.median_abs_deviation(signalvals))
         iqrcol = column + "-iqr()"
@@ -56,7 +55,7 @@ for window in data:
         feature_dict[enercol].append(energy(signalvals))
         if "Mag" in column:
             smacol = column[:-3] + "-sma()" #Removes last 2 characters
-            smaval = sma(signalvals) / 128
+            smaval = sma(signalvals) / len(signalvals)
             #if column[0] == "t": #For time domain
             #smaval1 = float(abs(signalvals).sum())
             #elif column[0] == "f": #For frequency domain
@@ -65,8 +64,6 @@ for window in data:
 
         #arcocol = column + "-arCoeff()"
         #feature_dict[arcocol].append(arCoeff(signalvals))
-    
-    #feature_dict[smacol].append(sma(signalvals))
         
     feature_vector = feature_vector.append(feature_dict, ignore_index = True)
 
