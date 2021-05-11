@@ -4,6 +4,8 @@ from collections import defaultdict
 
 import pandas as pd, numpy as np
 
+import scipy
+
 import scipy.stats
 
 import calculations
@@ -27,10 +29,9 @@ data = []
 for activity, windows in filtered.items():
     data.extend(windows)
 
-
-print(data[0])
-
 feature_vector = pd.DataFrame()
+
+sample_frequencies = scipy.fft.fftfreq(128, d=0.02)
 
 for window in data:
     feature_dict = defaultdict(list)
@@ -56,11 +57,11 @@ for window in data:
         if "Mag" in column:
             smacol = column[:-3] + "-sma()" #Removes last 2 characters
             smaval = sma(signalvals) / len(signalvals)
-            #if column[0] == "t": #For time domain
-            #smaval1 = float(abs(signalvals).sum())
-            #elif column[0] == "f": #For frequency domain
-            #smaval2 = float((abs(signalvals)/math.sqrt(len(column))).sum())
             feature_dict[smacol] = smaval
+        if column[0] == "f": #For frequency domain
+            maxindscol = column + "-maxInds"
+            maxinds = sample_frequencies[signalvals.argmax()+1]
+            feature_dict[maxindscol] = maxinds
 
         #arcocol = column + "-arCoeff()"
         #feature_dict[arcocol].append(arCoeff(signalvals))
