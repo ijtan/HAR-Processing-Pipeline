@@ -60,11 +60,17 @@ for window in data:
             feature_dict[smacol] = smaval
         if column[0] == "f": #For frequency domain
             maxindscol = column + "-maxInds"
-            maxinds = sample_frequencies[signalvals.argmax()+1]
-            feature_dict[maxindscol] = maxinds
+            feature_dict[maxindscol] = sample_frequencies[signalvals.argmax()+1]
+            skewcol = column + "-skewness"
+            feature_dict[skewcol] = scipy.stats.skew(signalvals)
+            kurtosiscol = column + "-kurtosis"
+            feature_dict[kurtosiscol] = scipy.stats.kurtosis(signalvals)
+        if column[0] == "t":
+            for i in range(1, 5):
+                print(i)
+            #arcocol = column + "-arCoeff()"
+            #feature_dict[arcocol].append(arCoeff(signalvals))
 
-        #arcocol = column + "-arCoeff()"
-        #feature_dict[arcocol].append(arCoeff(signalvals))
         
     feature_vector = feature_vector.append(feature_dict, ignore_index = True)
 
