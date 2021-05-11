@@ -1,4 +1,4 @@
-import statistics
+import statistics, math
 
 from collections import defaultdict
 
@@ -24,7 +24,7 @@ def arCoeff(mag_column):
 
 filtered = calculations.getPreFilteredData()
 data = []
-for activity,windows in filtered:
+for activity, windows in filtered.items():
     data.extend(windows)
 
 
@@ -34,9 +34,10 @@ feature_vector = pd.DataFrame()
 
 for window in data:
     feature_dict = defaultdict(list)
-    for column, signalvals in window.items():
-        if column == "time" or column == "label":
-            continue
+    collist = list(window.keys())[2:]
+    for column in collist:
+    #for column, signalvals in window.items():
+        signalvals = window[column]
         meancol = column + "-mean()"
         feature_dict[meancol].append(statistics.mean(signalvals))
         mincol = column + "-min()"
@@ -51,12 +52,21 @@ for window in data:
         feature_dict[madcol].append(scipy.stats.median_abs_deviation(signalvals))
         iqrcol = column + "-iqr()"
         feature_dict[iqrcol].append(scipy.stats.iqr(signalvals))
-        smacol = column + "-sma()"
-        feature_dict[iqrcol].append(sma(signalvals))
         enercol = column + "-energy()"
-        feature_dict[iqrcol].append(energy(signalvals))
+        feature_dict[enercol].append(energy(signalvals))
+        if "Mag" in column:
+            smacol = column[:-3] + "-sma()" #Removes last 2 characters
+            smaval = sma(signalvals) / 128
+            #if column[0] == "t": #For time domain
+            #smaval1 = float(abs(signalvals).sum())
+            #elif column[0] == "f": #For frequency domain
+            #smaval2 = float((abs(signalvals)/math.sqrt(len(column))).sum())
+            feature_dict[smacol] = smaval
+
         #arcocol = column + "-arCoeff()"
         #feature_dict[arcocol].append(arCoeff(signalvals))
+    
+    #feature_dict[smacol].append(sma(signalvals))
         
     feature_vector = feature_vector.append(feature_dict, ignore_index = True)
 
