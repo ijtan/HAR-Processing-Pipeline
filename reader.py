@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 last_folder = ""
 session_entries = {}
-def read_all(path, entries,start_trim=1,end_trim=1,sample_rate=50):
+def read_all(path, entries,start_trim=2,end_trim=2,sample_rate=50):
     global last_folder
     global session_entries
 
@@ -155,6 +155,10 @@ def getData():
             newlabel = 'LAYING'
         elif 'drop' in oldlabel:
             newlabel = 'DROPPING'
+        elif 'run' in oldlabel:
+            newlabel = 'RUNNING'
+        # elif 'other' in oldlabel:
+        #     newlabel = 'OTHER'
         else:
             continue
 
