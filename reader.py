@@ -5,7 +5,10 @@ import numpy as np
 from tqdm import tqdm
 
 
-def read_all(path, entries):
+def read_all(path, entries,start_trim=1,end_trim=1,sample_rate=50):
+    last_folder=""
+    session_entries = {}
+
     for log in pathlib.Path(path).iterdir():
         
 
@@ -17,26 +20,75 @@ def read_all(path, entries):
         if '.json' not in str(log):
             print('not a json; skipping...')
             continue
+        
+        start_cut = (sample_rate)*start_trim
+        end_cut = (sample_rate)*end_trim
+
+
 
         if 'closing' in str(log):
-            continue
+            log = str(log).replace
 
 
         label = str(path).split('DATA_')[-1].split('_SESSION')[0]
         
-        first =""
+        # first =""
         with open(log, 'r', encoding="utf8") as f:
             file = json.load(f)
-            for f in file:
-                f.update({'lbl': label})
-            if 'ACC' in str(log) or '_a' in str(log):
 
-                entries['acc'].extend(file)
-            elif 'GYR' in str(log) or '_g' in str(log):
-                entries['gyr'].extend(file)
-            else:
-                ValueError('other file found!')
-            # print(file[0])
+        for f in file:
+            f.update({'lbl': label})
+
+
+        sep = '/'
+        if '\\' in str(log):
+            sep = '\\'
+        curr_folder = str(log).split(sep)[-2]
+
+        if curr_folder != last_folder:            
+            # if 'ACC' in str(log) or '_a' in str(log):
+            #     session_entries['acc'].extend(file)
+
+            # elif 'GYR' in str(log) or '_g' in str(log):
+            #     session_entries['gyr'].extend(file)
+
+        # else:
+            
+            session_entries['acc'] = sorted(session_entries['acc'], key=lambda item: item['time'])
+            session_entries['gyr'] = sorted(session_entries['gyr'], key=lambda item: item['time'])
+
+            session_entries['acc'] = session_entries['acc'][start_cut:end_cut]
+            session_entries['gyr'] = session_entries['gyr'][start_cut:end_cut]
+
+            entries['acc'].extend(session_entries['acc'])
+            entries['gyr'].extend(session_entries['gyr'])
+
+            session_entries['acc'] = []
+            session_entries['gyr'] = []
+
+        if 'ACC' in str(log) or '_a' in str(log):
+            session_entries['acc'].extend(file)
+
+        elif 'GYR' in str(log) or '_g' in str(log):
+            session_entries['gyr'].extend(file)
+
+        last_folder = curr_folder
+            # for s in session_entries:
+
+                # if 'ACC' in str(log) or '_a' in str(log):
+                #     entries['gyr'].extend(file)
+                # elif 'GYR' in str(log) or '_g' in str(log):
+                #     entries['gyr'].extend(file)
+                # else:
+                #     ValueError('other file found!')
+
+        
+        
+
+
+        
+        
+
 
 
 def lenDiff(raw_entries):
