@@ -26,14 +26,8 @@ def read_all(path, entries,start_trim=1,end_trim=1,sample_rate=50):
         end_cut = (sample_rate)*end_trim
 
 
-
-        # if 'closing' in str(log):
-        #     log = str(log).replace
-
-
         label = str(path).split('DATA_')[-1].split('_SESSION')[0]
-        
-        # first =""
+
         with open(log, 'r', encoding="utf8") as f:
             file = json.load(f)
 
@@ -47,13 +41,7 @@ def read_all(path, entries,start_trim=1,end_trim=1,sample_rate=50):
         curr_folder = str(log).split(sep)[-2]
 
         if curr_folder != last_folder:            
-            # if 'ACC' in str(log) or '_a' in str(log):
-            #     session_entries['acc'].extend(file)
 
-            # elif 'GYR' in str(log) or '_g' in str(log):
-            #     session_entries['gyr'].extend(file)
-
-        # else:
             if last_folder != "":
             
             
@@ -76,23 +64,6 @@ def read_all(path, entries,start_trim=1,end_trim=1,sample_rate=50):
             session_entries['gyr'].extend(file)
 
         last_folder = curr_folder
-            # for s in session_entries:
-
-                # if 'ACC' in str(log) or '_a' in str(log):
-                #     entries['gyr'].extend(file)
-                # elif 'GYR' in str(log) or '_g' in str(log):
-                #     entries['gyr'].extend(file)
-                # else:
-                #     ValueError('other file found!')
-
-        
-        
-
-
-        
-        
-
-
 
 def lenDiff(raw_entries):
     count = 0
