@@ -39,21 +39,21 @@ for window in data:
     for column in collist:
         signalvals = window[column]
         meancol = column + "-mean()"
-        feature_dict[meancol].append(statistics.mean(signalvals))
+        feature_dict[meancol] = (statistics.mean(signalvals))
         mincol = column + "-min()"
-        feature_dict[mincol].append(min(signalvals))
+        feature_dict[mincol] = (min(signalvals))
         maxcol = column + "-max()"
-        feature_dict[maxcol].append(max(signalvals))
+        feature_dict[maxcol] = (max(signalvals))
         stdcol = column + "-std()"
-        feature_dict[stdcol].append(statistics.stdev(signalvals))
+        feature_dict[stdcol] = statistics.stdev(signalvals)
         entcol = column + "-entropy()"
-        feature_dict[entcol].append(scipy.stats.entropy(abs(signalvals)))
+        feature_dict[entcol] = scipy.stats.entropy(abs(signalvals))
         madcol = column + "-mad()"
-        feature_dict[madcol].append(scipy.stats.median_abs_deviation(signalvals))
+        feature_dict[madcol] = scipy.stats.median_abs_deviation(signalvals)
         iqrcol = column + "-iqr()"
-        feature_dict[iqrcol].append(scipy.stats.iqr(signalvals))
+        feature_dict[iqrcol] = scipy.stats.iqr(signalvals)
         enercol = column + "-energy()"
-        feature_dict[enercol].append(energy(signalvals))
+        feature_dict[enercol] = energy(signalvals)
         if "Mag" in column:
             smacol = column[:-3] + "-sma()" #Removes last 2 characters
             smaval = sma(signalvals) / len(signalvals)
@@ -69,11 +69,11 @@ for window in data:
             #for i in range(1, 5):
                 #print(i)
             #arcocol = column + "-arCoeff()"
-            #feature_dict[arcocol].append(arCoeff(signalvals))
+            #feature_dict[arcocol] = arCoeff(signalvals)
     feature_dict["Label"] = window["label"].mode()[0]
 
     feature_vector = feature_vector.append(feature_dict, ignore_index = True)
 
-feature_vector.to_csv('ourdata.csv') #Saves it to a csv file
+feature_vector.to_csv('all data.csv') #Saves it to a csv file
 
 print("")
