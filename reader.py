@@ -4,12 +4,13 @@ import pathlib
 import numpy as np
 from tqdm import tqdm
 
-
+last_folder = ""
+session_entries = {}
 def read_all(path, entries,start_trim=1,end_trim=1,sample_rate=50):
-    last_folder=""
-    session_entries = {}
+    global last_folder
+    global session_entries
 
-    for log in pathlib.Path(path).iterdir():
+    for log in tqdm(pathlib.Path(path).iterdir(),desc="Reading"):
         
 
         if not log.is_file():
@@ -26,8 +27,8 @@ def read_all(path, entries,start_trim=1,end_trim=1,sample_rate=50):
 
 
 
-        if 'closing' in str(log):
-            log = str(log).replace
+        # if 'closing' in str(log):
+        #     log = str(log).replace
 
 
         label = str(path).split('DATA_')[-1].split('_SESSION')[0]
@@ -53,15 +54,17 @@ def read_all(path, entries,start_trim=1,end_trim=1,sample_rate=50):
             #     session_entries['gyr'].extend(file)
 
         # else:
+            if last_folder != "":
             
-            session_entries['acc'] = sorted(session_entries['acc'], key=lambda item: item['time'])
-            session_entries['gyr'] = sorted(session_entries['gyr'], key=lambda item: item['time'])
+            
+                session_entries['acc'] = sorted(session_entries['acc'], key=lambda item: item['time'])
+                session_entries['gyr'] = sorted(session_entries['gyr'], key=lambda item: item['time'])
 
-            session_entries['acc'] = session_entries['acc'][start_cut:end_cut]
-            session_entries['gyr'] = session_entries['gyr'][start_cut:end_cut]
+                session_entries['acc'] = session_entries['acc'][start_cut:-end_cut]
+                session_entries['gyr'] = session_entries['gyr'][start_cut:-end_cut]
 
-            entries['acc'].extend(session_entries['acc'])
-            entries['gyr'].extend(session_entries['gyr'])
+                entries['acc'].extend(session_entries['acc'])
+                entries['gyr'].extend(session_entries['gyr'])
 
             session_entries['acc'] = []
             session_entries['gyr'] = []
