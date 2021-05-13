@@ -74,6 +74,6 @@ for window in data:
 
     feature_vector = feature_vector.append(feature_dict, ignore_index = True)
 
-feature_vector.to_csv('all data.csv') #Saves it to a csv file
+feature_vector.to_csv('all data.csv', index = False) #Saves it to a csv file
 
 print("")
