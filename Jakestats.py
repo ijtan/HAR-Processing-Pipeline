@@ -65,14 +65,15 @@ for window in data:
             feature_dict[skewcol] = scipy.stats.skew(signalvals)
             kurtosiscol = column + "-kurtosis"
             feature_dict[kurtosiscol] = scipy.stats.kurtosis(signalvals)
-        if column[0] == "t":
-            for i in range(1, 5):
-                print(i)
+        #if column[0] == "t":
+            #for i in range(1, 5):
+                #print(i)
             #arcocol = column + "-arCoeff()"
             #feature_dict[arcocol].append(arCoeff(signalvals))
+    feature_dict["Label"] = window["label"].mode()[0]
 
-        
     feature_vector = feature_vector.append(feature_dict, ignore_index = True)
 
+feature_vector.to_csv('ourdata.csv') #Saves it to a csv file
 
 print("")
