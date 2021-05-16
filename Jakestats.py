@@ -9,6 +9,7 @@ import scipy
 import scipy.stats
 
 import calculations
+from tqdm import tqdm
 
 def sma(mag_column):
     array=np.array(mag_column)
@@ -71,7 +72,7 @@ for activity, windows in filtered.items():
 
 feature_vector = pd.DataFrame()
 
-for window in data:
+for window in tqdm(data,desc="Feature Extraction"):
     feature_dict = defaultdict(list)
     collist = list(window.keys())[2:] #Ignores the time and label columns
     sample_frequencies = scipy.fft.fftfreq(len(window), d=0.02) #Changed it to length of window so meanFreq can be computed

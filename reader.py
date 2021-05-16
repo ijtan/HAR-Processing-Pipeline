@@ -10,7 +10,7 @@ def read_all(path, entries,start_trim=2,end_trim=2,sample_rate=50):
     global last_folder
     global session_entries
 
-    for log in tqdm(pathlib.Path(path).iterdir(),desc="Reading"):
+    for log in pathlib.Path(path).iterdir():
         
 
         if not log.is_file():
@@ -70,16 +70,20 @@ def read_all(path, entries,start_trim=2,end_trim=2,sample_rate=50):
 
 def lenDiff(raw_entries):
     count = 0
+    countM = 0
 
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
         if abs(acc['time']-gyr['time']) > 0:            
             count += 1
-
         if abs(acc['time']-gyr['time']) > 10:
-            print(f'out of sync file found: {acc["folder_name"]}')
+            countM += 1
+
+        # if abs(acc['time']-gyr['time']) > 10:
+            # print(f'out of sync file found: {acc["folder_name"]}')
 
     print(f'\n{count} items out of sync')
+    print(f'\n{countM} items out of sync by atleast 10')
     return count
 
 
@@ -90,11 +94,14 @@ def sync2(logs, x=4, avg_diff=17):
         while abs(sum([a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])])/x) >= avg_diff:
             lastx = [a['time']-g['time'] for a, g in zip(logs['acc'][ac:ac+x], logs['gyr'][ac:ac+x])]
             avg = sum(lastx)/x
-            
+            # print(f'len before: {len(logs["gyr"])}')
             if avg >= avg_diff:
+                # print(f'len before: {len(logs["gyr"])}')
                 del logs['gyr'][ac]
+                # print(f'len after: {len(logs["gyr"])}')
             elif avg <= -avg_diff:
                 del logs['acc'][ac]
+            # print(f'len before: {len(logs["gyr"]}')
 
 
 
@@ -119,13 +126,15 @@ def getRaw():
         last = new
         new =  lenDiff(raw_entries)
     count=0
-    for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
+    print(f'len before: {len(raw_entries["acc"])}')
+    for (ak,acc), (gk,gyr) in zip(enumerate(raw_entries['acc']), enumerate(raw_entries['gyr'])):
         # print('removing', raw_entries['acc'].index(acc))
         if abs(acc['time']-gyr['time']) > 0:
             count+=1
-            raw_entries['acc'].remove(acc)
-            raw_entries['gyr'].remove(gyr)
-            print(f'deleting major out of sync entry found in: {acc["folder_name"]}')
+            del raw_entries['acc'][ak]
+            del raw_entries['gyr'][gk]
+            # print(f'deleting major out of sync entry found in: {acc["folder_name"]}')
+    print(f'len before: {len(raw_entries["acc"])}')
     print(f'removed {count} entries')
 
         
