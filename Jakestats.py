@@ -106,7 +106,10 @@ for window in tqdm(data,desc="Feature Extraction"):
             kurtosiscol = column + "-kurtosis"
             feature_dict[kurtosiscol] = scipy.stats.kurtosis(signalvals)
             meanfreqcol = column + "-meanFreq"
-            feature_dict[meanfreqcol] = np.average(signalvals, axis=0, weights=sample_frequencies)
+            sample_frequencies = np.absolute(sample_frequencies)
+            feature_dict[meanfreqcol] = np.ma.average(signalvals, axis=0, weights=sample_frequencies)
+            if math.isinf(feature_dict[meanfreqcol]):
+                print("Meanfreq is inf for window size", len(window))
 
         #bandssingledf = [window['fBodyAcc-X'], window['fBodyAcc-Y'], window['fBodyAcc-Z']]
         #bandsenergy = bands_energy(bandssingledf)
