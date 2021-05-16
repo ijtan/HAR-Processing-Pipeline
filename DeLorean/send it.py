@@ -23,7 +23,17 @@ def read_all(path, entries):
         for entry in file:
             entry['time'] += 86400000
 
-        with open(str(log).split('.')[-2]+'-shifted.json', 'w', encoding="utf8") as f:
+        newlog = str(log).split('.')[-2]+'-shifted.json'
+        newlog = newlog.replace('DATA_','SHIFTED_DATA_')
+        # print('newlog:',newlog)
+        
+        dirToCheck = newlog.replace('\\'+newlog.split('\\')[-1],'')
+        # print('tocheck: ',dirToCheck)
+
+        if not os.path.exists(dirToCheck):
+            os.mkdir(dirToCheck)
+
+        with open(newlog, 'w', encoding="utf8") as f:
             json.dump(file,f)
 
 
