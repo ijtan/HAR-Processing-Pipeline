@@ -73,9 +73,11 @@ def lenDiff(raw_entries):
 
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
-        if abs(acc['time']-gyr['time']) > 0:
-            print(f'out of sync file found: {acc["folder_name"]}')
+        if abs(acc['time']-gyr['time']) > 0:            
             count += 1
+
+        if abs(acc['time']-gyr['time']) > 10:
+            print(f'out of sync file found: {acc["folder_name"]}')
 
     print(f'\n{count} items out of sync')
     return count
