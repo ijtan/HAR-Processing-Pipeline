@@ -31,11 +31,11 @@ for activity, windows in filtered.items():
 
 feature_vector = pd.DataFrame()
 
-sample_frequencies = scipy.fft.fftfreq(128, d=0.02)
 
 for window in data:
     feature_dict = defaultdict(list)
     collist = list(window.keys())[2:] #Ignores the time and label columns
+    sample_frequencies = scipy.fft.fftfreq(len(window), d=0.02) #Changed it to length of window so meanFreq can be computed
     for column in collist:
         signalvals = window[column]
         meancol = column + "-mean()"
@@ -65,6 +65,11 @@ for window in data:
             feature_dict[skewcol] = scipy.stats.skew(signalvals)
             kurtosiscol = column + "-kurtosis"
             feature_dict[kurtosiscol] = scipy.stats.kurtosis(signalvals)
+            meanfreqcol = column + "-meanFreq"
+            othermeanfreq = np.average(signalvals, axis=0, weights=sample_frequencies) / float(signalvals.sum())
+            feature_dict[meanfreqcol] = np.dot(sample_frequencies, signalvals).sum() / float(signalvals.sum()) #Very small values
+
+
         #if column[0] == "t":
         #    for i in range(1, 5):
         #        print(i)
