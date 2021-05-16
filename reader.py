@@ -10,7 +10,7 @@ def read_all(path, entries,start_trim=2,end_trim=2,sample_rate=50):
     global last_folder
     global session_entries
 
-    for log in tqdm(pathlib.Path(path).iterdir(),desc="Reading"):
+    for log in pathlib.Path(path).iterdir():
         
 
         if not log.is_file():
