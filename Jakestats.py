@@ -14,15 +14,36 @@ def sma(mag_column):
     array=np.array(mag_column)
     return float(abs(array).sum()) #signal magnitude area of one mag column
 
-def energy(mag_column):
-    array=np.array(mag_column)
-    return float((array**2).sum()) # energy of the mag signal
+def energy(column):
+    array=np.array(column)
+    return float((array**2).sum()) # energy of the signal
 
 # arburg: auto regression coefficients using the burg method
 def arCoeff(mag_column):
     
     array = np.array(mag_column)
     return list(_arburg2(array,4)[0][1:].real) # AR1, AR2, AR3, AR4 of the mag column
+
+def f_one_band_energy(signal, band):
+    f_signal_bounded = signal[band[0]:band[1]] # select f_signal components included in the band
+    energy_value = energy(f_signal_bounded) / float(len(f_signal_bounded)) # energy value of that band
+    return energy_value
+
+def bands_energy(signal):
+    energy_band_1 = [(1,9),(9,17),(17,25),(25,33),(33,41),(41,49),(49,57),(57,65)] 
+    energy_band_2 = [(1,17),(17,31),(31,49),(49,65)]
+    energy_band_3 = [(1,25),(25,49)]
+
+    total_axis = []
+    signal = np.array(signal)
+    for i in range(0,3):
+        E1=[ f_one_band_energy( signal,( energy_band_1 [j][0], energy_band_1 [j][1]) ) for j in range(len(energy_band_1))] # energy bands1 values of f_signal
+        E2=[ f_one_band_energy( signal,( energy_band_2 [j][0], energy_band_2 [j][1]) ) for j in range(len(energy_band_2))]# energy bands2 values of f_signal
+        E3=[ f_one_band_energy( signal,( energy_band_3 [j][0], energy_band_3 [j][1]) ) for j in range(len(energy_band_3))]# energy bands3 values of f_signal
+        malla = E1+E2+E3
+
+        total_axis += malla
+        print("")
 
 filtered = calculations.getPreFilteredData()
 data = []
@@ -68,6 +89,8 @@ for window in data:
             meanfreqcol = column + "-meanFreq"
             feature_dict[meanfreqcol] = np.average(signalvals, axis=0, weights=sample_frequencies)
 
+        #bandssingledf = [window['fBodyAcc-X'], window['fBodyAcc-Y'], window['fBodyAcc-Z']]
+        #bandsenergy = bands_energy(bandssingledf)
 
         #if column[0] == "t":
         #    for i in range(1, 5):
