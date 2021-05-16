@@ -66,8 +66,7 @@ for window in data:
             kurtosiscol = column + "-kurtosis"
             feature_dict[kurtosiscol] = scipy.stats.kurtosis(signalvals)
             meanfreqcol = column + "-meanFreq"
-            othermeanfreq = np.average(signalvals, axis=0, weights=sample_frequencies) / float(signalvals.sum())
-            feature_dict[meanfreqcol] = np.dot(sample_frequencies, signalvals).sum() / float(signalvals.sum()) #Very small values
+            feature_dict[meanfreqcol] = np.average(signalvals, axis=0, weights=sample_frequencies)
 
 
         #if column[0] == "t":
