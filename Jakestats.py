@@ -66,11 +66,33 @@ for window in data:
             kurtosiscol = column + "-kurtosis"
             feature_dict[kurtosiscol] = scipy.stats.kurtosis(signalvals)
         #if column[0] == "t":
-            #for i in range(1, 5):
-                #print(i)
-            #arcocol = column + "-arCoeff()"
-            #feature_dict[arcocol] = arCoeff(signalvals)
-    feature_dict["Label"] = window["label"].mode()[0]
+        #    for i in range(1, 5):
+        #        print(i)
+        #    arcocol = column + "-arCoeff()"
+        #    feature_dict[arcocol] = arCoeff(signalvals)
+    #vector1 = window['', '', '']
+
+    feature_dict['tBodyAcc-correlation-XY'] = float(scipy.stats.pearsonr(window['tBodyAcc-X'], window['tBodyAcc-Y'])[0])
+    feature_dict['tBodyAcc-correlation-XZ'] = float(scipy.stats.pearsonr(window['tBodyAcc-X'], window['tBodyAcc-Z'])[0])
+    feature_dict['tBodyAcc-correlation-YZ'] = float(scipy.stats.pearsonr(window['tBodyAcc-Y'], window['tBodyAcc-Z'])[0])
+
+    feature_dict['tGravityAcc-correlation-XY'] = float(scipy.stats.pearsonr(window['tGravityAcc-X'], window['tGravityAcc-Y'])[0])
+    feature_dict['tGravityAcc-correlation-XZ'] = float(scipy.stats.pearsonr(window['tGravityAcc-X'], window['tGravityAcc-Z'])[0])
+    feature_dict['tGravityAcc-correlation-YZ'] = float(scipy.stats.pearsonr(window['tGravityAcc-Y'], window['tGravityAcc-Z'])[0])
+
+    feature_dict['tBodyAccJerk-correlation-XY'] = float(scipy.stats.pearsonr(window['tBodyAccJerk-X'], window['tBodyAccJerk-Y'])[0])
+    feature_dict['tBodyAccJerk-correlation-XZ'] = float(scipy.stats.pearsonr(window['tBodyAccJerk-X'], window['tBodyAccJerk-Z'])[0])
+    feature_dict['tBodyAccJerk-correlation-YZ'] = float(scipy.stats.pearsonr(window['tBodyAccJerk-Y'], window['tBodyAccJerk-Z'])[0])
+
+    feature_dict['tBodyGyro-correlation-XY'] = float(scipy.stats.pearsonr(window['tBodyGyro-X'], window['tBodyGyro-Y'])[0])
+    feature_dict['tBodyGyro-correlation-XZ'] = float(scipy.stats.pearsonr(window['tBodyGyro-X'], window['tBodyGyro-Z'])[0])
+    feature_dict['tBodyGyro-correlation-YZ'] = float(scipy.stats.pearsonr(window['tBodyGyro-Y'], window['tBodyGyro-Z'])[0])
+
+    feature_dict['tBodyGyroJerk-correlation-XY'] = float(scipy.stats.pearsonr(window['tBodyGyroJerk-X'], window['tBodyGyroJerk-Y'])[0])
+    feature_dict['tBodyGyroJerk-correlation-XZ'] = float(scipy.stats.pearsonr(window['tBodyGyroJerk-X'], window['tBodyGyroJerk-Z'])[0])
+    feature_dict['tBodyGyroJerk-correlation-YZ'] = float(scipy.stats.pearsonr(window['tBodyGyroJerk-Y'], window['tBodyGyroJerk-Z'])[0])
+
+    feature_dict["Label"] = window["label"].mode()[0] #Activity Label
 
     feature_vector = feature_vector.append(feature_dict, ignore_index = True)
 
