@@ -125,6 +125,7 @@ def getRaw():
             count+=1
             raw_entries['acc'].remove(acc)
             raw_entries['gyr'].remove(gyr)
+            print(f'deleting major out of sync entry found in: {acc["folder_name"]}')
     print(f'removed {count} entries')
 
         
