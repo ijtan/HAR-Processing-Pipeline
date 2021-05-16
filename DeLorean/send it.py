@@ -23,7 +23,7 @@ def read_all(path, entries):
         for entry in file:
             entry['time'] += 86400000
 
-        with open('zz'+str(log).split('.')[-2]+'-shifted.json', 'w', encoding="utf8") as f:
+        with open(str(log).split('.')[-2]+'-shifted.json', 'w', encoding="utf8") as f:
             json.dump(file,f)
 
 
