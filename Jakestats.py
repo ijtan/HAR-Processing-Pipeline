@@ -45,13 +45,31 @@ def bands_energy(signal):
         total_axis += malla
         print("")
 
+def angle(vector1, vector2):
+    """Calculates angle between 2 vectors"""
+
+    vector1_mag = math.sqrt((vector1**2).sum()) # euclidian norm of V1
+    vector2_mag = math.sqrt((vector2**2).sum()) # euclidian norm of V2
+   
+    scalar_product = np.dot(vector1, vector2) #Scalar product of vector 1 and Vector 2
+    cos_angle = scalar_product/float(vector1_mag*vector2_mag) # the cosine value of the angle between V1 and V2
+    
+    #Using this in case some values were added automatically
+    if cos_angle>1:
+        cos_angle=1
+    elif cos_angle<-1:
+        cos_angle=-1
+    
+    angle_value=float(math.acos(cos_angle))
+
+    return angle_value #Radians
+
 filtered = calculations.getPreFilteredData()
 data = []
 for activity, windows in filtered.items():
     data.extend(windows)
 
 feature_vector = pd.DataFrame()
-
 
 for window in data:
     feature_dict = defaultdict(list)
@@ -118,6 +136,35 @@ for window in data:
     feature_dict['tBodyGyroJerk-correlation-XY'] = float(scipy.stats.pearsonr(window['tBodyGyroJerk-X'], window['tBodyGyroJerk-Y'])[0])
     feature_dict['tBodyGyroJerk-correlation-XZ'] = float(scipy.stats.pearsonr(window['tBodyGyroJerk-X'], window['tBodyGyroJerk-Z'])[0])
     feature_dict['tBodyGyroJerk-correlation-YZ'] = float(scipy.stats.pearsonr(window['tBodyGyroJerk-Y'], window['tBodyGyroJerk-Z'])[0])
+
+    angles = []
+    V2_columns=['tGravityAcc-X','tGravityAcc-Y','tGravityAcc-Z']
+    V2_Vector=np.array(window[V2_columns].mean())
+
+    V1_columns=['tBodyAcc-X','tBodyAcc-Y','tBodyAcc-Z']
+    V1_Vector=np.array(window[V1_columns].mean())
+    feature_dict['angle(tBodyAccMean, gravityMean)'] = angle(V1_Vector, V2_Vector)
+
+    V1_columns=['tBodyAccJerk-X','tBodyAccJerk-Y','tBodyAccJerk-Z']
+    V1_Vector=np.array(window[V1_columns].mean())
+    feature_dict['angle(tBodyAccJerkMean, gravityMean)'] = angle(V1_Vector, V2_Vector)
+
+    V1_columns=['tBodyGyro-X','tBodyGyro-Y','tBodyGyro-Z']
+    V1_Vector=np.array(window[V1_columns].mean())
+    feature_dict['angle(tBodyGyroMean, gravityMean)'] = angle(V1_Vector, V2_Vector)
+
+    V1_columns=['tBodyGyroJerk-X','tBodyGyroJerk-Y','tBodyGyroJerk-Z']
+    V1_Vector=np.array(window[V1_columns].mean())
+    feature_dict['angle(tBodyGyroJerkMean, gravityMean)'] = angle(V1_Vector, V2_Vector)
+
+    V1_Vector=np.array([1,0,0]) #X-Axis
+    feature_dict['angle(X-axis, gravityMean'] = angle(V1_Vector, V2_Vector)
+
+    V1_Vector=np.array([0, 1, 0]) #Y-Axis
+    feature_dict['angle(Y-axis, gravityMean'] = angle(V1_Vector, V2_Vector)
+
+    V1_Vector=np.array([0, 0, 1]) #Z-Axis
+    feature_dict['angle(Z-axis, gravityMean'] = angle(V1_Vector, V2_Vector)
 
     feature_dict["Label"] = window["label"].mode()[0] #Activity Label
 
