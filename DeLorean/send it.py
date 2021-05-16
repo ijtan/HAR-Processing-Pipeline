@@ -25,6 +25,7 @@ def read_all(path, entries):
 
         newlog = str(log).split('.')[-2]+'-shifted.json'
         newlog = newlog.replace('DATA_','SHIFTED_DATA_')
+        newlog = newlog.replace('SHIFT_TIME', 'NEW_FILES')
         # print('newlog:',newlog)
         
         dirToCheck = newlog.replace('\\'+newlog.split('\\')[-1],'')
