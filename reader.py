@@ -27,12 +27,15 @@ def read_all(path, entries,start_trim=2,end_trim=2,sample_rate=50):
 
 
         label = str(path).split('DATA_')[-1].split('_SESSION')[0]
+        folder = str(path)
 
         with open(log, 'r', encoding="utf8") as f:
             file = json.load(f)
 
         for f in file:
             f.update({'lbl': label})
+        for f in file:
+            f.update({'folder_name': folder})
 
 
         sep = '/'
@@ -71,6 +74,7 @@ def lenDiff(raw_entries):
     for acc, gyr in zip(raw_entries['acc'], raw_entries['gyr']):
         # print('iter')
         if abs(acc['time']-gyr['time']) > 0:
+            print(f'out of sync file found: {acc["folder_name"]}')
             count += 1
 
     print(f'\n{count} items out of sync')
