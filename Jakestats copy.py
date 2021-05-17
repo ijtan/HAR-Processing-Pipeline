@@ -8,12 +8,7 @@ import scipy
 
 import scipy.stats
 
-import spectrum #for arCoeff
-
-from statsmodels import regression
-
 import calculations
-from tqdm import tqdm
 
 def sma(mag_column):
     array=np.array(mag_column)
@@ -76,7 +71,7 @@ for activity, windows in filtered.items():
 
 feature_vector = pd.DataFrame()
 
-for window in tqdm(data,desc="Feature Extraction"):
+for window in data:
     feature_dict = defaultdict(list)
     collist = list(window.keys())[2:] #Ignores the time and label columns
     sample_frequencies = scipy.fft.fftfreq(len(window), d=0.02) #Changed it to length of window so meanFreq can be computed
@@ -118,11 +113,12 @@ for window in tqdm(data,desc="Feature Extraction"):
         #bandssingledf = [window['fBodyAcc-X'], window['fBodyAcc-Y'], window['fBodyAcc-Z']]
         #bandsenergy = bands_energy(bandssingledf)
 
-        if column[0] == "t":
-           for i in range(1, 5):
-                arcocol = column + "-arCoeff(), "+str(i)
-                arb1 = regression.linear_model.burg(signalvals, order = i)[0].sum()
-                feature_dict[arcocol] = arb1
+        #if column[0] == "t":
+        #    for i in range(1, 5):
+        #        print(i)
+        #    arcocol = column + "-arCoeff()"
+        #    feature_dict[arcocol] = arCoeff(signalvals)
+    #vector1 = window['', '', '']
 
     feature_dict['tBodyAcc-correlation-XY'] = float(scipy.stats.pearsonr(window['tBodyAcc-X'], window['tBodyAcc-Y'])[0])
     feature_dict['tBodyAcc-correlation-XZ'] = float(scipy.stats.pearsonr(window['tBodyAcc-X'], window['tBodyAcc-Z'])[0])
@@ -144,6 +140,7 @@ for window in tqdm(data,desc="Feature Extraction"):
     feature_dict['tBodyGyroJerk-correlation-XZ'] = float(scipy.stats.pearsonr(window['tBodyGyroJerk-X'], window['tBodyGyroJerk-Z'])[0])
     feature_dict['tBodyGyroJerk-correlation-YZ'] = float(scipy.stats.pearsonr(window['tBodyGyroJerk-Y'], window['tBodyGyroJerk-Z'])[0])
 
+    angles = []
     V2_columns=['tGravityAcc-X','tGravityAcc-Y','tGravityAcc-Z']
     V2_Vector=np.array(window[V2_columns].mean())
 
