@@ -179,6 +179,7 @@ def applyPreFilters(data):
             
             window['fBodyGyro-X']       =   applyFFT(window['tBodyGyro-X']      )
             window['fBodyGyro-Y']       =   applyFFT(window['tBodyGyro-Y']      )
+            window['fBodyGyro-Z']       =   applyFFT(window['tBodyGyro-Z']      )
 
             
 
@@ -230,8 +231,8 @@ if __name__ == '__main__':
     print(data[list(data.keys())[0]][0].head())
     print(list(data[list(data.keys())[0]][0].columns))
 
-    for activity, windows in data.items():
+    #for activity, windows in data.items():
         # if 'driv' in activity.lower():
         #     continue
-        for window in windows:
-            showGraph(window)
+        #for window in windows:
+            #showGraph(window)
