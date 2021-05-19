@@ -155,7 +155,11 @@ def getData():
         oldlabel = acc['lbl'].lower()
         newlabel =''
 
-        if 'up' in oldlabel:
+        if 'push' in oldlabel:
+            newlabel = 'PUSH UP'
+        elif 'swim' in oldlabel:
+            newlabel = 'SWIMMING'
+        elif 'up' in oldlabel:
             newlabel = 'STAIRS UP'
         elif 'down' in oldlabel:
             newlabel = 'STAIRS DN'
@@ -169,12 +173,6 @@ def getData():
             newlabel = 'SITTING'
         elif 'lay' in oldlabel:
             newlabel = 'LAYING'
-        elif 'drop' in oldlabel:
-            newlabel = 'DROPPING'
-        elif 'run' in oldlabel:
-            newlabel = 'RUNNING'
-        # elif 'other' in oldlabel:
-        #     newlabel = 'OTHER'
         else:
             continue
 
