@@ -187,93 +187,93 @@ for window in tqdm(data,desc="Feature Extraction"):
 
     for i in range(len(energy_band_1)):
         energybandcol = 'fBodyAcc-X-band_energy-'+str(energy_band_1[i][0])+","+str(energy_band_1[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAcc-X'], energy_band_1[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAcc-X'], energy_band_1[i])
 
         energybandcol = 'fBodyAcc-Y-band_energy-'+str(energy_band_1[i][0])+","+str(energy_band_1[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAcc-Y'], energy_band_1[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAcc-Y'], energy_band_1[i])
         
         energybandcol = 'fBodyAcc-Z-band_energy-'+str(energy_band_1[i][0])+","+str(energy_band_1[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAcc-Z'], energy_band_1[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAcc-Z'], energy_band_1[i])
 
     for i in range(len(energy_band_2)):
         energybandcol = 'fBodyAcc-X-band_energy-'+str(energy_band_2[i][0])+","+str(energy_band_2[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAcc-X'], energy_band_2[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAcc-X'], energy_band_2[i])
 
         energybandcol = 'fBodyAcc-Y-band_energy-'+str(energy_band_2[i][0])+","+str(energy_band_2[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAcc-Y'], energy_band_2[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAcc-Y'], energy_band_2[i])
         
         energybandcol = 'fBodyAcc-Z-band_energy-'+str(energy_band_2[i][0])+","+str(energy_band_2[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAcc-Z'], energy_band_2[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAcc-Z'], energy_band_2[i])
 
     for i in range(len(energy_band_3)):
         energybandcol = 'fBodyAcc-X-band_energy-'+str(energy_band_3[i][0])+","+str(energy_band_3[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAcc-X'], energy_band_3[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAcc-X'], energy_band_3[i])
 
         energybandcol = 'fBodyAcc-Y-band_energy-'+str(energy_band_3[i][0])+","+str(energy_band_3[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAcc-Y'], energy_band_3[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAcc-Y'], energy_band_3[i])
         
         energybandcol = 'fBodyAcc-Z-band_energy-'+str(energy_band_3[i][0])+","+str(energy_band_3[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAcc-Z'], energy_band_3[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAcc-Z'], energy_band_3[i])
 
     for i in range(len(energy_band_1)):
         energybandcol = 'fBodyAccJerk-X-band_energy-'+str(energy_band_1[i][0])+","+str(energy_band_1[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAccJerk-X'], energy_band_1[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAccJerk-X'], energy_band_1[i])
 
         energybandcol = 'fBodyAccJerk-Y-band_energy-'+str(energy_band_1[i][0])+","+str(energy_band_1[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Y'], energy_band_1[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Y'], energy_band_1[i])
         
         energybandcol = 'fBodyAccJerk-Z-band_energy-'+str(energy_band_1[i][0])+","+str(energy_band_1[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Z'], energy_band_1[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Z'], energy_band_1[i])
 
     for i in range(len(energy_band_2)):
         energybandcol = 'fBodyAccJerk-X-band_energy-'+str(energy_band_2[i][0])+","+str(energy_band_2[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAccJerk-X'], energy_band_2[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAccJerk-X'], energy_band_2[i])
 
         energybandcol = 'fBodyAccJerk-Y-band_energy-'+str(energy_band_2[i][0])+","+str(energy_band_2[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Y'], energy_band_2[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Y'], energy_band_2[i])
         
         energybandcol = 'fBodyAccJerk-Z-band_energy-'+str(energy_band_2[i][0])+","+str(energy_band_2[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Z'], energy_band_2[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Z'], energy_band_2[i])
 
     for i in range(len(energy_band_3)):
         energybandcol = 'fBodyAccJerk-X-band_energy-'+str(energy_band_3[i][0])+","+str(energy_band_3[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAccJerk-X'], energy_band_3[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAccJerk-X'], energy_band_3[i])
 
         energybandcol = 'fBodyAccJerk-Y-band_energy-'+str(energy_band_3[i][0])+","+str(energy_band_3[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Y'], energy_band_3[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Y'], energy_band_3[i])
         
         energybandcol = 'fBodyAccJerk-Z-band_energy-'+str(energy_band_3[i][0])+","+str(energy_band_3[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Z'], energy_band_3[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyAccJerk-Z'], energy_band_3[i])
 
     for i in range(len(energy_band_1)):
         energybandcol = 'fBodyGyro-X-band_energy-'+str(energy_band_1[i][0])+","+str(energy_band_1[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyGyro-X'], energy_band_1[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyGyro-X'], energy_band_1[i])
 
         energybandcol = 'fBodyGyro-Y-band_energy-'+str(energy_band_1[i][0])+","+str(energy_band_1[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyGyro-Y'], energy_band_1[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyGyro-Y'], energy_band_1[i])
         
         energybandcol = 'fBodyGyro-Z-band_energy-'+str(energy_band_1[i][0])+","+str(energy_band_1[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyGyro-Z'], energy_band_1[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyGyro-Z'], energy_band_1[i])
 
     for i in range(len(energy_band_2)):
         energybandcol = 'fBodyGyro-X-band_energy-'+str(energy_band_2[i][0])+","+str(energy_band_2[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyGyro-X'], energy_band_2[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyGyro-X'], energy_band_2[i])
 
         energybandcol = 'fBodyGyro-Y-band_energy-'+str(energy_band_2[i][0])+","+str(energy_band_2[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyGyro-Y'], energy_band_2[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyGyro-Y'], energy_band_2[i])
         
         energybandcol = 'fBodyGyro-Z-band_energy-'+str(energy_band_2[i][0])+","+str(energy_band_2[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyGyro-Z'], energy_band_2[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyGyro-Z'], energy_band_2[i])
 
     for i in range(len(energy_band_3)):
         energybandcol = 'fBodyGyro-X-band_energy-'+str(energy_band_3[i][0])+","+str(energy_band_3[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyGyro-X'], energy_band_3[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyGyro-X'], energy_band_3[i])
 
         energybandcol = 'fBodyGyro-Y-band_energy-'+str(energy_band_3[i][0])+","+str(energy_band_3[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyGyro-Y'], energy_band_3[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyGyro-Y'], energy_band_3[i])
         
         energybandcol = 'fBodyGyro-Z-band_energy-'+str(energy_band_3[i][0])+","+str(energy_band_3[i][1]-1)
-        window[energybandcol] = f_one_band_energy(window['fBodyGyro-Z'], energy_band_3[i])
+        feature_dict[energybandcol] = f_one_band_energy(window['fBodyGyro-Z'], energy_band_3[i])
 
     feature_dict["Label"] = window["label"].mode()[0] #Activity Label
 
