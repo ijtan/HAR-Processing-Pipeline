@@ -13,7 +13,11 @@ import pickle,os,random,math
 
 from reader import getData
 
-
+"""
+This is the sliding window funciton, where we get data between two timestamps (any timesamp t and t+2.56 seconds), and returning the list of entries as a window.
+Then we increment by 1.28seconds and repeat, until we have iterated on all data. This is really important and discussed in the report.
+We also cut windows which were not of size between 120 and 140, as these would probably be outliers and there would be some error in the samping rate of data.
+"""
 def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
     ms = s*1000 
     mso = overlap*1000
@@ -63,7 +67,10 @@ def slidingWindow(data, s=2.56,hz=50, overlap=1.28):
     return newdata
         
     
-
+"""
+Plotting Function
+This function gives us an idea of 
+"""
 def showGraph(window):
     # XA = oneWindow['tAcc-X']
     # YA = oneWindow['tAcc-Y']
@@ -74,32 +81,33 @@ def showGraph(window):
     # plt.plot(time, YA, label='YA',color='green')
     # plt.plot(time, ZA, label='ZA', color='blue')
     time = [1/float(50) * i for i in range(len(window))]
-    # if plot and 'driv' not in window['label'][0].lower():
-                # print(window.head())
-    # showGraph(window)
 
-    plt.plot(time, window['tGravityAcc-X'],label='xgravity', color='red')
-    plt.plot(time, window['tGravityAcc-Y'], label='ygravity', color='green')
-    plt.plot(time, window['tGravityAcc-Z'], label='zgravity', color='blue')
+    plt.plot(time, window['tGravityAcc-X'],label='Gravity-X', color='m')
+    plt.plot(time, window['tGravityAcc-Y'], label='Gravity-Y', color='y')
+    plt.plot(time, window['tGravityAcc-Z'], label='Gravity-Z', color='c')
     
-    plt.plot(time, window['tBodyAcc-X'], label='xlin', color='yellow')
-    plt.plot(time, window['tBodyAcc-Y'], label='ylin', color='brown')
-    plt.plot(time, window['tBodyAcc-Z'], label='zlin', color='pink')
-
+    plt.plot(time, window['tBodyAcc-X'], label='BodyAcc-X', color='r')
+    plt.plot(time, window['tBodyAcc-Y'], label='BodyAcc-Y', color='g')
+    plt.plot(time, window['tBodyAcc-Z'], label='BodyAcc-Z', color='b')
+    fig = plt.gcf()
+    fig.set_size_inches(12, 8)
+    plt.xlabel("Time in seconds")
+    plt.ylabel("Acceleration")
+    plt.legend()
     plt.title(window['label'][0])
-
+    plt.savefig('figs/'+window['label'][0])
     plt.show()
         
 
 
-def butter_lowpass(cutoff, nyq_freq, order=4):
+def real_butter_lowpass(cutoff, nyq_freq, order=4):
     normal_cutoff = float(cutoff) / nyq_freq
     b, a = signal.butter(order, normal_cutoff, btype='lowpass')
     return b, a
 
 def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
     # Source: https://github.com/guillaume-chevalier/filtering-stft-and-laplace-transform
-    b, a = butter_lowpass(cutoff_freq, nyq_freq, order=order)
+    b, a = real_butter_lowpass(cutoff_freq, nyq_freq, order=order)
     y = signal.filtfilt(b, a, data)
     # z = signal.filtfilt(a,b, data)
     return y
@@ -107,21 +115,10 @@ def butter_lowpass_filter(data, cutoff_freq, nyq_freq, order=4):
 def mag_3_signals(x, y, z):  # magnitude function redefintion
     return np.array([math.sqrt((x[i]**2+y[i]**2+z[i]**2)) for i in range(len(x))])
 
-def mag_3_signals(x, y, z):  # magnitude function redefintion
-    return np.array([math.sqrt((x[i]**2+y[i]**2+z[i]**2)) for i in range(len(x))])
 
 def applyFFT(signal):
     signal = np.asarray(signal)
     return np.abs(fft(signal))
-
-def applyPreFilters(windowed,plot=False):
-    # windowed = [{'A':list(data.values())[600]}]
-    
-    random.shuffle(windowed)
-    for window in tqdm(windowed, desc='Pre Filtering'):
-        time = [1/float(50) * i for i in range(len(window))]
-
-        # newcols = []
 
 def applyFFT(signal):
     signal = np.asarray(signal)
@@ -231,8 +228,8 @@ if __name__ == '__main__':
     print(data[list(data.keys())[0]][0].head())
     print(list(data[list(data.keys())[0]][0].columns))
 
-    #for activity, windows in data.items():
+    for activity, windows in data.items():
         # if 'driv' in activity.lower():
         #     continue
-        #for window in windows:
-            #showGraph(window)
+        for window in windows:
+            showGraph(window)
