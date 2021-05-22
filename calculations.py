@@ -95,8 +95,8 @@ def showGraph(window):
     plt.plot(time, window['tBodyAcc-Z'], label='BodyAcc-Z', color='b')
     fig = plt.gcf()
     fig.set_size_inches(12, 8)
-    plt.xlabel("Time in seconds")
-    plt.ylabel("Acceleration")
+    plt.xlabel("Time in seconds (s)")
+    plt.ylabel("Acceleration (m/s$^{2}$)")
     plt.legend()
     plt.title(window['label'][0])
     plt.savefig('figs/'+window['label'][0])
@@ -258,7 +258,7 @@ if __name__ == '__main__':
     print(list(data[list(data.keys())[0]][0].columns))
 
     for activity, windows in data.items():
-        # if 'driv' in activity.lower():
-        #     continue
+        if 'walk' not in activity.lower():
+            continue
         for window in windows:
             showGraph(window)
