@@ -46,11 +46,19 @@
 
 \subsection{Support Vector Classifier}
     \subsubsection{Data Pre-processing}
-        
+        Firstly, the training and testing datasets were converted to Pandas dataframes and the labels for each activity were separated into their own variables.
+        Using a LabelEncoder, each activity label is converted into a numerical value.
 
     \subsubsection{Comparing different classification models}
         In total, four different classic machine learning classifiers were used on the dataset developed by Anguita et al \cite{Anguita2012}. These classifiers are Gaussian Naïve Bayes,
         AdaBoost, Stochastic Gradient Descent and a Support Vector Classifier. These were trained and tested using the respective datasets, and their accuracy,
         F-beta, precision and recall scores were recorded.
 
+        As can be seen in the table in figure X, the Support Vector Classifier had the highest scores, each result being over 0.96. It is for this reason that the SVC
+        was chosen to classify the UCI dataset \cite{Anguita2013} and, later on, the dataset built by ourselves.
+
     \subsection{Classification}
+        The RBF kernel is defined as the exponential function \(exp(-\gamma \lvert x-x' \rvert)^2\) A primer on kernel methods, JP Vert et al, where x and x’ are two feature vectors, and is the
+        gamma parameter in the classifier. Gamma’s value is scale, meaning that the parameter is the reciprocal of the number of features multiplied with the variance of the input data.
+        For this implementation, we opted for a One-Vs-All approach. A One-Vs-All approach divides the data points into just two classes: a certain activity X and the other classes. Therefore records 
+        labelled as \emph{SITTING} are a single class, and the other activities are treated as having a single label.
