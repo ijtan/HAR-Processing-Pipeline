@@ -4,16 +4,13 @@ from collections import defaultdict
 
 import pandas as pd, numpy as np
 
-import scipy
-
-import scipy.stats
-
-import spectrum #for arCoeff
+import scipy, scipy.stats
 
 from statsmodels import regression
 
-import calculations
 from tqdm import tqdm
+
+import calculations
 
 def sma(mag_column):
     array=np.array(mag_column)
@@ -123,8 +120,6 @@ for window in tqdm(data,desc="Feature Extraction"):
             meanfreqcol = column + "-meanFreq"
             sample_frequencies = np.absolute(sample_frequencies)
             feature_dict[meanfreqcol] = np.ma.average(signalvals, axis=0, weights=sample_frequencies)
-            if math.isinf(feature_dict[meanfreqcol]):
-                print("Meanfreq is inf for window size", len(window))
 
         if column[0] == "t":
            for i in range(1, 5):
