@@ -2,43 +2,41 @@
     Excluding the label for each activity, each session in the dataset contains 589 features. These features were extracted by applying a number of different statistical
     measures to the different extracted signals in each sliding window.
 
-    Each signal has the statistical measures in \ref{tab:table-1} applied to them.
+    Each signal has the statistical measures in Table 1 applied to them.
 
-    \begin{table}[]
-    \begin{tabular}{|l|l|lll}
-    \cline{1-2}
-    \textbf{Statistical Measure} & \textbf{Description} &  &  &  \\ \cline{1-2}
-    mean             & Mean value in the window           &  &  &  \\ \cline{1-2}
-    min            & Smallest value in the window           &  &  &  \\ \cline{1-2}
-    max            & Largest value in the window           &  &  & \\ \cline{1-2}
-    std            & Standard deviation           &  &  & \\ \cline{1-2}
-    entropy            & Entropy           &  &  & \\ \cline{1-2}
-    mad            & 3           &  &  & \\ \cline{1-2}
-    iqr            & Inter-quartile Range           &  &  & \\ \cline{1-2}
-    energy            & 3           &  &  & \\ \cline{1-2}
-    sma            & Signal magnitude area           &  &  & \\ \cline{1-2}
-    arCoeff            & 3           &  &  & \\ \cline{1-2}
-    correlation            & 3           &  &  & \\ \cline{1-2}
-    angle            & Angle between 2 vectors of signals           &  &  & \\ \cline{1-2}
-    band energy            & 3           &  &  & \\ \cline{1-2}
-    \end{tabular}
-    \caption{Table 1}
-    \label{tab:table-1}
+    \begin{table}[ht]
+        \begin{tabular}{|l|l|lll}
+            \cline{1-2}
+            \textbf{Statistical Measure} & \textbf{Description} &  &  &  \\ \cline{1-2}
+            mean             & Mean value in the window           &  &  &  \\ \cline{1-2}
+            min            & Smallest value in the window           &  &  &  \\ \cline{1-2}
+            max            & Largest value in the window           &  &  & \\ \cline{1-2}
+            std            & Standard deviation           &  &  & \\ \cline{1-2}
+            entropy            & Entropy           &  &  & \\ \cline{1-2}
+            mad            & 3           &  &  & \\ \cline{1-2}
+            iqr            & Inter-quartile Range           &  &  & \\ \cline{1-2}
+            energy            & 3           &  &  & \\ \cline{1-2}
+            sma            & Signal magnitude area           &  &  & \\ \cline{1-2}
+            arCoeff            & 3           &  &  & \\ \cline{1-2}
+            correlation            & 3           &  &  & \\ \cline{1-2}
+            angle            & Angle between 2 vectors of signals           &  &  & \\ \cline{1-2}
+            band energy            & 3           &  &  & \\ \cline{1-2}
+        \end{tabular}
+        \caption*{Table 1}
     \end{table}
 
-    The statistical measures in \ref{tab:table-2} are applied only to FFT signals.
+    The statistical measures in Table 2 are applied only to FFT signals.
 
-    \begin{table}[]
-    \begin{tabular}{|l|l|lll}
-    \cline{1-2}
-    \textbf{Statistical Measure} & \textbf{Description} &  &  &  \\ \cline{1-2}
-    maxInds             & 1           &  &  &  \\ \cline{1-2}
-    skewness            & 2           &  &  &  \\ \cline{1-2}
-    kurtosis               & 3           &  &  &  \\ \cline{1-2}
-    meanFreq            & 3           &  &  &  \\ \cline{1-2}
-    \end{tabular}
-    \caption{Table 2}
-    \label{tab:table-2}
+    \begin{table}[ht]
+        \begin{tabular}{|l|l|lll}
+            \cline{1-2}
+            \textbf{Statistical Measure} & \textbf{Description} &  &  &  \\ \cline{1-2}
+            maxInds             & 1           &  &  &  \\ \cline{1-2}
+            skewness            & 2           &  &  &  \\ \cline{1-2}
+            kurtosis               & 3           &  &  &  \\ \cline{1-2}
+            meanFreq            & 3           &  &  &  \\ \cline{1-2}
+        \end{tabular}
+        \caption*{Table 2}
     \end{table}
 
 
@@ -54,7 +52,20 @@
         AdaBoost, Stochastic Gradient Descent and a Support Vector Classifier. These were trained and tested using the respective datasets, and their accuracy,
         F-beta, precision and recall scores were recorded.
 
-        As can be seen in the table in figure X, the Support Vector Classifier had the highest scores, each result being over 0.96. It is for this reason that the SVC
+        \begin{table}[ht]
+            \centering\small
+            \begin{tabular}{|l|l|l|l|l|}
+                \hline
+                \textbf{Classifier} & \textbf{Accuracy} & \textbf{F-Beta}  & \textbf{Precision} & \textbf{Recall} \\ \hline
+                Gaussian Naïve Bayes             & 0.7134           & 0.7252  & 0.7555 & 0.7134 \\ \hline
+                AdaBoost            & 0.4065           & 0.2520 & 0.4289 & 0.4065 \\ \hline
+                Stochastic Gradient Descent               & 0.9600           & 0.9603 & 0.9605 & 0.9600 \\ \hline
+                Support Vector Classifier            & 0.9668           & 0.9676 & 0.9682 & 0.9668 \\ \hline
+            \end{tabular}
+            \caption*{Table 3: Performance scores of each classifier}
+        \end{table}
+
+        As can be seen in Table 3, the Support Vector Classifier had the highest scores, each result being over 0.96. It is for this reason that the SVC
         was chosen to classify the UCI dataset \cite{Anguita2013} and, later on, the dataset built by ourselves.
 
     \subsection{Classification}
