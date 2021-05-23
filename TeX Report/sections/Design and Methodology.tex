@@ -1,0 +1,52 @@
+\subsection{Feature Extraction}
+    Excluding the label for each activity, each session in the dataset contains 589 features. These features were extracted by applying a number of different statistical
+    measures to the different extracted signals in each sliding window.
+
+    Each signal has the following statistical measures applied to them.
+
+    \begin{table}[]
+    \begin{tabular}{|l|l|lll}
+    \cline{1-2}
+    Statistical Measure & Description &  &  &  \\ \cline{1-2}
+    mean             & Mean value in the window           &  &  &  \\ \cline{1-2}
+    min            & Smallest value in the window           &  &  &  \\ \cline{1-2}
+    max            & Largest value in the window           &  &  & \\ \cline{1-2}
+    std            & Standard deviation           &  &  & \\ \cline{1-2}
+    entropy            & Entropy           &  &  & \\ \cline{1-2}
+    mad            & 3           &  &  & \\ \cline{1-2}
+    iqr            & Inter-quartile Range           &  &  & \\ \cline{1-2}
+    energy            & 3           &  &  & \\ \cline{1-2}
+    sma            & Signal magnitude area           &  &  & \\ \cline{1-2}
+    arCoeff            & 3           &  &  & \\ \cline{1-2}
+    correlation            & 3           &  &  & \\ \cline{1-2}
+    angle            & Angle between 2 vectors of signals           &  &  & \\ \cline{1-2}
+    band energy            & 3           &  &  & \\ \cline{1-2}
+    \end{tabular}
+    \end{table}
+
+    The following statistical measures are applied only to FFT signals
+
+    \begin{table}[]
+    \begin{tabular}{|l|l|lll}
+    \cline{1-2}
+    Statistical Measure & Description &  &  &  \\ \cline{1-2}
+    maxInds             & 1           &  &  &  \\ \cline{1-2}
+    skewness            & 2           &  &  &  \\ \cline{1-2}
+    kurtosis               & 3           &  &  &  \\ \cline{1-2}
+    meanFreq            & 3           &  &  &  \\ \cline{1-2}
+    \end{tabular}
+    \end{table}
+
+
+\subsection{Signal Processing}
+
+\subsection{Support Vector Classifier}
+    \subsubsection{Data Pre-processing}
+        
+
+    \subsubsection{Comparing different classification models}
+        In total, four different classic machine learning classifiers were used on the dataset developed by Anguita et al \cite{Anguita2012}. These classifiers are Gaussian Naïve Bayes,
+        AdaBoost, Stochastic Gradient Descent and a Support Vector Classifier. These were trained and tested using the respective datasets, and their accuracy,
+        F-beta, precision and recall scores were recorded.
+
+    \subsection{Classification}
