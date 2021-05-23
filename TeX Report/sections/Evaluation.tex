@@ -1,3 +1,19 @@
+\subsection{Evaluation Metrics}
+
+In order to determine which classifier provided the most accurate predictions, four different performance metrics were recorded and acted as a score. These metrics are \textbf{accuracy},
+\textbf{f-beta}, \textbf{precision} and \textbf{recall}.
+
+\textbf{Accuracy} is the rate of 
+
+\textbf{Precision} is the ratio of true positives during prediction, and it is calculated as \(P = \frac{T_P}{T_P+F_P}\), where \(T_P\) is the number of true positives and \(F_P\) is the number of false positives.
+
+\textbf{Recall} is the ratio of correctly identified positive labels, and it is calculated as \(R = \frac{T_P}{T_P+F_n}\), where \(T_P\) is the number of true positives and \(F_n\) is the number of false negatives.
+
+\textbf{Beta} (or \textbf{F-Beta})  is calculated based on the precision and recall scores of the classifier, wherein precision is multiplied by some parameter $\gamma$, thereby giving more
+importance to the precision value. This is calculated as  \(F_\gamma = (1+\gamma^2) * \frac{P*R}{(\gamma^2*P)+R}\). For evaluation purposes, a $\gamma$ value of 0.5 was used.
+
+\subsection{Evaluating SVM}
+
 Figure 1 above is the confusion matrix representing the accuracy of the classification of each activity as a percentage. The leading diagonal represents correctly labelled activities. Each activity group classified had an accuracy of 96\% or higher, with half activities being classified at an accuracy of 99-100\%.
 1\% of driving activities were misclassified as sitting. This was to be expected as during driving sessions there were times (i.e. being stuck in traffic) where the driver was stationary and in the same position as that of someone seated down.
 2\% of laying activities were misclassified as sitting, this is understandable as the two stationary activities have similar positions.
