@@ -126,19 +126,22 @@ Unlike Cho et al. we did not implement a first stage dynamic-static split model 
 The Pytorch library was used to implement the CNNs, and the sklearn library to evaluate the results.
 
 \subsubsection{Data Split}
-The train/valid/test split was an 80/20 train/test split, then 80/20 train/validation split for the UCI dataset, and a 90/10 train/test split, then 90/10 train/validation split for Our Dataset.
+For proper deep learning training a dataset has to be split into training, validation and testing sets.
+For this project the UCI dataset was split at an 80/20 train/test split.
+Then an 80/20 train/validation split.
+For our dataset the data was split at an 90/10 train/test split, then 90/10 train/validation split.
 
 \subsubsection{Dataset Object}
-To facilitate this dynamic/static split we defined a Python dictionary with each label having a number assigned to it, starting from 0.
+To facilitate the dynamic/static split handled by a decision tree classifier in \cite{Cho2018} we defined a Python dictionary with each label to have a number assigned to it, starting from 0.
 The numbering needs to start from 0 as the output of neural networks implemented in Pytorch always start from 0.
 Another requirement for implementing neural networks in Pytorch is to implement a custom Dataset object.
 The function of this object is to read the data from a source and define its X, data and Y, labels counterparts.
 The Pandas library was used at this stage due to its use of the numpy library and efficient data management.
-It is important that the X component is in the shape: length(data.columns), 1, length(data.rows)).
+It is important that the X component is in the shape: (length(data.columns), 1, length(data.rows)).
 
 The dataset object was initialised 3 times, for the Train, Validation and Testing data.
 
-The pie charts included below show the training, validation and testing label distribution in order.
+The pie charts included below show, from left to right, the training, validation and testing label distribution for every dataset object.
 
 \begin{figure}[H]
 \centering
@@ -178,10 +181,10 @@ The pie charts included below show the training, validation and testing label di
 
 In development, it was noted that the data distribution of the dynamic activities in our dataset was unequal.
 This was causing issues with the CNN's accuracy.
-To combat this added functionality was added with the aim of increase the quality of the model's output.
-In this project the number of rows for each eligible label was stored.
+To combat this, some more functionality was added with the aim of increase the quality of the model's output.
+In this project the number of rows for each eligible label was stored, called smallestV.
 Using the functionality provided by the Pandas library, the index for each label was stored in a list linked to its respective label.
-Using Python list slicing these lists where cut down to their lowest common length.
+From these lists the first smallestV indices where kept.
 These indices where then converted into a new Pandas dataframe and this balanced dataset was used for the dynamic model.
 
 \begin{figure}[H]
@@ -196,7 +199,7 @@ This object gives us the functionality of delivering batches as inputs to the mo
 It was found that a batch size of 32 worked best for the Static models, and a batch size of 64 worked best for the dynamic models.
 
 \subsubsection{Model Creation}
-The CNN models were implemented following the design of the below diagrams.
+Figures 10 and 11 show the architectures implemented for the CNNs used in this project.
 Every model used the Cross-Entropy as their loss function and the ADAM optimizer.
 The learning rate for the UCI Dataset Models and Our Dataset Static model was set at 0.0005 and were trained for 10 epochs.
 The learning rate for the Our Dataset Dynamic model was set at 0.00005 and were trained for 11 epochs.
