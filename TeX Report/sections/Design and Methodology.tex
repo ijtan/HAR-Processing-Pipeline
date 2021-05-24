@@ -30,13 +30,13 @@ This is one of the most crucial steps for data processing, as one single entry d
 
 \subsection{Signal Filtering}
 A set of steps was applied to each window of entries, which will filter and prepare the data for the feature extraction.\\
-\subsubsection{A low-pass Butterworth filter with a corner frequency of 20hz}
-This removes most of the noise, as most changes in the acceleration happened at much lower frequencies, and through this separation, the most relevant changes in acceleration were kept. In fact according to [D.M. Karantonis, M.R. Narayanan, M. Mathie, N.H. Lovell, and B.G. Celler. Implementation of a
+\subsubsection{20hz Butterworth Filter}
+A low-pass Butterworth filter with a corner frequency of 20hz, which removes most of the noise, as most changes in the acceleration happened at much lower frequencies, and through this separation, the most relevant changes in acceleration were kept. In fact, according to [D.M. Karantonis, M.R. Narayanan, M. Mathie, N.H. Lovell, and B.G. Celler. Implementation of a
 real-time human movement classifier using a triaxial accelerometer for ambulatory monitoring. IEEE
 Transactions on Information Technology in Biomedicine, 10(1):156–167, 2006.] most bodily movements are contained below 15Hz
 
-\subsubsection{Another low pass Butterworth filter was applied with a corner frequency of 0.3hz}
-This filter separates gravitational acceleration from body acceleration, since changes in gravitational acceleration happen relatively slowly, a low corner frequency can distinguish and extract these changes as gravitational acceleration. 
+\subsubsection{0.3hz Butterworth Filter}
+Another low pass Butterworth filter was applied with a corner frequency of 0.3hz, which filter separates gravitational acceleration from body acceleration, since changes in gravitational acceleration happen relatively slowly, a low corner frequency can distinguish and extract these changes as gravitational acceleration. 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=.49\textwidth]{ethan_window_acc_plot}
@@ -51,7 +51,7 @@ The Body forces show the filtered acceleration when separated from the gravitati
 The strides of the walking may also be seen as the green line fluctuates, quickly dropping when the wearer’s foot descends and hits the floor. The other three stable plots are the gravitational forces experienced, these should not change as much, as the gravitational force experienced do not change much. At idle the vector of these three forces should point 
 downwards with a magnitude of \textasciitilde $9.81m/s^2$.
 
-\subsubsection{The Jerk was Calculated}
+\subsubsection{The Jerk}
 Jerk is defined as the change in acceleration and was calculated by differentiating the acceleration values by time(1/(50hz)=0.02s). This gives a better idea of how drastically the accelerations change, such as when one is jogging and the leg where the phone is sitting stops sharply as it hits the ground.
 
 \subsubsection{The Magnitude}
