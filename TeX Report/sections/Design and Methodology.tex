@@ -8,7 +8,6 @@ Using this app, several activities were carried out and recorded, whilst trying 
     \centering
     \includegraphics[width=.36\textwidth]{ethan_data_dist_pie}
     \caption{Our Data Distribution}
-    % \label{fig:figureX}
     \label{our_data_count_dist}
     \end{figure}
 
@@ -28,15 +27,14 @@ The first and last 2 seconds were also removed for each session, as time needs t
 
 
 \subsection{Sliding Window}
-As carried out in [https://www.sciencedirect.com/science/article/abs/pii/S1574119216302280] a sliding window of size 128 with a stride of 64 was adopted, which in simpler terms means grouping 128 entries (2.56 seconds of data) for each window, and overlap each window by 1.28 seconds.\\
+As carried out in \cite{Noor2017} a sliding window of size 128 with a stride of 64 was adopted, which in simpler terms means grouping 128 entries (2.56 seconds of data) for each window, and overlap each window by 1.28 seconds.\\
 This is one of the most crucial steps in data processing, as one single entry does not describe a whole lot about what a user is doing. Before any preprocessing, each entry simply has six values (two triaxial vectors), which are at a single point in time. When the sliding window is introduced, we group a window’s worth of entries into one, out of which we get a representation of what happens over a period (2.56 seconds in our case), where each window will represent 128 raw entries, containing 6 features (triaxial data) each. Which when feature mapped, summarizes features of this two-dimensional data frame, back into a one-dimensional entry, whilst still retaining the fact that an entry has now the added dimension of time.
 
 \subsection{Signal Filtering}
-A set of transformations were applied to each window of entries, which were used to filter and prepare the data for the feature extraction stage.\\
+A set of transformations were applied to each window of entries, which were used to filter and prepare the data for the feature extraction stage.
+
 \subsubsection{20hz Butterworth Filter}
-A low-pass Butterworth filter with a corner frequency of 20hz, which removes most of the noise, as most changes in the acceleration happened at much lower frequencies, and through this separation, the most relevant changes in acceleration were kept. In fact, according to [D.M. Karantonis, M.R. Narayanan, M. Mathie, N.H. Lovell, and B.G. Celler. Implementation of a
-real-time human movement classifier using a triaxial accelerometer for ambulatory monitoring. IEEE
-Transactions on Information Technology in Biomedicine, 10(1):156–167, 2006.] most bodily movements are contained below 15Hz
+A low-pass Butterworth filter with a corner frequency of 20hz, which removes most of the noise, as most changes in the acceleration happened at much lower frequencies, and through this separation, the most relevant changes in acceleration were kept. In fact, according to \cite{Karantonis2006} most bodily movements are contained below 15Hz.
 
 \subsubsection{0.3hz Butterworth Filter}
 Another low pass Butterworth filter was applied with a corner frequency of 0.3hz, which filter separates gravitational acceleration from body acceleration, since changes in gravitational acceleration happen relatively slowly, a low corner frequency can distinguish and extract these changes as gravitational acceleration. 
@@ -45,7 +43,6 @@ Another low pass Butterworth filter was applied with a corner frequency of 0.3hz
     \includegraphics[width=.49\textwidth]{ethan_window_acc_plot}
     \caption{The Acceleration in a single window}
     \label{fig:figure_single_wind}
-    % \label{fig:single_window_accels_out_data}
     \end{figure}
 
 Figure \ref{fig:figure_single_wind} shows the 
@@ -62,30 +59,29 @@ Jerk is defined as the change in acceleration and was calculated by differentiat
 The magnitude is the measure of how much the values differ from zero. This comes useful when one simply needs an idea of the amount of force applied, without considering the effects of directionality.
 
 \subsubsection{Fast Fourier Transform}
-FFT enabled the calculation of frequency components based on the time-varying signals. When considering Human Activity, one can note that there is a lot of repetitive patterns, in which case transformations such as FFT are used to calculate the discrete Fourier transform, and give a rich statistic for summarizing a window of these repetitive signals.
-\\
-\[https://www-proquest-com.ejournals.um.edu.mt/docview/2301775170/fulltextPDF/431219E14EB34859PQ/1?accountid=27934\]
-
-
+FFT enabled the calculation of frequency components based on the time-varying signals. When considering Human Activity, one can note that there is a lot of repetitive patterns, in which case transformations such as FFT are used to calculate the discrete Fourier transform, and give a
+rich statistic for summarizing a window of these repetitive signals \cite{SousaLima2019}.
 
 \subsection{Feature Extraction}
     Excluding the label for each activity, each session in the dataset contains 589 features. These features were extracted by applying a number of different statistical
     measures to the different extracted signals in each sliding window.
 
-    Each signal has the statistical measures in Table 1 applied to them.
+    Each signal has the statistical measures in \ref{fig:features_table1} applied to them.
 
     \begin{figure}[H]
         \centering
         \includegraphics[scale=0.55]{jake_table_1}\hfill
-        \caption*{Table 1}
+        \caption{Statistical Measures}
+    \label{fig:features_table1}
     \end{figure}
 
-    The statistical measures in Table 2 are applied only to FFT signals.
+    The statistical measures in \ref{fig:features_table2} are applied only to FFT signals.
 
     \begin{figure}[H]
         \centering
         \includegraphics[scale=0.55]{jake_table_2}\hfill
-        \caption*{Table 2}
+        \caption{Statistical Measures}
+    \label{fig:features_table2}
     \end{figure}
 
 \subsection{Signal Processing}

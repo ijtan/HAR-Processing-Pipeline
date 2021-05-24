@@ -11,17 +11,12 @@ there are wearable/portable sensing devices, such as accelerometers, gyroscopes 
 
 During the process of data collection, care should be taken to keep conditions as natural as possible, as large deviation from 
 natural conditions might make the model unusable, as conditions may be drastically different. The variety must also be maintained as to aim for a robust model 
-which can handle different conditions, noise levels, users and environments 
-[Human Activity and Motion Disorder Recognition:Towards Smarter Interactive Cognitive Environments Jorge L. Reyes-Ortiz1,2, Alessandro Ghio1, Davide Anguita1, Xavier Parra2, 
-Joan Cabestany2, Andreu Catal`a2]. 
-
+which can handle different conditions, noise levels, users and environments \cite{ReyesOrtiz2013HumanAA}.
 
 \subsection{Signal Processing \& Feature Extraction}
 A robust signal processing pipeline is essential to reliably convert raw inertial data into a format usable by a classifier, as the features from the data need to be carefully extracted and highlighted to allow the classifiers to distinguish between the activities using the reproducible characteristics, such as statistical results on windows of data. 
-Data windowing is a very common practice when considering sensory data, as several statistical tools are only unlocked on bundled data, and allow for richer and denser information per entry. An element of overlap between windows is also often employed, as the overlap allows for smoother transitions between activities. [Human Activity and Motion Disorder Recognition:Towards Smarter Interactive Cognitive Environments Jorge L. Reyes-Ortiz1,2, Alessandro Ghio1, Davide Anguita1, Xavier Parra2, Joan Cabestany2, Andreu Catal`a2].
+Data windowing is a very common practice when considering sensory data, as several statistical tools are only unlocked on bundled data, and allow for richer and denser information per entry. An element of overlap between windows is also often employed, as the overlap allows for smoother transitions between activities \cite{ReyesOrtiz2013HumanAA}.
 Albeit the importance of reliable classification one also needs to consider the processing time required for the signal processing pipeline, as in some applications real-time classifications are necessary, and if the feature vector is excessively large, performance may be heavily impacted. 
-
-
 
 % \pagebreak
 \subsection{Support Vector Machines}
