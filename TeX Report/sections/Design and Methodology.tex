@@ -81,15 +81,14 @@ FFT enabled the calculation of frequency components based on the time-varying si
             min            & Smallest value in the window           &  &  &  \\ \cline{1-2}
             max            & Largest value in the window           &  &  & \\ \cline{1-2}
             std            & Standard deviation           &  &  & \\ \cline{1-2}
-            entropy            & Entropy           &  &  & \\ \cline{1-2}
-            mad            & 3           &  &  & \\ \cline{1-2}
+            entropy            & Maximum Entropy Distribution           &  &  & \\ \cline{1-2}
+            mad            & Median Absolute Deviation           &  &  & \\ \cline{1-2}
             iqr            & Inter-quartile Range           &  &  & \\ \cline{1-2}
-            energy            & 3           &  &  & \\ \cline{1-2}
-            sma            & Signal magnitude area           &  &  & \\ \cline{1-2}
-            arCoeff            & 3           &  &  & \\ \cline{1-2}
-            correlation            & 3           &  &  & \\ \cline{1-2}
+            energy            & Sum of each squared value in the window           &  &  & \\ \cline{1-2}
+            sma            & Signal magnitude area, sum of absolute values in the window           &  &  & \\ \cline{1-2}
+            arCoeff            & Coefficients of the autoregressive model using Burg's algorithm           &  &  & \\ \cline{1-2}
+            correlation            & Correlation between X, Y and Z signals           &  &  & \\ \cline{1-2}
             angle            & Angle between 2 vectors of signals           &  &  & \\ \cline{1-2}
-            band energy            & 3           &  &  & \\ \cline{1-2}
         \end{tabular}
         \caption*{Table 1}
     \end{table}
@@ -100,10 +99,11 @@ FFT enabled the calculation of frequency components based on the time-varying si
         \begin{tabular}{|l|l|lll}
             \cline{1-2}
             \textbf{Statistical Measure} & \textbf{Description} &  &  &  \\ \cline{1-2}
-            maxInds             & 1           &  &  &  \\ \cline{1-2}
-            skewness            & 2           &  &  &  \\ \cline{1-2}
-            kurtosis               & 3           &  &  &  \\ \cline{1-2}
-            meanFreq            & 3           &  &  &  \\ \cline{1-2}
+            band energy            & Energy value bounded by bins of the set of FFT frequencies           &  &  & \\ \cline{1-2}
+            maxInds             & Fast Fourier Transform bin which matched the highest value in the window          &  &  &  \\ \cline{1-2}
+            skewness            & Fisher-Pearson coefficient of skewness           &  &  &  \\ \cline{1-2}
+            kurtosis               & Kurtosis of the array of values in the window           &  &  &  \\ \cline{1-2}
+            meanFreq            & Weighted average of the signals in the window           &  &  &  \\ \cline{1-2}
         \end{tabular}
         \caption*{Table 2}
     \end{table}
