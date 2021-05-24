@@ -161,7 +161,7 @@
         \includegraphics[width=.15\textwidth]{DCNN}\hfill
         \includegraphics[width=.15\textwidth]{ODDCNN}\hfill
         \caption{UCI(left) and OD(right) Dynamic Model Structure}
-        \label{fig:figureX}
+        \label{Dynamic_Models}
         \end{figure}
 
         \begin{figure}[h]
@@ -169,10 +169,14 @@
         \includegraphics[width=.15\textwidth]{SCNN}\hfill
         \includegraphics[width=.15\textwidth]{ODSCNN}\hfill
         \caption{UCI(left) and OD(right) Static Model Structure}
-        \label{fig:figureX}
+        \label{Static_Models}
         \end{figure}
 
-        As seen in figures X and X the four models follow the a similar structure having a Convolutional layer that is then followed by a fully connected layer.
+        As seen in figures \ref{Static_Models} and \ref{Dynamic_Models} the four models follow the a similar structure having a Convolutional layer that is then followed by a fully connected layer.
         The OD models differentiate at the final activation function where it was found that the Softmax activation function was not activating properly.
         Seeing this another activation function was used, the LogSoftmax function.
         It is also worthwhile to note that the final layer fully connected layer is different since the UCI dataset and Our dataset have a different number of total features.
+        These models accept a tensor of the shape: (batchsize, 1, number\_of\_features).
+        The output of item in this batch is a number that corresponds to the encoded label.
+        Dropout is present at the fully connected layer, set to 50\% to combat overfitting.
+        Dropout is usefull since it applies a 50\% chance of ignoring a neurons outputting, which forces the model to learn redundancy.
