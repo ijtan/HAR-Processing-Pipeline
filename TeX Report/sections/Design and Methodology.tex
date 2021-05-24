@@ -3,7 +3,8 @@ For the data collection, a barebones Android app was developed, which reads the 
 Additionaly, a deviceID and timestamps were appended to each entry, along with an option to label a session before starting collection, all in aim of simplifying the processing pipeline later on,
 and avoiding the need to manually label all the data later on.\\
 Using this app, several activities were carried out and recorded, whilst trying to vary the conditions as much as possible, such as putting it in the left and right pockets and having it upside down or upright, aiming to diversify the data.  
-\begin{figure}[ht]
+
+\begin{figure}[htp]
     \centering
     \includegraphics[width=.36\textwidth]{ethan_data_dist_pie}
     \caption{Our Data Distribution}
@@ -36,7 +37,7 @@ Transactions on Information Technology in Biomedicine, 10(1):156–167, 2006.] m
 
 \subsubsection{Another low pass Butterworth filter was applied with a corner frequency of 0.3hz}
 This filter separates gravitational acceleration from body acceleration, since changes in gravitational acceleration happen relatively slowly, a low corner frequency can distinguish and extract these changes as gravitational acceleration. 
-\begin{figure}[ht]
+\begin{figure}[htp]
     \centering
     \includegraphics[width=.49\textwidth]{ethan_window_acc_plot}
     \caption{The Acceleration in a single window}
@@ -73,41 +74,19 @@ FFT enabled the calculation of frequency components based on the time-varying si
 
     Each signal has the statistical measures in Table 1 applied to them.
 
-    \begin{table}[ht]
-        \begin{tabular}{|l|l|lll}
-            \cline{1-2}
-            \textbf{Statistical Measure} & \textbf{Description} &  &  &  \\ \cline{1-2}
-            mean             & Mean value in the window           &  &  &  \\ \cline{1-2}
-            min            & Smallest value in the window           &  &  &  \\ \cline{1-2}
-            max            & Largest value in the window           &  &  & \\ \cline{1-2}
-            std            & Standard deviation           &  &  & \\ \cline{1-2}
-            entropy            & Maximum Entropy Distribution           &  &  & \\ \cline{1-2}
-            mad            & Median Absolute Deviation           &  &  & \\ \cline{1-2}
-            iqr            & Inter-quartile Range           &  &  & \\ \cline{1-2}
-            energy            & Sum of each squared value in the window           &  &  & \\ \cline{1-2}
-            sma            & Signal magnitude area, sum of absolute values in the window           &  &  & \\ \cline{1-2}
-            arCoeff            & Coefficients of the autoregressive model using Burg's algorithm           &  &  & \\ \cline{1-2}
-            correlation            & Correlation between X, Y and Z signals           &  &  & \\ \cline{1-2}
-            angle            & Angle between 2 vectors of signals           &  &  & \\ \cline{1-2}
-        \end{tabular}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.75]{jake_table_1}\hfill
         \caption*{Table 1}
-    \end{table}
+    \end{figure}
 
     The statistical measures in Table 2 are applied only to FFT signals.
 
-    \begin{table}[ht]
-        \begin{tabular}{|l|l|lll}
-            \cline{1-2}
-            \textbf{Statistical Measure} & \textbf{Description} &  &  &  \\ \cline{1-2}
-            band energy            & Energy value bounded by bins of the set of FFT frequencies           &  &  & \\ \cline{1-2}
-            maxInds             & Fast Fourier Transform bin which matched the highest value in the window          &  &  &  \\ \cline{1-2}
-            skewness            & Fisher-Pearson coefficient of skewness           &  &  &  \\ \cline{1-2}
-            kurtosis               & Kurtosis of the array of values in the window           &  &  &  \\ \cline{1-2}
-            meanFreq            & Weighted average of the signals in the window           &  &  &  \\ \cline{1-2}
-        \end{tabular}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.75]{jake_table_2}\hfill
         \caption*{Table 2}
-    \end{table}
-
+    \end{figure}
 
 \subsection{Signal Processing}
 
@@ -122,7 +101,7 @@ FFT enabled the calculation of frequency components based on the time-varying si
     F-beta, precision and recall scores were recorded.
 
     \begin{table}[ht]
-        \centering\footnotesize
+        \centering\scriptsize
         \begin{tabular}{|l|l|l|l|l|}
             \hline
             \textbf{Classifier} & \textbf{Accuracy} & \textbf{F-Beta}  & \textbf{Precision} & \textbf{Recall} \\ \hline
@@ -169,8 +148,8 @@ The pie charts included below show the training, validation and testing label di
 \includegraphics[width=.15\textwidth]{UCI_Dynamic_Training}\hfill
 \includegraphics[width=.15\textwidth]{UCI_Dynamic_Validation}\hfill
 \includegraphics[width=.15\textwidth]{UCI_Dynamic_Testing}
-\caption{UCI Dynamic Label Distribution}
-\label{fig:UCI_Dynamic_Distribution}
+\caption*{UCI Dynamic Label Distribution}
+\label{fig:figureX}
 \end{figure}
 
 \begin{figure}[h]
@@ -178,8 +157,8 @@ The pie charts included below show the training, validation and testing label di
 \includegraphics[width=.15\textwidth]{UCI_Static_Training}\hfill
 \includegraphics[width=.15\textwidth]{UCI_Static_Validation}\hfill
 \includegraphics[width=.15\textwidth]{UCI_Static_Testing}
-\caption{UCI Static Label Distribution}
-\label{fig:UCI_Static_Distribution}
+\caption*{UCI Static Label Distribution}
+\label{fig:figureX}
 \end{figure}
 
 \begin{figure}[h]
@@ -187,8 +166,8 @@ The pie charts included below show the training, validation and testing label di
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Training}\hfill
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Validation}\hfill
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Testing}
-\caption{OD Dynamic Label Distribution}
-\label{fig:OD_Dynamic_Distribution}
+\caption*{OD Dynamic Label Distribution}
+\label{fig:figureX}
 \end{figure}
 
 \begin{figure}[h]
@@ -196,8 +175,8 @@ The pie charts included below show the training, validation and testing label di
 \includegraphics[width=.15\textwidth]{OD_Static_Training}\hfill
 \includegraphics[width=.15\textwidth]{OD_Static_Validation}\hfill
 \includegraphics[width=.15\textwidth]{OD_Static_Testing}
-\caption{OD Static Label Distribution}
-\label{fig:OD_Static_Distribution}
+\caption*{OD Static Label Distribution}
+\label{fig:figureX}
 \end{figure}
 
 In development, it was noted that the data distribution of the dynamic activities in our dataset was unequal.
@@ -211,8 +190,8 @@ These indices where then converted into a new Pandas dataframe and this balanced
 \begin{figure}[h]
 \centering
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Training_Balanced}\hfill
-\caption{OD Dynamic Training Balanced Label Distribution}
-\label{fig:BalancedTrain}
+\caption*{OD Dynamic Training Balanced Label Distribution}
+\label{fig:figureX}
 \end{figure}
 
 Finally the dataset objects are used to initialise a Dataloader object.
@@ -229,16 +208,16 @@ The learning rate for the Our Dataset Dynamic model was set at 0.00005 and were 
 \centering
 \includegraphics[width=.15\textwidth]{DCNN}\hfill
 \includegraphics[width=.15\textwidth]{ODDCNN}\hfill
-\caption{UCI(left) and OD(right) Dynamic Model Structure}
-\label{fig:Dynamic_Models}
+\caption*{UCI(left) and OD(right) Dynamic Model Structure}
+\label{Dynamic_Models}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=.15\textwidth]{SCNN}\hfill
 \includegraphics[width=.15\textwidth]{ODSCNN}\hfill
-\caption{UCI(left) and OD(right) Static Model Structure}
-\label{fig:Static_Models}
+\caption*{UCI(left) and OD(right) Static Model Structure}
+\label{Static_Models}
 \end{figure}
 
 As seen in figures \ref{Static_Models} and \ref{Dynamic_Models} the four models follow the a similar structure having a Convolutional layer that is then followed by a fully connected layer.
