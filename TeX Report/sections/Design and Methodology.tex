@@ -1,6 +1,6 @@
 \subsection{Data Collection}
 For the data collection, a barebones Android app was developed, which reads the triaxial accelerometer and gyroscope data at a constant rate of 50hz.
-Additionaly, a deviceID and timestamps were appended to each entry, along with an option to label a session before starting collection, all in aim of simplifying the processing pipeline later on,
+Additionally, a deviceID and timestamps were appended to each entry, along with an option to label a session before starting a collection, all to simplify the processing pipeline later on,
 and avoiding the need to manually label all the data later on.\\
 Using this app, several activities were carried out and recorded, whilst trying to vary the conditions as much as possible, such as putting it in the left and right pockets and having it upside down or upright, aiming to diversify the data.  
 
@@ -47,12 +47,8 @@ This filter separates gravitational acceleration from body acceleration, since c
 
 Figure \ref{fig:figure_single_wind} shows the 
 different forces of acceleration experienced were plotted.
-The Body forces show the filtered acceleration when separated from 
-the gravitational acceleration. At idle, these forces should be zero. 
-The strides of the walking may also be seen as the green line fluctuates, quickly 
-dropping when the wearer’s foot descends and hits the floor. The other three stable plots are 
-the gravitational forces experienced, these should not change as much, as the gravitational 
-force experienced do not change much. At idle the vector of these three forces should point 
+The Body forces show the filtered acceleration when separated from the gravitational acceleration. At idle, these forces should be zero. 
+The strides of the walking may also be seen as the green line fluctuates, quickly dropping when the wearer’s foot descends and hits the floor. The other three stable plots are the gravitational forces experienced, these should not change as much, as the gravitational force experienced do not change much. At idle the vector of these three forces should point 
 downwards with a magnitude of \textasciitilde $9.81m/s^2$.
 
 \subsubsection{The Jerk was Calculated}
@@ -194,14 +190,14 @@ These indices where then converted into a new Pandas dataframe and this balanced
 \label{fig:figureX}
 \end{figure}
 
-Finally the dataset objects are used to initialise a Dataloader object.
+Finally, the dataset objects are used to initialise a Dataloader object.
 This object gives us the functionality of delivering batches as inputs to the models at training and testing.
 It was found that a batch size of 32 worked best for the Static models, and a batch size of 64 worked best for the dynamic models.
 
 \subsubsection{Model Creation}
-The CNN models where implemented following the design of the below diagrams.
-Every model used the Cross Entropy as their loss function and the ADAM optimizer.
-The learning rate for the UCI Dataset Models, and Our Dataset Static model was set at 0.0005 and were trained for 10 epochs.
+The CNN models were implemented following the design of the below diagrams.
+Every model used the Cross-Entropy as their loss function and the ADAM optimizer.
+The learning rate for the UCI Dataset Models and Our Dataset Static model was set at 0.0005 and were trained for 10 epochs.
 The learning rate for the Our Dataset Dynamic model was set at 0.00005 and were trained for 11 epochs.
 
 \begin{figure}[h]
