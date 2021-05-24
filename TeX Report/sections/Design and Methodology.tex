@@ -169,8 +169,8 @@ The pie charts included below show the training, validation and testing label di
 \includegraphics[width=.15\textwidth]{UCI_Dynamic_Training}\hfill
 \includegraphics[width=.15\textwidth]{UCI_Dynamic_Validation}\hfill
 \includegraphics[width=.15\textwidth]{UCI_Dynamic_Testing}
-\caption*{UCI Dynamic Label Distribution}
-\label{fig:figureX}
+\caption{UCI Dynamic Label Distribution}
+\label{fig:UCI_Dynamic_Distribution}
 \end{figure}
 
 \begin{figure}[h]
@@ -178,8 +178,8 @@ The pie charts included below show the training, validation and testing label di
 \includegraphics[width=.15\textwidth]{UCI_Static_Training}\hfill
 \includegraphics[width=.15\textwidth]{UCI_Static_Validation}\hfill
 \includegraphics[width=.15\textwidth]{UCI_Static_Testing}
-\caption*{UCI Static Label Distribution}
-\label{fig:figureX}
+\caption{UCI Static Label Distribution}
+\label{fig:UCI_Static_Distribution}
 \end{figure}
 
 \begin{figure}[h]
@@ -187,8 +187,8 @@ The pie charts included below show the training, validation and testing label di
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Training}\hfill
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Validation}\hfill
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Testing}
-\caption*{OD Dynamic Label Distribution}
-\label{fig:figureX}
+\caption{OD Dynamic Label Distribution}
+\label{fig:OD_Dynamic_Distribution}
 \end{figure}
 
 \begin{figure}[h]
@@ -196,8 +196,8 @@ The pie charts included below show the training, validation and testing label di
 \includegraphics[width=.15\textwidth]{OD_Static_Training}\hfill
 \includegraphics[width=.15\textwidth]{OD_Static_Validation}\hfill
 \includegraphics[width=.15\textwidth]{OD_Static_Testing}
-\caption*{OD Static Label Distribution}
-\label{fig:figureX}
+\caption{OD Static Label Distribution}
+\label{fig:OD_Static_Distribution}
 \end{figure}
 
 In development, it was noted that the data distribution of the dynamic activities in our dataset was unequal.
@@ -211,8 +211,8 @@ These indices where then converted into a new Pandas dataframe and this balanced
 \begin{figure}[h]
 \centering
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Training_Balanced}\hfill
-\caption*{OD Dynamic Training Balanced Label Distribution}
-\label{fig:figureX}
+\caption{OD Dynamic Training Balanced Label Distribution}
+\label{fig:BalancedTrain}
 \end{figure}
 
 Finally the dataset objects are used to initialise a Dataloader object.
@@ -229,16 +229,16 @@ The learning rate for the Our Dataset Dynamic model was set at 0.00005 and were 
 \centering
 \includegraphics[width=.15\textwidth]{DCNN}\hfill
 \includegraphics[width=.15\textwidth]{ODDCNN}\hfill
-\caption*{UCI(left) and OD(right) Dynamic Model Structure}
-\label{Dynamic_Models}
+\caption{UCI(left) and OD(right) Dynamic Model Structure}
+\label{fig:Dynamic_Models}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=.15\textwidth]{SCNN}\hfill
 \includegraphics[width=.15\textwidth]{ODSCNN}\hfill
-\caption*{UCI(left) and OD(right) Static Model Structure}
-\label{Static_Models}
+\caption{UCI(left) and OD(right) Static Model Structure}
+\label{fig:Static_Models}
 \end{figure}
 
 As seen in figures \ref{Static_Models} and \ref{Dynamic_Models} the four models follow the a similar structure having a Convolutional layer that is then followed by a fully connected layer.
