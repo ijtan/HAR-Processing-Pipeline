@@ -3,22 +3,29 @@
 In order to determine which classifier provided the most accurate predictions, four different performance metrics were recorded and acted as a score. These metrics are \textbf{accuracy},
 \textbf{f-beta}, \textbf{precision} and \textbf{recall}.
 
-\textbf{Accuracy} is the ratio of the true labels $y$ on the set of predicted labels $y'$, where \(accuracy(y, y') = \frac{1}{n_{samples}}\sum_{i=0}^{n_{samples}-1} 1(y'_i = y_i)\).
+\textbf{Accuracy} is the ratio of the true labels $y$ on the set of predicted labels $y'$, where \[accuracy(y, y') = \frac{1}{n_{samples}}\sum_{i=0}^{n_{samples}-1} 1(y'_i = y_i)\]
 
-\textbf{Precision} is the ratio of true positives during prediction, and it is calculated as \(P = \frac{T_P}{T_P+F_P}\), where \(T_P\) is the number of true positives and \(F_P\) is the number of false positives.
+\textbf{Precision} is the ratio of true positives during prediction, and it is calculated as \[P = \frac{T_P}{T_P+F_P}\] where \(T_P\) is the number of true positives and \(F_P\) is the number of false positives.
 
-\textbf{Recall} is the ratio of correctly identified positive labels, and it is calculated as \(R = \frac{T_P}{T_P+F_n}\), where \(T_P\) is the number of true positives and \(F_n\) is the number of false negatives.
+\textbf{Recall} is the ratio of correctly identified positive labels, and it is calculated as \[R = \frac{T_P}{T_P+F_n}\] where \(T_P\) is the number of true positives and \(F_n\) is the number of false negatives.
 
 \textbf{Beta} (or \textbf{F-Beta})  is calculated based on the precision and recall scores of the classifier, wherein precision is multiplied by some parameter $\gamma$, thereby giving more
-importance to the precision value. This is calculated as \(F_\gamma = (1+\gamma^2) * \frac{P*R}{(\gamma^2*P)+R}\). For evaluation purposes, a $\gamma$ value of 0.5 was used.
+importance to the precision value. This is calculated as \[F_\gamma = (1+\gamma^2) * \frac{P*R}{(\gamma^2*P)+R}\] For evaluation purposes, a $\gamma$ value of 0.5 was used.
 
-\subsection{Evaluating SVM}
+\subsection{Evaluating the SVM}
 
-Figure 1 above is the confusion matrix representing the accuracy of the classification of each activity as a percentage. The leading diagonal represents correctly labelled activities. Each activity group classified had an accuracy of 96\% or higher, with half activities being classified at an accuracy of 99-100\%.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\textwidth]{SVM_Confusion_Matrix}
+    \caption{Fig. X: Confusion Matrix for Support Vector Machine}
+    \label{fig:SVM_Confusion}
+    \end{figure}
+
+Figure X is a confusion matrix representing the accuracy of the classification of each activity as a percentage. The leading diagonal represents correctly labelled activities. Each activity group classified had an accuracy of 96\% or higher, with half activities being classified at an accuracy of 99-100\%.
 1\% of driving activities were misclassified as sitting. This was to be expected as during driving sessions there were times (i.e. being stuck in traffic) where the driver was stationary and in the same position as that of someone seated down.
 2\% of laying activities were misclassified as sitting, this is understandable as the two stationary activities have similar positions.
 
-\subsection{Evaluating The CNNs}
+\subsection{Evaluating the CNNs}
 The CNN models were evaluated during training as well as after testing.
 During training, the training and validation loss was printed.
 When a hyperparameter was being amended during the development the shift in the loss output would indicate the success or failure of the amendment.
@@ -29,8 +36,8 @@ After the testing steps where completed, the same evaluation metrics used for th
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.2\textwidth]{UCI_Dynamic_Confusion_Matrix}\hfill
-\includegraphics[width=.2\textwidth]{UCI_Static_Confusion_Matrix}\hfill
+\includegraphics[width=.5\textwidth]{UCI_Dynamic_Confusion_Matrix}\hfill
+\includegraphics[width=.5\textwidth]{UCI_Static_Confusion_Matrix}\hfill
 \caption{Dynamic(left) and Static(right) UCI Model Confusion Matrices}
 \label{fig:UCI_Confusions}
 \end{figure}
