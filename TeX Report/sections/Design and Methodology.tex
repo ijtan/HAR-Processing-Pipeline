@@ -81,34 +81,77 @@
     Unlike [paper authors] we did not  implement a first stage dynamic-static split model and instead opted to split the labels manually.
     The Pytorch [reference it] library was used to implement the CNNs, and the sklearn [reference it] library to evaluate the results.
 
-    \subsection{Pre-Processing}
-        \subsection{Data Split}
-            The train/valid/test split was an 80/20 train/test split, then 80/20 train/validation split for the UCI dataset, and a 90/10 train/test split, then 90/10 train/validation split for Our Dataset.
-        \subsection{Dataset Object}
-            To facilitate this dynamic/static split we defined a Python dictionary with each label having a number assigned to it, starting from 0.
-            The numbering needs to start from 0 as the output of neural networks implemented in Pytorch always start from 0.
-            Another requirement for implementing neural networks in Pytorch is to implement a custom Dataset object.
-            The function of this object is to read the data from a source and define its X, data and Y, labels counterparts.
-            The Pandas [reference it] library was used at this stage due to its use of the numpy [reference it] library and efficient data management.
-            It is important that the X component is in the shape: length(data.columns), 1, length(data.rows)).
+    \subsubsection{Data Split}
+        The train/valid/test split was an 80/20 train/test split, then 80/20 train/validation split for the UCI dataset, and a 90/10 train/test split, then 90/10 train/validation split for Our Dataset.
+    \subsubsection{Dataset Object}
+        To facilitate this dynamic/static split we defined a Python dictionary with each label having a number assigned to it, starting from 0.
+        The numbering needs to start from 0 as the output of neural networks implemented in Pytorch always start from 0.
+        Another requirement for implementing neural networks in Pytorch is to implement a custom Dataset object.
+        The function of this object is to read the data from a source and define its X, data and Y, labels counterparts.
+        The Pandas [reference it] library was used at this stage due to its use of the numpy [reference it] library and efficient data management.
+        It is important that the X component is in the shape: length(data.columns), 1, length(data.rows)).
 
-            The dataset object was initialised 3 times, for the Train, Validation and Testing data.
+        The dataset object was initialised 3 times, for the Train, Validation and Testing data.
 
-            \subsection{UCI Dynamic Pie Charts}
-            \subsection{UCI Static Pie Charts}
-            \subsection{Our Dataset Dynamic Pie Charts}
-            \subsection{Our Dataset Static Pie Charts}
+        The pie charts included below show the training, validation and testing label distribution in order.
 
-            In development, it was noted that the data distribution of the dynamic activities in our dataset was unequal.
-            This was causing issues with the CNN's accuracy.
-            To combat this added functionality was added with the aim of increase the quality of the model's output.
-            In this project the number of rows for each eligible label was stored.
-            Using the functionality provided by the Pandas library, the index for each label was stored in a list linked to its respective label.
-            Using Python list slicing these lists where cut down to their lowest common length.
-            These indices where then converted into a new Pandas dataframe and this balanced dataset was used for the dynamic model.
+        \begin{figure}[htp]
+        \centering
+        \includegraphics[width=.15\textwidth]{UCI_Dynamic_Training}\hfill
+        \includegraphics[width=.15\textwidth]{UCI_Dynamic_Validation}\hfill
+        \includegraphics[width=.15\textwidth]{UCI_Dynamic_Testing}
+        \caption{UCI Dynamic Label Distribution}
+        \label{fig:figureX}
+        \end{figure}
 
-            \subsection{Our Dataset Balanced Dynamic Pie Charts}
+        \begin{figure}[htp]
+        \centering
+        \includegraphics[width=.15\textwidth]{UCI_Static_Training}\hfill
+        \includegraphics[width=.15\textwidth]{UCI_Static_Validation}\hfill
+        \includegraphics[width=.15\textwidth]{UCI_Static_Testing}
+        \caption{UCI Static Label Distribution}
+        \label{fig:figureX}
+        \end{figure}
 
-            Finally the dataset objects are used to initialise a Dataloader object.
-            This object gives us the functionality of delivering batches as inputs to the models at training and testing.
-            It was found that a batch size of 32 worked best for the Static models, and a batch size of 64 worked best for the dynamic models.
+        \begin{figure}[htp]
+        \centering
+        \includegraphics[width=.15\textwidth]{OD_Dynamic_Training}\hfill
+        \includegraphics[width=.15\textwidth]{OD_Dynamic_Validation}\hfill
+        \includegraphics[width=.15\textwidth]{OD_Dynamic_Testing}
+        \caption{OD Dynamic Label Distribution}
+        \label{fig:figureX}
+        \end{figure}
+
+        \begin{figure}[htp]
+        \centering
+        \includegraphics[width=.15\textwidth]{OD_Static_Training}\hfill
+        \includegraphics[width=.15\textwidth]{OD_Static_Validation}\hfill
+        \includegraphics[width=.15\textwidth]{OD_Static_Testing}
+        \caption{OD Static Label Distribution}
+        \label{fig:figureX}
+        \end{figure}
+
+        In development, it was noted that the data distribution of the dynamic activities in our dataset was unequal.
+        This was causing issues with the CNN's accuracy.
+        To combat this added functionality was added with the aim of increase the quality of the model's output.
+        In this project the number of rows for each eligible label was stored.
+        Using the functionality provided by the Pandas library, the index for each label was stored in a list linked to its respective label.
+        Using Python list slicing these lists where cut down to their lowest common length.
+        These indices where then converted into a new Pandas dataframe and this balanced dataset was used for the dynamic model.
+
+        \begin{figure}[htp]
+        \centering
+        \includegraphics{OD_Dynamic_Training_Balanced}
+        \caption{OD Dynamic Training Balanced Label Distribution}
+        \label{fig:figureX}
+        \end{figure}
+
+        Finally the dataset objects are used to initialise a Dataloader object.
+        This object gives us the functionality of delivering batches as inputs to the models at training and testing.
+        It was found that a batch size of 32 worked best for the Static models, and a batch size of 64 worked best for the dynamic models.
+
+    \subsubsection{Model Creation}
+        The CNN models where implemented following the design of the below diagrams.
+        Every model used the Cross Entropy as their loss function and the ADAM optimizer.
+        The learning rate for the UCI Dataset Models, and Our Dataset Static model was set at 0.0005 and were trained for 10 epochs.
+        The learning rate for the Our Dataset Dynamic model was set at 0.00005 and were trained for 11 epochs.
