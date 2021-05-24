@@ -17,11 +17,11 @@ importance to the precision value. This is calculated as \[F_\gamma = (1+\gamma^
 \begin{figure}[h]
     \centering
     \includegraphics[width=.5\textwidth]{SVM_Confusion_Matrix}
-    \caption{Fig. X: Confusion Matrix for Support Vector Machine}
+    \caption{Confusion Matrix for Support Vector Machine}
     \label{fig:SVM_Confusion}
     \end{figure}
 
-Figure X is a confusion matrix representing the accuracy of the classification of each activity as a percentage. The leading diagonal represents correctly labelled activities. Each activity group classified had an accuracy of 96\% or higher, with half activities being classified at an accuracy of 99-100\%.
+Figure \ref{fig:SVM_Confusion} is a confusion matrix representing the accuracy of the classification of each activity as a percentage. The leading diagonal represents correctly labelled activities. Each activity group classified had an accuracy of 96\% or higher, with half activities being classified at an accuracy of 99-100\%.
 1\% of driving activities were misclassified as sitting. This was to be expected as during driving sessions there were times (i.e. being stuck in traffic) where the driver was stationary and in the same position as that of someone seated down.
 2\% of laying activities were misclassified as sitting, this is understandable as the two stationary activities have similar positions.
 
@@ -32,7 +32,7 @@ When a hyperparameter was being amended during the development the shift in the 
 In general, when the validation loss is more than the training loss, the model is considered to be overfitting, when the validation loss is less than the training loss, the model is considered to be underfitting.
 It was our aim to set the validation and training losses as equal to each other as possible.
 The hyperparameters set, as described in the methodology are a result of this process.
-After the testing steps where completed, the same evaluation metrics used for the classical ML techniques where implemented.
+After the testing steps where completed, the same evaluation metrics used for the classical machine learning techniques where implemented.
 
 \begin{figure}[h]
 \centering
