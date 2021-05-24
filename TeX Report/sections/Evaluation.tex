@@ -34,6 +34,19 @@ It was our aim to set the validation and training losses as equal to each other 
 The hyperparameters set, as described in the methodology are a result of this process.
 After the testing steps where completed, the same evaluation metrics used for the classical machine learning techniques where implemented.
 
+\begin{table}[ht]
+    \centering\scriptsize
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        \textbf{Model} & \textbf{Accuracy} & \textbf{F-Beta}  & \textbf{Precision} & \textbf{Recall} \\ \hline
+        UCI Dynamic             & 94.09\%           & 94.35\%  & 94.67\% & 94.09\% \\ \hline
+        UCI Static            & 95.26\%           & 95.28\% & 95.34\% & 95.26\% \\ \hline
+        OD Dynamic               & 73.50\%           & 72.47\% & 73.71\% & 73.50\% \\ \hline
+        OD Static            & 93.93\%           & 93.97\% & 94.03\% & 93.93\% \\ \hline
+    \end{tabular}
+    \caption*{Table 4: Performance Scores of the CNNs}
+\end{table}
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=.5\textwidth]{UCI_Dynamic_Confusion_Matrix}\hfill
@@ -49,21 +62,21 @@ It was also noted that although results where mostly consistent, each new run wo
 The Static model achieved the highest results from the CNN models.
 Due to their high accuracy, the f-score, precision and recall metrics resulted in similarly high results and offered little new information.
 
-%\begin{figure}[H]
-%\centering
-%\includegraphics[width=.2\textwidth]{OD_Dynamic_Confusion_Matrix}\hfill
-%\includegraphics[width=.2\textwidth]{OD_Static_Confusion_Matri}\hfill
-%\caption{Dynamic(left) and Static(right) OD Model Confusion Matrices}
-%\label{fig:OD_Confusions}
-%\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.2\textwidth]{OD_Dynamic_Confusion_Matrix}\hfill
+\includegraphics[width=.2\textwidth]{OD_Static_Confusion_Matrix}\hfill
+\caption{Dynamic(left) and Static(right) OD Model Confusion Matrices}
+\label{fig:OD_Confusions}
+\end{figure}
 
 \subsubsection{Our Dataset Dynamic \& Static}
 Initially the architecture for the UCI Dataset models would not function on our dataset.
 It was found that the activation function of the last fully connected layer had to be changed from Softmax to LogSoftmax.
 This affected the performance of the models as it increased the processing load.
-The Dynamic model achieved good results with an accuracy of more than 60\%, when considering it trained on a reduced sized dataset with an equal distribution of 15\% for each label.
+The Dynamic model achieved good results with an accuracy of more than 70\%, when considering it trained on a reduced sized dataset with an equal distribution of 15\% for each label.
 The extra effort put in to balance out the training distribution was expected to benefit the model in terms of accuracy, however there was no difference between the results of the model before the data balancing and after.
-The higher precision score of 71\% compared to the recall of 61\% shows that the model is still able to predict the relevant label.
+The model had the hardest time in identifying when the correct label was walking up stairs, this can be attributed to it being having the smallest share in label count in our dataset.
 The Static model achieved very high results (more than 90\%).
 The same steps taken for the UCI dynamic \& static models where taken and decided upon.
 

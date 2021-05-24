@@ -121,10 +121,9 @@ rich statistic for summarizing a window of these repetitive signals \cite{SousaL
     labelled as \emph{SITTING} are a single class, and the other activities are treated as having a single label.
 
 \subsection{Convolutional Neural Networks}
-From these, Cho et al. \cite{Cho2018} presented the choice and implementation of a CNN use for HAR the best.
-Hence, the implementation described in this report is based on the architectures described.
+The implementation described in this report is based on the architectures described by Cho et al. \cite{Cho2018}.
 Unlike Cho et al. we did not implement a first stage dynamic-static split model and instead opted to split the labels manually.
-The Pytorch [reference it] library was used to implement the CNNs, and the sklearn [reference it] library to evaluate the results.
+The Pytorch library was used to implement the CNNs, and the sklearn library to evaluate the results.
 
 \subsubsection{Data Split}
 The train/valid/test split was an 80/20 train/test split, then 80/20 train/validation split for the UCI dataset, and a 90/10 train/test split, then 90/10 train/validation split for Our Dataset.
@@ -134,7 +133,7 @@ To facilitate this dynamic/static split we defined a Python dictionary with each
 The numbering needs to start from 0 as the output of neural networks implemented in Pytorch always start from 0.
 Another requirement for implementing neural networks in Pytorch is to implement a custom Dataset object.
 The function of this object is to read the data from a source and define its X, data and Y, labels counterparts.
-The Pandas [reference it] library was used at this stage due to its use of the numpy [reference it] library and efficient data management.
+The Pandas library was used at this stage due to its use of the numpy library and efficient data management.
 It is important that the X component is in the shape: length(data.columns), 1, length(data.rows)).
 
 The dataset object was initialised 3 times, for the Train, Validation and Testing data.

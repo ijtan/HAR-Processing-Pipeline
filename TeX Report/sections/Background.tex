@@ -30,9 +30,10 @@ Albeit the importance of reliable classification one also needs to consider the 
 \subsection{Convolutional Neural Networks}
 The Convolutional Neural Network (CNN) is a type of deep learning neural network model commonly applied for computer vision applications.
 Like other deep learning neural networks, CNNs consist of an input layer, any number of hidden layers, and an output layer.
-Unique to the CNN is the use of the convolutional layer, these layers use a kernel that goes over the input tensor, causing the convolution.
-Fully connected linear layers can achieve the same results however, for large inputs FC layers will have many weights.
+Unique to the CNN is the use of the convolutional layer, these layers use a kernel that goes over the input tensor.
+This function of applying a kernel over an input tensor is called a convolution.
+Fully connected (FC)linear layers can achieve the same results however, for large inputs FC layers will have many weights.
 With convolutional layers the number of these weights is reduced.
 Each layer has its own activation function, which acts as a filter for whether a neuron should fire or not.
-In this project the RELU, Softmax and LogSoftmax activations where used.
+In this project the RELU, Softmax and LogSoftmax activations were used.
 After a number of convolutional layers an FC layer is usually inserted, and in this project each CNN has an FC layer at the end.
