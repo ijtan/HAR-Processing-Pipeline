@@ -1,3 +1,73 @@
+\subsection{Data Collection}
+For the data collection, a barebones Android app was developed, which reads the triaxial accelerometer and gyroscope data at a constant rate of 50hz along with a timestamp for each entry 
+for simplification of signal processing. This was then exported as JSON format, and transferred to a computer. There was also an option to change the label before 
+starting a recording session, where the folder would be named accordingly. This simplified the data set creation as we did not have to worry about labelling the data 
+afterwards.\\
+Using this app, several activities were carried out and recorded, whilst trying to vary the conditions as much as possible, such as putting it in the left and right pockets and having it upside down or upright, aiming to diversify the data.  
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=.36\textwidth]{ethan_data_dist_pie}
+    \caption{Our Data Distribution}
+    % \label{fig:figureX}
+    \label{our_data_count_dist}
+    \end{figure}
+
+Figure \ref{our_data_count_dist} depicts the different amounts of data collected per activity. Unfortunately, there was a considerable difference in the amount of data per activity, where some activities such as jumping had much less data than an activity like walking. This can lead to the accuracy of classification of data being misleading as if the classifier randomly guesses walking, it is right more times than if it randomly guesses jumping. 
+
+\subsection{Signal Processing}
+The JSON data exported from the mobile application was then ready to be imported by a python preprocessor. As is, the data is not usable by the classifiers, not only does it contain a lot of noise, but a single entry gives very little information about what is happening.\\
+Consequently, several steps were to maximise the usability and the potential for classification of the data, such as synchronisation of gyroscope and accelerometer signals, use of a sliding window to group data, signal filtering and feature extraction using several statistical measures.   
+
+\subsection{Synchronisation}
+Due to a limitation from the application, the gyroscope and accelerometer collections worked asynchronously, and thus the entries were likely not to be aligned properly (few ms differences). And if the phone screen was turned off, data collection would stop and restart when the screen is turned on, which would cause a substantial gap within the data of a session.\\
+A moving average of the differences was calculated over all the data. If the average is below 10ms, the values would be considered as forming part of the same timestamp, whilst if the average value was larger, an entry was removed from the accelerometer and gyroscope data, until the average restabilized. Thie eliminates most outliers, and if there are antired out of synch by a substantial margin, they are removed. This was considered quite harshly, as several techniques such as Fast Fourier transform rely on constant frequencies to provide desirable outputs. 
+The first and last 2 seconds were also removed for each session, as time needs to be accounted for whilst the user puts the device in his/her pocket, which would provide inaccurate data. 
+
+
+\subsection{Sliding Window}
+As carried out int [https://www.sciencedirect.com/science/article/abs/pii/S1574119216302280] a sliding window was used to ‘group’ of size 128 with a stride of 64 (taking 128 entries (2.56 seconds of data) for each window, and overlap each window by 1.28 seconds).\\
+This is one of the most crucial steps for data processing, as one single entry does not describe a whole lot about what a user is doing. Before any preprocessing, each entry simply has six values (two triaxial vectors), which are at a single point in time. When the sliding window is introduced, we group a window’s worth of entries into one, out of which we get a representation of what happens over a period (2.56 seconds in our case), where each window will represent 128 raw entries, containing 6 features (triaxial data) each. Which when feature mapped, summarizes features of this two-dimensional data frame, back into a one-dimensional entry, whilst still retaining the fact that an entry has now the added dimension of time.
+
+\subsection{Signal Filtering}
+A set of steps was applied to each window of entries, which will filter and prepare the data for the feature extraction.\\
+\subsubsection{A low-pass Butterworth filter with a corner frequency of 20hz}
+This removes most of the noise, as most changes in the acceleration happened at much lower frequencies, and through this separation, the most relevant changes in acceleration were kept. In fact according to [D.M. Karantonis, M.R. Narayanan, M. Mathie, N.H. Lovell, and B.G. Celler. Implementation of a
+real-time human movement classifier using a triaxial accelerometer for ambulatory monitoring. IEEE
+Transactions on Information Technology in Biomedicine, 10(1):156–167, 2006.] most bodily movements are contained below 15Hz
+
+\subsubsection{Another low pass Butterworth filter was applied with a corner frequency of 0.3hz}
+This filter separates gravitational acceleration from body acceleration, since changes in gravitational acceleration happen relatively slowly, a low corner frequency can distinguish and extract these changes as gravitational acceleration. 
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=.49\textwidth]{ethan_window_acc_plot}
+    \caption{The Acceleration in a single window}
+    \label{fig:figure_single_wind}
+    % \label{fig:single_window_accels_out_data}
+    \end{figure}
+
+Figure \ref{fig:figure_single_wind} shows the 
+different forces of acceleration experienced were plotted.
+The Body forces show the filtered acceleration when separated from 
+the gravitational acceleration. At idle, these forces should be zero. 
+The strides of the walking may also be seen as the green line fluctuates, quickly 
+dropping when the wearer’s foot descends and hits the floor. The other three stable plots are 
+the gravitational forces experienced, these should not change as much, as the gravitational 
+force experienced do not change much. At idle the vector of these three forces should point 
+downwards with a magnitude of \textasciitilde $9.81m/s^2$.
+
+\subsubsection{The Jerk was Calculated}
+Jerk is defined as the change in acceleration and was calculated by differentiating the acceleration values by time(1/(50hz)=0.02s). This gives a better idea of how drastically the accelerations change, such as when one is jogging and the leg where the phone is sitting stops sharply as it hits the ground.
+
+\subsubsection{The Magnitude}
+The magnitude is the measure of how much the values differ from zero. This comes useful when one simply needs an idea of the amount of force applied, without considering the effects of directionality.
+
+\subsubsection{Fast Fourier Transform}
+FFT enabled the calculation of frequency components based on the time-varying signals. When considering Human Activity, one can note that there is a lot of repetitive patterns, in which case transformations such as FFT are used to calculate the discrete Fourier transform, and give a rich statistic for summarizing a window of these repetitive signals.
+\\
+\[https://www-proquest-com.ejournals.um.edu.mt/docview/2301775170/fulltextPDF/431219E14EB34859PQ/1?accountid=27934\]
+
+
+
 \subsection{Feature Extraction}
     Excluding the label for each activity, each session in the dataset contains 589 features. These features were extracted by applying a number of different statistical
     measures to the different extracted signals in each sliding window.
