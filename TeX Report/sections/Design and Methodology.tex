@@ -74,7 +74,7 @@
         For this implementation, we opted for a One-Vs-All approach. A One-Vs-All approach divides the data points into just two classes: a certain activity X and the other classes. Therefore records
         labelled as \emph{SITTING} are a single class, and the other activities are treated as having a single label.
 
-\subsection{Convolutional Neural Network}
+\subsection{Convolutional Neural Networks}
     In the research done numerous CNN implementations designed for the UCI dataset like [include numerous] were checked.
     From these, [paper] presented the choice and implementation of a CNN use for HAR the best.
     Hence, the implementation described in this report is based on the architectures described in [the paper].
@@ -95,7 +95,7 @@
 
         The pie charts included below show the training, validation and testing label distribution in order.
 
-        \begin{figure}[htp]
+        \begin{figure}[h]
         \centering
         \includegraphics[width=.15\textwidth]{UCI_Dynamic_Training}\hfill
         \includegraphics[width=.15\textwidth]{UCI_Dynamic_Validation}\hfill
@@ -104,7 +104,7 @@
         \label{fig:figureX}
         \end{figure}
 
-        \begin{figure}[htp]
+        \begin{figure}[h]
         \centering
         \includegraphics[width=.15\textwidth]{UCI_Static_Training}\hfill
         \includegraphics[width=.15\textwidth]{UCI_Static_Validation}\hfill
@@ -113,7 +113,7 @@
         \label{fig:figureX}
         \end{figure}
 
-        \begin{figure}[htp]
+        \begin{figure}[h]
         \centering
         \includegraphics[width=.15\textwidth]{OD_Dynamic_Training}\hfill
         \includegraphics[width=.15\textwidth]{OD_Dynamic_Validation}\hfill
@@ -122,7 +122,7 @@
         \label{fig:figureX}
         \end{figure}
 
-        \begin{figure}[htp]
+        \begin{figure}[h]
         \centering
         \includegraphics[width=.15\textwidth]{OD_Static_Training}\hfill
         \includegraphics[width=.15\textwidth]{OD_Static_Validation}\hfill
@@ -139,9 +139,9 @@
         Using Python list slicing these lists where cut down to their lowest common length.
         These indices where then converted into a new Pandas dataframe and this balanced dataset was used for the dynamic model.
 
-        \begin{figure}[htp]
+        \begin{figure}[h]
         \centering
-        \includegraphics{OD_Dynamic_Training_Balanced}
+        \includegraphics[width=.15\textwidth]{OD_Dynamic_Training_Balanced}\hfill
         \caption{OD Dynamic Training Balanced Label Distribution}
         \label{fig:figureX}
         \end{figure}
@@ -155,3 +155,24 @@
         Every model used the Cross Entropy as their loss function and the ADAM optimizer.
         The learning rate for the UCI Dataset Models, and Our Dataset Static model was set at 0.0005 and were trained for 10 epochs.
         The learning rate for the Our Dataset Dynamic model was set at 0.00005 and were trained for 11 epochs.
+
+        \begin{figure}[h]
+        \centering
+        \includegraphics[width=.15\textwidth]{DCNN}\hfill
+        \includegraphics[width=.15\textwidth]{ODDCNN}\hfill
+        \caption{UCI(left) and OD(right) Dynamic Model Structure}
+        \label{fig:figureX}
+        \end{figure}
+
+        \begin{figure}[h]
+        \centering
+        \includegraphics[width=.15\textwidth]{SCNN}\hfill
+        \includegraphics[width=.15\textwidth]{ODSCNN}\hfill
+        \caption{UCI(left) and OD(right) Static Model Structure}
+        \label{fig:figureX}
+        \end{figure}
+
+        As seen in figures X and X the four models follow the a similar structure having a Convolutional layer that is then followed by a fully connected layer.
+        The OD models differentiate at the final activation function where it was found that the Softmax activation function was not activating properly.
+        Seeing this another activation function was used, the LogSoftmax function.
+        It is also worthwhile to note that the final layer fully connected layer is different since the UCI dataset and Our dataset have a different number of total features.
