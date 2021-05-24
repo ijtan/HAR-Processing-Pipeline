@@ -70,7 +70,7 @@ FFT enabled the calculation of frequency components based on the time-varying si
 
     Each signal has the statistical measures in Table 1 applied to them.
 
-    \begin{figure}[h]
+    \begin{figure}[H]
         \centering
         \includegraphics[scale=0.6]{jake_table_1}\hfill
         \caption*{Table 1}
@@ -78,7 +78,7 @@ FFT enabled the calculation of frequency components based on the time-varying si
 
     The statistical measures in Table 2 are applied only to FFT signals.
 
-    \begin{figure}[h]
+    \begin{figure}[H]
         \centering
         \includegraphics[scale=0.6]{jake_table_2}\hfill
         \caption*{Table 2}
@@ -139,7 +139,7 @@ The dataset object was initialised 3 times, for the Train, Validation and Testin
 
 The pie charts included below show the training, validation and testing label distribution in order.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=.15\textwidth]{UCI_Dynamic_Training}\hfill
 \includegraphics[width=.15\textwidth]{UCI_Dynamic_Validation}\hfill
@@ -148,7 +148,7 @@ The pie charts included below show the training, validation and testing label di
 \label{fig:figureX}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=.15\textwidth]{UCI_Static_Training}\hfill
 \includegraphics[width=.15\textwidth]{UCI_Static_Validation}\hfill
@@ -157,7 +157,7 @@ The pie charts included below show the training, validation and testing label di
 \label{fig:figureX}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Training}\hfill
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Validation}\hfill
@@ -166,7 +166,7 @@ The pie charts included below show the training, validation and testing label di
 \label{fig:figureX}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=.15\textwidth]{OD_Static_Training}\hfill
 \includegraphics[width=.15\textwidth]{OD_Static_Validation}\hfill
@@ -183,7 +183,7 @@ Using the functionality provided by the Pandas library, the index for each label
 Using Python list slicing these lists where cut down to their lowest common length.
 These indices where then converted into a new Pandas dataframe and this balanced dataset was used for the dynamic model.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=.15\textwidth]{OD_Dynamic_Training_Balanced}\hfill
 \caption*{OD Dynamic Training Balanced Label Distribution}
@@ -200,7 +200,7 @@ Every model used the Cross-Entropy as their loss function and the ADAM optimizer
 The learning rate for the UCI Dataset Models and Our Dataset Static model was set at 0.0005 and were trained for 10 epochs.
 The learning rate for the Our Dataset Dynamic model was set at 0.00005 and were trained for 11 epochs.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=.15\textwidth]{DCNN}\hfill
 \includegraphics[width=.15\textwidth]{ODDCNN}\hfill
@@ -208,7 +208,7 @@ The learning rate for the Our Dataset Dynamic model was set at 0.00005 and were 
 \label{Dynamic_Models}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=.15\textwidth]{SCNN}\hfill
 \includegraphics[width=.15\textwidth]{ODSCNN}\hfill
