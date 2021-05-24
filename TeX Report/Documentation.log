@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.4.21)  24 MAY 2021 15:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.4.21)  24 MAY 2021 16:27
 entering extended mode
 **"c:/Users/kinkt/OneDrive/VisualCodeProjects/Uni/Year 2/Sem 2/GAPT/DataProcessor/TeX Report/Documentation.tex"
 (c:/Users/kinkt/OneDrive/VisualCodeProjects/Uni/Year 2/Sem 2/GAPT/DataProcessor/TeX Report/Documentation.tex
@@ -448,166 +448,175 @@ LaTeX Warning: Citation `Demrozi2020' on page 2 undefined on input line 3.
 <./figures//ethan_data_dist_pie.png, id=21, 433.62pt x 289.08pt>
 File: ./figures//ethan_data_dist_pie.png Graphic file (type png)
 <use ./figures//ethan_data_dist_pie.png>
-Package pdftex.def Info: ./figures//ethan_data_dist_pie.png  used on input line 9.
+Package pdftex.def Info: ./figures//ethan_data_dist_pie.png  used on input line 8.
 (pdftex.def)             Requested size: 185.76031pt x 123.8388pt.
 
 
-LaTeX Warning: Reference `our_data_count_dist' on page 2 undefined on input line 15.
+LaTeX Warning: Reference `our_data_count_dist' on page 2 undefined on input line 14.
 
-
-Overfull \hbox (137.0553pt too wide) in paragraph at lines 28--30
+[2 <./figures//ethan_data_dist_pie.png>]
+Overfull \hbox (137.0553pt too wide) in paragraph at lines 27--29
 []\OT1/ptm/m/n/10 As car-ried out int [https://www.sciencedirect.com/science/article/abs/pii/S1574119216302280]
  []
 
-[2 <./figures//ethan_data_dist_pie.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
 
  []
 
-<./figures//ethan_window_acc_plot.png, id=36, 376.40625pt x 256.70906pt>
+<./figures//ethan_window_acc_plot.png, id=35, 376.40625pt x 256.70906pt>
 File: ./figures//ethan_window_acc_plot.png Graphic file (type png)
 <use ./figures//ethan_window_acc_plot.png>
-Package pdftex.def Info: ./figures//ethan_window_acc_plot.png  used on input line 42.
+Package pdftex.def Info: ./figures//ethan_window_acc_plot.png  used on input line 41.
 (pdftex.def)             Requested size: 252.84283pt x 172.44463pt.
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 42--43
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 41--42
  [][] 
  []
 
 
-LaTeX Warning: Reference `fig:figure_single_wind' on page 3 undefined on input line 48.
+LaTeX Warning: Reference `fig:figure_single_wind' on page 3 undefined on input line 47.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 65--67
+Underfull \hbox (badness 10000) in paragraph at lines 64--66
 
  []
 
 
-Overfull \hbox (345.40556pt too wide) detected at line 67
+Overfull \hbox (345.40556pt too wide) detected at line 66
 \OML/cmm/m/it/10 https \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 ==www \OMS/cmsy/m/n/10   \OML/cmm/m/it/10 proquest \OMS/cmsy/m/n/10   \OML/cmm/m/it/10 com:ejournals:um:edu:mt=docview=\OT1/cmr/m/n/10 2301775170\OML/cmm/m/it/10 =fulltextPDF=\OT1/cmr/m/n/10 431219\OML/cmm/m/it/10 E\OT1/cmr/m/n/10 14\OML/cmm/m/it/10 EB\OT1/cmr/m/n/10 34859\OML/cmm/m/it/10 PQ=\OT1/cmr/m/n/10 1?\OML/cmm/m/it/10 accountid \OT1/cmr/m/n/10 = 27934
  []
 
 
-Overfull \hbox (36.09799pt too wide) in paragraph at lines 78--95
+Overfull \hbox (36.09799pt too wide) in paragraph at lines 77--94
 [][] 
  []
 
 [3 <./figures//ethan_window_acc_plot.png>]
 
-LaTeX Warning: Citation `Anguita2012' on page 4 undefined on input line 121.
+LaTeX Warning: Citation `Anguita2012' on page 4 undefined on input line 120.
 
 
-Overfull \hbox (9.19026pt too wide) in paragraph at lines 127--135
+Overfull \hbox (9.19026pt too wide) in paragraph at lines 126--134
  [][] 
  []
 
 
-LaTeX Warning: Citation `Anguita2013' on page 4 undefined on input line 139.
+LaTeX Warning: Citation `Anguita2013' on page 4 undefined on input line 138.
 
-<./figures//UCI_Dynamic_Training.png, id=53, 213.79875pt x 158.09062pt>
+<./figures//UCI_Dynamic_Training.png, id=52, 213.79875pt x 158.09062pt>
 File: ./figures//UCI_Dynamic_Training.png Graphic file (type png)
 <use ./figures//UCI_Dynamic_Training.png>
-Package pdftex.def Info: ./figures//UCI_Dynamic_Training.png  used on input line 171.
+Package pdftex.def Info: ./figures//UCI_Dynamic_Training.png  used on input line 170.
 (pdftex.def)             Requested size: 77.39685pt x 57.22858pt.
-<./figures//UCI_Dynamic_Validation.png, id=54, 212.29312pt x 158.84344pt>
+<./figures//UCI_Dynamic_Validation.png, id=53, 212.29312pt x 158.84344pt>
 File: ./figures//UCI_Dynamic_Validation.png Graphic file (type png)
 <use ./figures//UCI_Dynamic_Validation.png>
-Package pdftex.def Info: ./figures//UCI_Dynamic_Validation.png  used on input line 172.
+Package pdftex.def Info: ./figures//UCI_Dynamic_Validation.png  used on input line 171.
 (pdftex.def)             Requested size: 77.39685pt x 57.9107pt.
-<./figures//UCI_Dynamic_Testing.png, id=55, 217.5628pt x 162.6075pt>
+<./figures//UCI_Dynamic_Testing.png, id=54, 217.5628pt x 162.6075pt>
 File: ./figures//UCI_Dynamic_Testing.png Graphic file (type png)
 <use ./figures//UCI_Dynamic_Testing.png>
-Package pdftex.def Info: ./figures//UCI_Dynamic_Testing.png  used on input line 173.
+Package pdftex.def Info: ./figures//UCI_Dynamic_Testing.png  used on input line 172.
 (pdftex.def)             Requested size: 77.39685pt x 57.84639pt.
-<./figures//UCI_Static_Training.png, id=56, 214.55156pt x 159.59625pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<./figures//UCI_Static_Training.png, id=55, 214.55156pt x 159.59625pt>
 File: ./figures//UCI_Static_Training.png Graphic file (type png)
 <use ./figures//UCI_Static_Training.png>
-Package pdftex.def Info: ./figures//UCI_Static_Training.png  used on input line 180.
+Package pdftex.def Info: ./figures//UCI_Static_Training.png  used on input line 179.
 (pdftex.def)             Requested size: 77.39685pt x 57.57149pt.
-<./figures//UCI_Static_Validation.png, id=57, 222.07968pt x 156.585pt>
+<./figures//UCI_Static_Validation.png, id=56, 222.07968pt x 156.585pt>
 File: ./figures//UCI_Static_Validation.png Graphic file (type png)
 <use ./figures//UCI_Static_Validation.png>
-Package pdftex.def Info: ./figures//UCI_Static_Validation.png  used on input line 181.
+Package pdftex.def Info: ./figures//UCI_Static_Validation.png  used on input line 180.
 (pdftex.def)             Requested size: 77.39685pt x 54.57141pt.
-<./figures//UCI_Static_Testing.png, id=58, 216.81pt x 161.85469pt>
+<./figures//UCI_Static_Testing.png, id=57, 216.81pt x 161.85469pt>
 File: ./figures//UCI_Static_Testing.png Graphic file (type png)
 <use ./figures//UCI_Static_Testing.png>
-Package pdftex.def Info: ./figures//UCI_Static_Testing.png  used on input line 182.
+Package pdftex.def Info: ./figures//UCI_Static_Testing.png  used on input line 181.
 (pdftex.def)             Requested size: 77.39685pt x 57.77863pt.
-<./figures//OD_Dynamic_Training.png, id=59, 214.55156pt x 161.85469pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<./figures//OD_Dynamic_Training.png, id=58, 214.55156pt x 161.85469pt>
 File: ./figures//OD_Dynamic_Training.png Graphic file (type png)
 <use ./figures//OD_Dynamic_Training.png>
-Package pdftex.def Info: ./figures//OD_Dynamic_Training.png  used on input line 189.
+Package pdftex.def Info: ./figures//OD_Dynamic_Training.png  used on input line 188.
 (pdftex.def)             Requested size: 77.39685pt x 58.38617pt.
-<./figures//OD_Dynamic_Validation.png, id=60, 205.5178pt x 159.59625pt>
+<./figures//OD_Dynamic_Validation.png, id=59, 205.5178pt x 159.59625pt>
 File: ./figures//OD_Dynamic_Validation.png Graphic file (type png)
 <use ./figures//OD_Dynamic_Validation.png>
-Package pdftex.def Info: ./figures//OD_Dynamic_Validation.png  used on input line 190.
+Package pdftex.def Info: ./figures//OD_Dynamic_Validation.png  used on input line 189.
 (pdftex.def)             Requested size: 77.39685pt x 60.1017pt.
-<./figures//OD_Dynamic_Testing.png, id=61, 204.765pt x 162.6075pt>
+<./figures//OD_Dynamic_Testing.png, id=60, 204.765pt x 162.6075pt>
 File: ./figures//OD_Dynamic_Testing.png Graphic file (type png)
 <use ./figures//OD_Dynamic_Testing.png>
-Package pdftex.def Info: ./figures//OD_Dynamic_Testing.png  used on input line 191.
+Package pdftex.def Info: ./figures//OD_Dynamic_Testing.png  used on input line 190.
 (pdftex.def)             Requested size: 77.39685pt x 61.46397pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<./figures//OD_Static_Training.png, id=62, 201.00093pt x 162.6075pt>
+<./figures//OD_Static_Training.png, id=61, 201.00093pt x 162.6075pt>
 File: ./figures//OD_Static_Training.png Graphic file (type png)
 <use ./figures//OD_Static_Training.png>
-Package pdftex.def Info: ./figures//OD_Static_Training.png  used on input line 198.
+Package pdftex.def Info: ./figures//OD_Static_Training.png  used on input line 197.
 (pdftex.def)             Requested size: 77.39685pt x 62.61276pt.
-<./figures//OD_Static_Validation.png, id=63, 201.00093pt x 161.10187pt>
+<./figures//OD_Static_Validation.png, id=62, 201.00093pt x 161.10187pt>
 File: ./figures//OD_Static_Validation.png Graphic file (type png)
 <use ./figures//OD_Static_Validation.png>
-Package pdftex.def Info: ./figures//OD_Static_Validation.png  used on input line 199.
+Package pdftex.def Info: ./figures//OD_Static_Validation.png  used on input line 198.
 (pdftex.def)             Requested size: 77.39685pt x 62.033pt.
-<./figures//OD_Static_Testing.png, id=64, 204.01219pt x 158.84344pt>
+<./figures//OD_Static_Testing.png, id=63, 204.01219pt x 158.84344pt>
 File: ./figures//OD_Static_Testing.png Graphic file (type png)
 <use ./figures//OD_Static_Testing.png>
-Package pdftex.def Info: ./figures//OD_Static_Testing.png  used on input line 200.
+Package pdftex.def Info: ./figures//OD_Static_Testing.png  used on input line 199.
 (pdftex.def)             Requested size: 77.39685pt x 60.26175pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4 <./figures//UCI_Dynamic_Training.png> <./figures//UCI_Dynamic_Validation.png> <./figures//UCI_Dynamic_Testing.png> <./figures//UCI_Static_Training.png> <./figures//UCI_Static_Validation.png> <./figures//UCI_Static_Testing.png>]
-<./figures//OD_Dynamic_Training_Balanced.png, id=82, 210.03468pt x 158.84344pt>
+[4]
+<./figures//OD_Dynamic_Training_Balanced.png, id=80, 210.03468pt x 158.84344pt>
 File: ./figures//OD_Dynamic_Training_Balanced.png Graphic file (type png)
 <use ./figures//OD_Dynamic_Training_Balanced.png>
-Package pdftex.def Info: ./figures//OD_Dynamic_Training_Balanced.png  used on input line 215.
+Package pdftex.def Info: ./figures//OD_Dynamic_Training_Balanced.png  used on input line 214.
 (pdftex.def)             Requested size: 77.39685pt x 58.53362pt.
-<./figures//DCNN.png, id=83, 226.8475pt x 945.5325pt>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<./figures//DCNN.png, id=81, 226.8475pt x 945.5325pt>
 File: ./figures//DCNN.png Graphic file (type png)
 <use ./figures//DCNN.png>
-Package pdftex.def Info: ./figures//DCNN.png  used on input line 232.
+Package pdftex.def Info: ./figures//DCNN.png  used on input line 231.
 (pdftex.def)             Requested size: 77.39685pt x 322.60216pt.
-<./figures//ODDCNN.png, id=84, 226.8475pt x 945.5325pt>
+<./figures//ODDCNN.png, id=82, 226.8475pt x 945.5325pt>
 File: ./figures//ODDCNN.png Graphic file (type png)
 <use ./figures//ODDCNN.png>
-Package pdftex.def Info: ./figures//ODDCNN.png  used on input line 233.
+Package pdftex.def Info: ./figures//ODDCNN.png  used on input line 232.
 (pdftex.def)             Requested size: 77.39685pt x 322.60216pt.
 
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<./figures//SCNN.png, id=85, 226.8475pt x 1300.86pt>
+<./figures//SCNN.png, id=83, 226.8475pt x 1300.86pt>
 File: ./figures//SCNN.png Graphic file (type png)
 <use ./figures//SCNN.png>
-Package pdftex.def Info: ./figures//SCNN.png  used on input line 240.
+Package pdftex.def Info: ./figures//SCNN.png  used on input line 239.
 (pdftex.def)             Requested size: 77.39685pt x 443.83481pt.
-<./figures//ODSCNN.png, id=86, 226.8475pt x 1300.86pt>
+<./figures//ODSCNN.png, id=84, 226.8475pt x 1300.86pt>
 File: ./figures//ODSCNN.png Graphic file (type png)
 <use ./figures//ODSCNN.png>
-Package pdftex.def Info: ./figures//ODSCNN.png  used on input line 241.
+Package pdftex.def Info: ./figures//ODSCNN.png  used on input line 240.
 (pdftex.def)             Requested size: 77.39685pt x 443.83481pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-LaTeX Warning: Reference `Static_Models' on page 5 undefined on input line 246.
+LaTeX Warning: Reference `Static_Models' on page 5 undefined on input line 245.
 
 
-LaTeX Warning: Reference `Dynamic_Models' on page 5 undefined on input line 246.
+LaTeX Warning: Reference `Dynamic_Models' on page 5 undefined on input line 245.
 
 ) (c:/Users\kinkt\OneDrive\VisualCodeProjects\Uni\Year 2\Sem 2\GAPT\DataProcessor\TeX Report\sections/Evaluation.tex
 Underfull \hbox (badness 2245) in paragraph at lines 6--7
@@ -619,18 +628,22 @@ Underfull \hbox (badness 4084) in paragraph at lines 6--7
 \OT1/ptm/m/n/10 set of pre-dicted la-bels $\OML/cmm/m/it/10 y[]$\OT1/ptm/m/n/10 , where $\OML/cmm/m/it/10 accuracy\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y; y[]\OT1/cmr/m/n/10 ) =
  []
 
-[5 <./figures//OD_Dynamic_Training.png> <./figures//OD_Dynamic_Validation.png> <./figures//OD_Dynamic_Testing.png> <./figures//OD_Static_Training.png> <./figures//OD_Static_Validation.png> <./figures//OD_Static_Testing.png> <./figures//OD_Dynamic_Training_Balanced.png> <./figures//DCNN.png> <./figures//ODDCNN.png>]
-<./figures//UCI_Dynamic_Confusion_Matrix.png, id=103, 433.62pt x 289.08pt>
+[5 <./figures//UCI_Dynamic_Training.png> <./figures//UCI_Dynamic_Validation.png> <./figures//UCI_Dynamic_Testing.png> <./figures//UCI_Static_Training.png> <./figures//UCI_Static_Validation.png> <./figures//UCI_Static_Testing.png> <./figures//OD_Dynamic_Training.png> <./figures//OD_Dynamic_Validation.png> <./figures//OD_Dynamic_Testing.png> <./figures//OD_Static_Training.png> <./figures//OD_Static_Validation.png> <./figures//OD_Static_Testing.png>]
+<./figures//UCI_Dynamic_Confusion_Matrix.png, id=101, 433.62pt x 289.08pt>
 File: ./figures//UCI_Dynamic_Confusion_Matrix.png Graphic file (type png)
 <use ./figures//UCI_Dynamic_Confusion_Matrix.png>
 Package pdftex.def Info: ./figures//UCI_Dynamic_Confusion_Matrix.png  used on input line 32.
 (pdftex.def)             Requested size: 103.19843pt x 68.79836pt.
-<./figures//UCI_Static_Confusion_Matrix.png, id=104, 433.62pt x 289.08pt>
+<./figures//UCI_Static_Confusion_Matrix.png, id=102, 433.62pt x 289.08pt>
 File: ./figures//UCI_Static_Confusion_Matrix.png Graphic file (type png)
 <use ./figures//UCI_Static_Confusion_Matrix.png>
 Package pdftex.def Info: ./figures//UCI_Static_Confusion_Matrix.png  used on input line 33.
 (pdftex.def)             Requested size: 103.19843pt x 68.79836pt.
 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[6 <./figures//OD_Dynamic_Training_Balanced.png> <./figures//DCNN.png> <./figures//ODDCNN.png> <./figures//SCNN.png> <./figures//ODSCNN.png> <./figures//UCI_Dynamic_Confusion_Matrix.png> <./figures//UCI_Static_Confusion_Matrix.png>]
 
 c:/Users\kinkt\OneDrive\VisualCodeProjects\Uni\Year 2\Sem 2\GAPT\DataProcessor\TeX Report\sections/Evaluation.tex:47: LaTeX Error: File `OD_Dynamic_Confusion_Matrix' not found.
 
@@ -659,7 +672,7 @@ I could not locate the file with any of these extensions:
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[6 <./figures//SCNN.png> <./figures//ODSCNN.png> <./figures//UCI_Dynamic_Confusion_Matrix.png> <./figures//UCI_Static_Confusion_Matrix.png>]) (c:/Users\kinkt\OneDrive\VisualCodeProjects\Uni\Year 2\Sem 2\GAPT\DataProcessor\TeX Report\sections/Conclusion.tex) (c:/Users\kinkt\OneDrive\VisualCodeProjects\Uni\Year 2\Sem 2\GAPT\DataProcessor\TeX Report\sections/Distribution.tex)
+) (c:/Users\kinkt\OneDrive\VisualCodeProjects\Uni\Year 2\Sem 2\GAPT\DataProcessor\TeX Report\sections/Conclusion.tex) (c:/Users\kinkt\OneDrive\VisualCodeProjects\Uni\Year 2\Sem 2\GAPT\DataProcessor\TeX Report\sections/Distribution.tex)
 No file Documentation.bbl.
 
 ** Conference Paper **
@@ -693,13 +706,13 @@ Package rerunfilecheck Info: Checksums for `Documentation.out':
 Here is how much of TeX's memory you used:
  11851 strings out of 479334
  192801 string characters out of 2857084
- 507265 words of memory out of 3000000
+ 516265 words of memory out of 3000000
  29076 multiletter control sequences out of 15000+200000
  439332 words of font info for 93 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,9n,74p,909b,329s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 71i,9n,74p,909b,357s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/kinkt/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "c:/Users\kinkt\OneDrive\VisualCodeProjects\Uni\Year 2\Sem 2\GAPT\DataProcessor\TeX Report\Documentation.pdf" (7 pages, 514786 bytes).
+Output written on "c:/Users\kinkt\OneDrive\VisualCodeProjects\Uni\Year 2\Sem 2\GAPT\DataProcessor\TeX Report\Documentation.pdf" (7 pages, 515003 bytes).
 PDF statistics:
  187 PDF objects out of 1000 (max. 8388607)
  60 named destinations out of 1000 (max. 500000)
