@@ -71,5 +71,44 @@
     \subsection{Classification}
         The RBF kernel is defined as the exponential function \(exp(-\gamma \lvert x-x' \rvert)^2\) A primer on kernel methods, JP Vert et al, where x and x’ are two feature vectors, and is the
         gamma parameter in the classifier. Gamma’s value is scale, meaning that the parameter is the reciprocal of the number of features multiplied with the variance of the input data.
-        For this implementation, we opted for a One-Vs-All approach. A One-Vs-All approach divides the data points into just two classes: a certain activity X and the other classes. Therefore records 
+        For this implementation, we opted for a One-Vs-All approach. A One-Vs-All approach divides the data points into just two classes: a certain activity X and the other classes. Therefore records
         labelled as \emph{SITTING} are a single class, and the other activities are treated as having a single label.
+
+\subsection{Convolutional Neural Network}
+    In the research done numerous CNN implementations designed for the UCI dataset like [include numerous] were checked.
+    From these, [paper] presented the choice and implementation of a CNN use for HAR the best.
+    Hence, the implementation described in this report is based on the architectures described in [the paper].
+    Unlike [paper authors] we did not  implement a first stage dynamic-static split model and instead opted to split the labels manually.
+    The Pytorch [reference it] library was used to implement the CNNs, and the sklearn [reference it] library to evaluate the results.
+
+    \subsection{Pre-Processing}
+        \subsection{Data Split}
+            The train/valid/test split was an 80/20 train/test split, then 80/20 train/validation split for the UCI dataset, and a 90/10 train/test split, then 90/10 train/validation split for Our Dataset.
+        \subsection{Dataset Object}
+            To facilitate this dynamic/static split we defined a Python dictionary with each label having a number assigned to it, starting from 0.
+            The numbering needs to start from 0 as the output of neural networks implemented in Pytorch always start from 0.
+            Another requirement for implementing neural networks in Pytorch is to implement a custom Dataset object.
+            The function of this object is to read the data from a source and define its X, data and Y, labels counterparts.
+            The Pandas [reference it] library was used at this stage due to its use of the numpy [reference it] library and efficient data management.
+            It is important that the X component is in the shape: length(data.columns), 1, length(data.rows)).
+
+            The dataset object was initialised 3 times, for the Train, Validation and Testing data.
+
+            \subsection{UCI Dynamic Pie Charts}
+            \subsection{UCI Static Pie Charts}
+            \subsection{Our Dataset Dynamic Pie Charts}
+            \subsection{Our Dataset Static Pie Charts}
+
+            In development, it was noted that the data distribution of the dynamic activities in our dataset was unequal.
+            This was causing issues with the CNN's accuracy.
+            To combat this added functionality was added with the aim of increase the quality of the model's output.
+            In this project the number of rows for each eligible label was stored.
+            Using the functionality provided by the Pandas library, the index for each label was stored in a list linked to its respective label.
+            Using Python list slicing these lists where cut down to their lowest common length.
+            These indices where then converted into a new Pandas dataframe and this balanced dataset was used for the dynamic model.
+
+            \subsection{Our Dataset Balanced Dynamic Pie Charts}
+
+            Finally the dataset objects are used to initialise a Dataloader object.
+            This object gives us the functionality of delivering batches as inputs to the models at training and testing.
+            It was found that a batch size of 32 worked best for the Static models, and a batch size of 64 worked best for the dynamic models.
